@@ -1,0 +1,19 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "./src/index.js",
+      "use": "@vercel/node",
+      "config": {
+        "buildCommand": "prisma generate && npm run build "
+      }
+    }
+  ],
+
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/src/index.js"
+    }
+  ]
+}

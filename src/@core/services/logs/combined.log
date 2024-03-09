@@ -1,0 +1,369 @@
+{"error":{},"level":"error","message":"Error in getAllDonors","route":"/api/admin/details","timestamp":"2024-01-23T19:26:44.115Z"}
+{"error":{},"level":"error","message":"Error in getAllDonors","route":"/api/admin/details","timestamp":"2024-01-23T19:26:44.134Z"}
+{"error":{},"level":"error","message":"Error in getAllDonors","route":"/api/admin/details","timestamp":"2024-01-23T19:27:26.451Z"}
+{"error":{},"level":"error","message":"Error in getAllDonors","route":"/api/admin/details","timestamp":"2024-01-23T19:27:26.471Z"}
+{"error":{},"level":"error","message":"Error in accessMiddleware ","route":"/api/admin/details","timestamp":"2024-01-23T19:29:14.022Z"}
+{"error":{},"level":"error","message":"Error in accessMiddleware ","route":"/api/admin/details","timestamp":"2024-01-23T19:29:14.045Z"}
+{"error":{},"level":"error","message":"Error in getAllDonors","route":"/api/admin/details","timestamp":"2024-01-23T19:30:34.329Z"}
+{"error":{},"level":"error","message":"Error in getAllDonors","route":"/api/admin/details","timestamp":"2024-01-23T19:30:34.345Z"}
+{"error":{},"level":"error","message":"Error in getAllDonatedItems","timestamp":"2024-01-26T06:51:41.681Z"}
+{"error":{},"level":"error","message":"Error in getAllDonatedItems","timestamp":"2024-01-26T06:51:41.692Z"}
+{"error":{"clientVersion":"5.8.1","code":"P2024","meta":{"connection_limit":17,"modelName":"Admin","timeout":10},"name":"PrismaClientKnownRequestError"},"level":"error","message":"Error in accessMiddleware ","route":"/api/admin/donated-items","timestamp":"2024-01-26T07:17:19.246Z"}
+{"error":{"clientVersion":"5.8.1","code":"P2024","meta":{"connection_limit":17,"modelName":"Admin","timeout":10},"name":"PrismaClientKnownRequestError"},"level":"error","message":"Error in accessMiddleware ","route":"/api/admin/donated-items?searchText=&approvalStatus=&categoryId=&condition=&availability=true","timestamp":"2024-01-26T07:17:27.709Z"}
+{"error":{"clientVersion":"5.8.1","code":"P2024","meta":{"connection_limit":17,"modelName":"Admin","timeout":10},"name":"PrismaClientKnownRequestError"},"level":"error","message":"Error in accessMiddleware ","route":"/api/admin/categories","timestamp":"2024-01-26T07:17:27.717Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in login","route":"/api/admin/auth/login","timestamp":"2024-01-26T17:07:24.664Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in login","route":"/api/admin/auth/login","timestamp":"2024-01-26T17:07:32.304Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in login","route":"/api/admin/auth/login","timestamp":"2024-01-26T17:07:46.015Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in login","route":"/api/admin/auth/login","timestamp":"2024-01-26T17:08:08.082Z"}
+{"level":"info","message":"No authorization Token Provided","route":"/api/admin/details","timestamp":"2024-01-26T17:12:28.535Z"}
+{"level":"info","message":"No authorization Token Provided","route":"/api/admin/details","timestamp":"2024-01-26T17:12:28.542Z"}
+{"level":"info","message":"No authorization Token Provided","route":"/api/admin/details","timestamp":"2024-01-26T17:12:32.287Z"}
+{"level":"info","message":"No authorization Token Provided","route":"/api/admin/details","timestamp":"2024-01-26T17:12:32.291Z"}
+{"level":"info","message":"No authorization Token Provided","route":"/api/organisation/details","timestamp":"2024-01-26T17:27:21.690Z"}
+{"level":"info","message":"No authorization Token Provided","route":"/api/organisation/details","timestamp":"2024-01-26T17:27:21.694Z"}
+{"level":"info","message":"No authorization Token Provided","route":"/api/organisation/details","timestamp":"2024-01-26T17:28:04.163Z"}
+{"level":"info","message":"No authorization Token Provided","route":"/api/organisation/details","timestamp":"2024-01-26T17:28:04.165Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientInitializationError"},"level":"error","message":"Error in accessMiddleware ","route":"/api/organisation/details","timestamp":"2024-01-27T10:08:33.294Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientInitializationError"},"level":"error","message":"Error in accessMiddleware ","route":"/api/organisation/details","timestamp":"2024-01-27T10:08:33.301Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientInitializationError"},"level":"error","message":"Error in accessMiddleware ","route":"/api/organisation/details","timestamp":"2024-01-27T10:09:01.356Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientInitializationError"},"level":"error","message":"Error in accessMiddleware ","route":"/api/organisation/details","timestamp":"2024-01-27T10:09:01.362Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientInitializationError"},"level":"error","message":"Error in accessMiddleware ","route":"/api/organisation/donated-items?searchText=","timestamp":"2024-01-27T10:09:17.506Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientInitializationError"},"level":"error","message":"Error in accessMiddleware ","route":"/api/organisation/donated-items?searchText=","timestamp":"2024-01-27T10:09:17.510Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientInitializationError"},"level":"error","message":"Error in accessMiddleware ","route":"/api/organisation/details","timestamp":"2024-01-27T10:09:34.718Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientInitializationError"},"level":"error","message":"Error in accessMiddleware ","route":"/api/organisation/donated-items?searchText=","timestamp":"2024-01-27T10:09:34.719Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientInitializationError"},"level":"error","message":"Error in accessMiddleware ","route":"/api/organisation/details","timestamp":"2024-01-27T10:09:34.726Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientInitializationError"},"level":"error","message":"Error in accessMiddleware ","route":"/api/organisation/donated-items?searchText=","timestamp":"2024-01-27T10:09:34.726Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientInitializationError"},"level":"error","message":"Error in login","route":"/api/organisation/auth/login","timestamp":"2024-01-27T10:10:00.120Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientInitializationError"},"level":"error","message":"Error in login","route":"/api/organisation/auth/login","timestamp":"2024-01-27T10:10:21.834Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientInitializationError"},"level":"error","message":"Error in login","route":"/api/organisation/auth/login","timestamp":"2024-01-27T10:11:18.614Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientInitializationError"},"level":"error","message":"Error in login","route":"/api/organisation/auth/login","timestamp":"2024-01-27T10:11:41.744Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllDonatedItems","timestamp":"2024-01-27T10:40:23.490Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllDonatedItems","timestamp":"2024-01-27T10:40:24.760Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in saveDonatedItem","route":"/api/organisation/cart-items","timestamp":"2024-01-27T21:27:54.956Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in saveCartItem","route":"/api/organisation/cart-items","timestamp":"2024-01-27T21:28:27.080Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in saveCartItem","route":"/api/organisation/cart-items","timestamp":"2024-01-27T21:29:11.860Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in saveCartItem","route":"/api/organisation/cart-items","timestamp":"2024-01-27T21:31:45.879Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllDonatedItems","timestamp":"2024-01-27T21:41:51.688Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllDonatedItems","timestamp":"2024-01-27T21:41:51.699Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllDonatedItems","timestamp":"2024-01-27T21:41:55.669Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllDonatedItems","timestamp":"2024-01-27T21:41:55.684Z"}
+{"error":{"clientVersion":"5.8.1","code":"P2025","meta":{"cause":"Record to delete does not exist.","modelName":"CartItem"},"name":"PrismaClientKnownRequestError"},"level":"error","message":"Error in deleteCartItems","timestamp":"2024-01-27T22:04:27.817Z"}
+{"error":{"clientVersion":"5.8.1","code":"P2025","meta":{"cause":"Record to delete does not exist.","modelName":"CartItem"},"name":"PrismaClientKnownRequestError"},"level":"error","message":"Error in deleteCartItems","timestamp":"2024-01-27T22:04:29.655Z"}
+{"error":{"clientVersion":"5.8.1","code":"P2025","meta":{"cause":"Record to delete does not exist.","modelName":"CartItem"},"name":"PrismaClientKnownRequestError"},"level":"error","message":"Error in deleteCartItems","timestamp":"2024-01-27T22:05:25.362Z"}
+{"error":{"clientVersion":"5.8.1","code":"P2025","meta":{"cause":"Record to delete does not exist.","modelName":"CartItem"},"name":"PrismaClientKnownRequestError"},"level":"error","message":"Error in deleteCartItems","timestamp":"2024-01-27T22:06:36.060Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in saveCartItem","route":"/api/organisation/orders","timestamp":"2024-01-28T15:32:49.548Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in saveCartItem","route":"/api/organisation/orders","timestamp":"2024-01-28T15:33:01.470Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in saveCartItem","route":"/api/organisation/orders","timestamp":"2024-01-28T15:36:13.858Z"}
+{"error":{},"level":"error","message":"Error in saveCartItem","route":"/api/organisation/orders","timestamp":"2024-01-28T15:36:50.870Z"}
+{"error":{"clientVersion":"5.8.1","code":"P2024","meta":{"connection_limit":17,"modelName":"Organisation","timeout":10},"name":"PrismaClientKnownRequestError"},"level":"error","message":"Error in accessMiddleware ","route":"/api/organisation/cart-items","timestamp":"2024-01-28T17:01:06.516Z"}
+{"error":{"clientVersion":"5.8.1","code":"P1017","meta":{"modelName":"Organisation"},"name":"PrismaClientKnownRequestError"},"level":"error","message":"Error in accessMiddleware ","route":"/api/organisation/cart-items","timestamp":"2024-01-28T17:02:00.637Z"}
+{"error":{},"level":"error","message":"Error in saveOrganisation","route":"/api/organisation/organisations","timestamp":"2024-01-28T17:13:19.196Z"}
+{"error":{"expiredAt":"2024-01-29T12:07:58.000Z","message":"jwt expired","name":"TokenExpiredError"},"level":"error","message":"Error in jwtAccessTokenVerify","route":"core","timestamp":"2024-02-02T04:55:05.678Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientInitializationError"},"level":"error","message":"Error in login","route":"/api/organisation/auth/login","timestamp":"2024-02-02T04:55:27.259Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientInitializationError"},"level":"error","message":"Error in login","route":"/api/organisation/auth/login","timestamp":"2024-02-02T04:55:43.781Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientInitializationError"},"level":"error","message":"Error in login","route":"/api/organisation/auth/login","timestamp":"2024-02-02T04:55:51.168Z"}
+{"error":{"expiredAt":"2024-01-27T19:47:54.000Z","message":"jwt expired","name":"TokenExpiredError"},"level":"error","message":"Error in jwtAccessTokenVerify","route":"core","timestamp":"2024-02-02T05:12:53.866Z"}
+{"error":{"expiredAt":"2024-01-27T19:47:54.000Z","message":"jwt expired","name":"TokenExpiredError"},"level":"error","message":"Error in jwtAccessTokenVerify","route":"core","timestamp":"2024-02-02T05:12:53.870Z"}
+{"error":{"clientVersion":"5.8.1","code":"P2024","meta":{"connection_limit":17,"modelName":"Organisation","timeout":10},"name":"PrismaClientKnownRequestError"},"level":"error","message":"Error in accessMiddleware ","route":"/api/organisation/cart-items","timestamp":"2024-02-02T06:07:27.693Z"}
+{"error":{"clientVersion":"5.8.1","code":"P2024","meta":{"connection_limit":17,"modelName":"Organisation","timeout":10},"name":"PrismaClientKnownRequestError"},"level":"error","message":"Error in accessMiddleware ","route":"/api/organisation/cart-items","timestamp":"2024-02-02T07:16:43.827Z"}
+{"error":{},"level":"error","message":"Error in getAllOrders","timestamp":"2024-02-02T15:07:16.704Z"}
+{"error":{},"level":"error","message":"Error in getAllOrders","timestamp":"2024-02-02T15:07:42.618Z"}
+{"error":{},"level":"error","message":"Error in getAllOrders","timestamp":"2024-02-02T15:07:42.638Z"}
+{"error":{},"level":"error","message":"Error in getAllOrders","timestamp":"2024-02-02T15:07:45.224Z"}
+{"error":{},"level":"error","message":"Error in getAllOrders","timestamp":"2024-02-02T15:07:45.244Z"}
+{"error":{},"level":"error","message":"Error in getAllOrders","timestamp":"2024-02-02T15:07:59.888Z"}
+{"error":{"expiredAt":"2024-02-11T15:49:28.000Z","message":"jwt expired","name":"TokenExpiredError"},"level":"error","message":"Error in jwtAccessTokenVerify","route":"core","timestamp":"2024-02-11T17:12:45.159Z"}
+{"error":{"expiredAt":"2024-02-11T15:49:28.000Z","message":"jwt expired","name":"TokenExpiredError"},"level":"error","message":"Error in jwtAccessTokenVerify","route":"core","timestamp":"2024-02-11T17:12:45.163Z"}
+{"error":{"expiredAt":"2024-02-12T17:12:54.000Z","message":"jwt expired","name":"TokenExpiredError"},"level":"error","message":"Error in jwtAccessTokenVerify","route":"core","timestamp":"2024-02-16T15:23:36.065Z"}
+{"error":{"expiredAt":"2024-02-12T17:12:54.000Z","message":"jwt expired","name":"TokenExpiredError"},"level":"error","message":"Error in jwtAccessTokenVerify","route":"core","timestamp":"2024-02-16T15:23:36.070Z"}
+{"error":{},"level":"error","message":"Error in saveOrganisation","route":"/api/admin/organisations","timestamp":"2024-02-17T13:30:54.828Z"}
+{"error":{"clientVersion":"5.8.1","code":"P2002","meta":{"modelName":"Organisation","target":null},"name":"PrismaClientKnownRequestError"},"level":"error","message":"Error in saveOrganisation","route":"/api/admin/organisations","timestamp":"2024-02-17T13:31:22.690Z"}
+{"level":"info","message":"No authorization Token Provided","route":"/api/organisation/cart-items","timestamp":"2024-02-17T15:04:30.588Z"}
+{"level":"info","message":"No authorization Token Provided","route":"/api/organisation/details","timestamp":"2024-02-17T15:04:30.598Z"}
+{"level":"info","message":"No authorization Token Provided","route":"/api/organisation/cart-items","timestamp":"2024-02-17T15:04:30.599Z"}
+{"level":"info","message":"No authorization Token Provided","route":"/api/organisation/details","timestamp":"2024-02-17T15:04:30.603Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in saveOrganisation","route":"/api/organisation/verify-otp","timestamp":"2024-02-17T15:10:24.138Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in saveOrganisation","route":"/api/organisation/verify-otp","timestamp":"2024-02-17T15:11:31.684Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in saveOrganisation","route":"/api/organisation/verify-otp","timestamp":"2024-02-17T15:11:45.968Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in saveOrganisation","route":"/api/organisation/verify-otp","timestamp":"2024-02-17T15:11:54.656Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in saveOrganisation","route":"/api/organisation/verify-otp","timestamp":"2024-02-17T15:15:39.332Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in saveOrganisation","route":"/api/organisation/reset-password","timestamp":"2024-02-17T15:15:51.972Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in saveOrganisation","route":"/api/organisation/verify-otp","timestamp":"2024-02-17T15:16:46.252Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in saveOrganisation","route":"/api/organisation/verify-otp","timestamp":"2024-02-17T15:18:38.876Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in saveOrganisation","route":"/api/organisation/reset-password","timestamp":"2024-02-17T15:19:18.345Z"}
+{"error":{"clientVersion":"5.8.1","code":"P2024","meta":{"connection_limit":17,"modelName":"Organisation","timeout":10},"name":"PrismaClientKnownRequestError"},"level":"error","message":"Error in saveOrganisation","route":"/api/organisation/send-otp","timestamp":"2024-02-17T15:57:27.792Z"}
+{"error":{"clientVersion":"5.8.1","code":"P2025","meta":{"cause":"Record to update not found.","modelName":"Organisation"},"name":"PrismaClientKnownRequestError"},"level":"error","message":"Error in saveOrganisation","route":"/api/organisation/send-otp","timestamp":"2024-02-17T16:00:08.305Z"}
+{"level":"info","message":"No authorization Token Provided","route":"/api/organisation/cart-items","timestamp":"2024-02-17T16:19:59.059Z"}
+{"level":"info","message":"No authorization Token Provided","route":"/api/organisation/details","timestamp":"2024-02-17T16:19:59.073Z"}
+{"level":"info","message":"No authorization Token Provided","route":"/api/organisation/cart-items","timestamp":"2024-02-17T16:19:59.078Z"}
+{"level":"info","message":"No authorization Token Provided","route":"/api/organisation/details","timestamp":"2024-02-17T16:19:59.079Z"}
+{"error":{},"level":"error","message":"Error in saveOrganisation","route":"/api/organisation/send-otp","timestamp":"2024-02-17T16:20:09.008Z"}
+{"error":{},"level":"error","message":"Error in saveOrganisation","route":"/api/organisation/send-otp","timestamp":"2024-02-17T16:20:28.341Z"}
+{"error":{},"level":"error","message":"Error in saveOrganisation","route":"/api/organisation/send-otp","timestamp":"2024-02-17T16:21:02.930Z"}
+{"error":{},"level":"error","message":"Error in saveOrganisation","route":"/api/organisation/send-otp","timestamp":"2024-02-17T16:21:33.143Z"}
+{"error":{},"level":"error","message":"Error in saveOrganisation","route":"/api/organisation/send-otp","timestamp":"2024-02-17T16:21:37.073Z"}
+{"error":{},"level":"error","message":"Error in saveOrganisation","route":"/api/organisation/send-otp","timestamp":"2024-02-17T16:22:25.875Z"}
+{"level":"info","message":"No authorization Token Provided","route":"/api/donor/details","timestamp":"2024-02-17T17:35:44.594Z"}
+{"level":"info","message":"No authorization Token Provided","route":"/api/donor/details","timestamp":"2024-02-17T17:35:44.606Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in saveOrganisation","route":"/api/donor/reset-password","timestamp":"2024-02-17T17:47:04.930Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in saveOrganisation","route":"/api/donor/reset-password","timestamp":"2024-02-17T17:47:46.172Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in saveOrganisation","route":"/api/donor/reset-password","timestamp":"2024-02-17T17:47:49.292Z"}
+{"error":{"clientVersion":"5.8.1","code":"P2002","meta":{"modelName":"Donor","target":null},"name":"PrismaClientKnownRequestError"},"level":"error","message":"Error in saveOrganisation","route":"/api/donor/register","timestamp":"2024-02-18T07:57:40.361Z"}
+{"error":{"clientVersion":"5.8.1","code":"P2024","meta":{"connection_limit":17,"modelName":"Donor","timeout":10},"name":"PrismaClientKnownRequestError"},"level":"error","message":"Error in saveOrganisation","route":"/api/donor/register","timestamp":"2024-02-18T08:28:43.866Z"}
+{"error":{},"level":"error","message":"Error in saveOrganisation","route":"/api/organisation/register","timestamp":"2024-02-18T15:04:07.787Z"}
+{"error":{},"level":"error","message":"Error in getAllOrders","timestamp":"2024-02-18T17:13:45.502Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in chartOrders","timestamp":"2024-02-18T17:31:52.782Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in chartOrders","timestamp":"2024-02-18T17:31:52.798Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in chartOrders","timestamp":"2024-02-18T17:31:54.544Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in chartOrders","timestamp":"2024-02-18T17:31:54.564Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in chartOrders","timestamp":"2024-02-18T17:32:10.034Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in chartOrders","timestamp":"2024-02-18T17:32:10.052Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in chartOrders","timestamp":"2024-02-18T17:32:45.820Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in chartOrders","timestamp":"2024-02-18T17:32:45.839Z"}
+{"error":{},"level":"error","message":"Error in chartOrders","timestamp":"2024-02-18T17:42:01.527Z"}
+{"error":{},"level":"error","message":"Error in chartOrders","timestamp":"2024-02-18T17:42:01.545Z"}
+{"error":{},"level":"error","message":"Error in chartOrders","timestamp":"2024-02-18T17:42:07.996Z"}
+{"error":{},"level":"error","message":"Error in chartOrders","timestamp":"2024-02-18T17:42:08.018Z"}
+{"error":{},"level":"error","message":"Error in chartOrders","timestamp":"2024-02-18T17:42:16.632Z"}
+{"error":{},"level":"error","message":"Error in chartOrders","timestamp":"2024-02-18T17:42:16.654Z"}
+{"error":{},"level":"error","message":"Error in chartOrders","timestamp":"2024-02-18T17:42:30.910Z"}
+{"error":{},"level":"error","message":"Error in chartOrders","timestamp":"2024-02-18T17:42:31.153Z"}
+{"error":{},"level":"error","message":"Error in chartOrders","timestamp":"2024-02-18T17:42:34.474Z"}
+{"error":{},"level":"error","message":"Error in chartOrders","timestamp":"2024-02-18T17:42:34.507Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in chartOrders","timestamp":"2024-02-18T18:13:32.678Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in chartOrders","timestamp":"2024-02-18T18:13:32.695Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in chartOrders","timestamp":"2024-02-18T18:13:42.507Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in chartOrders","timestamp":"2024-02-18T18:13:42.527Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in chartOrders","timestamp":"2024-02-18T18:13:53.027Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in chartOrders","timestamp":"2024-02-18T18:13:53.045Z"}
+{"level":"info","message":"No authorization Token Provided","route":"/api/donor/details","timestamp":"2024-02-19T12:27:36.448Z"}
+{"level":"info","message":"No authorization Token Provided","route":"/api/donor/details","timestamp":"2024-02-19T12:27:36.467Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in chartOrders","timestamp":"2024-02-19T16:12:40.343Z"}
+{"error":{"expiredAt":"2024-02-21T05:38:03.000Z","message":"jwt expired","name":"TokenExpiredError"},"level":"error","message":"Error in jwtAccessTokenVerify","route":"core","timestamp":"2024-02-23T12:58:04.816Z"}
+{"error":{"expiredAt":"2024-02-21T05:38:03.000Z","message":"jwt expired","name":"TokenExpiredError"},"level":"error","message":"Error in jwtAccessTokenVerify","route":"core","timestamp":"2024-02-23T12:58:04.823Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllDonors","route":"/api/writer/details?username=aditisankara","timestamp":"2024-02-25T08:30:29.366Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllDonors","route":"/api/writer/details?username=aditisankara","timestamp":"2024-02-25T08:30:29.372Z"}
+{"level":"info","message":"No authorization Token Provided","route":"/api/writer/details","timestamp":"2024-02-25T09:42:30.010Z"}
+{"level":"info","message":"No authorization Token Provided","route":"/api/writer/stories","timestamp":"2024-02-25T09:42:30.026Z"}
+{"level":"info","message":"No authorization Token Provided","route":"/api/writer/details","timestamp":"2024-02-25T09:42:30.027Z"}
+{"level":"info","message":"No authorization Token Provided","route":"/api/writer/stories","timestamp":"2024-02-25T09:42:30.032Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllDonors","route":"/api/writer/follow","timestamp":"2024-02-25T10:06:07.850Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllDonors","route":"/api/writer/unfollow/[object%20Object]","timestamp":"2024-02-25T10:18:50.092Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllDonors","route":"/api/writer/unfollow/1","timestamp":"2024-02-25T10:20:23.985Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllDonors","route":"/api/writer/writers?searchText=","timestamp":"2024-02-25T12:03:43.399Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllDonors","route":"/api/writer/writers?searchText=","timestamp":"2024-02-25T12:03:43.411Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllDonors","route":"/api/writer/writers?searchText=","timestamp":"2024-02-25T12:03:43.996Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllDonors","route":"/api/writer/writers?searchText=","timestamp":"2024-02-25T12:03:44.003Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllDonors","route":"/api/writer/writers?searchText=a","timestamp":"2024-02-25T12:10:14.188Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllDonors","route":"/api/writer/writers?searchText=ad","timestamp":"2024-02-25T12:10:14.371Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllDonors","route":"/api/writer/writers?searchText=adi","timestamp":"2024-02-25T12:10:14.549Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllDonors","route":"/api/writer/writers?searchText=ad","timestamp":"2024-02-25T12:10:15.271Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllDonors","route":"/api/writer/writers?searchText=a","timestamp":"2024-02-25T12:10:15.442Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllDonors","route":"/api/writer/details?username=imtiyazsayyid","timestamp":"2024-02-25T19:44:11.834Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllDonors","route":"/api/writer/details?username=imtiyazsayyid","timestamp":"2024-02-25T19:44:11.842Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllDonors","route":"/api/writer/unlike/[object%20Object]","timestamp":"2024-02-25T19:45:34.357Z"}
+{"error":{"expiredAt":"2024-02-26T14:00:22.000Z","message":"jwt expired","name":"TokenExpiredError"},"level":"error","message":"Error in jwtAccessTokenVerify","route":"core","timestamp":"2024-02-26T14:02:46.965Z"}
+{"error":{"expiredAt":"2024-02-26T14:00:22.000Z","message":"jwt expired","name":"TokenExpiredError"},"level":"error","message":"Error in jwtAccessTokenVerify","route":"core","timestamp":"2024-02-26T14:02:46.968Z"}
+{"error":{"expiredAt":"2024-02-26T14:00:22.000Z","message":"jwt expired","name":"TokenExpiredError"},"level":"error","message":"Error in jwtAccessTokenVerify","route":"core","timestamp":"2024-02-26T14:02:46.970Z"}
+{"error":{"expiredAt":"2024-02-26T14:00:22.000Z","message":"jwt expired","name":"TokenExpiredError"},"level":"error","message":"Error in jwtAccessTokenVerify","route":"core","timestamp":"2024-02-26T14:02:46.972Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllDonors","route":"/api/writer/story/14","timestamp":"2024-02-26T14:03:46.504Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllDonors","route":"/api/writer/story/14","timestamp":"2024-02-26T14:03:46.510Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllDonors","route":"/api/writer/story/14","timestamp":"2024-02-26T14:03:49.826Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllDonors","route":"/api/writer/story/14","timestamp":"2024-02-26T14:03:49.831Z"}
+{"level":"info","message":"No authorization Token Provided","route":"/api/writer/details","timestamp":"2024-02-26T18:40:40.934Z"}
+{"level":"info","message":"No authorization Token Provided","route":"/api/writer/stories","timestamp":"2024-02-26T18:40:40.943Z"}
+{"level":"info","message":"No authorization Token Provided","route":"/api/writer/details","timestamp":"2024-02-26T18:40:40.944Z"}
+{"level":"info","message":"No authorization Token Provided","route":"/api/writer/stories","timestamp":"2024-02-26T18:40:40.946Z"}
+{"level":"info","message":"No authorization Token Provided","route":"/api/writer/details","timestamp":"2024-02-26T18:45:38.107Z"}
+{"level":"info","message":"No authorization Token Provided","route":"/api/writer/stories","timestamp":"2024-02-26T18:45:38.109Z"}
+{"level":"info","message":"No authorization Token Provided","route":"/api/writer/details","timestamp":"2024-02-26T18:45:38.112Z"}
+{"level":"info","message":"No authorization Token Provided","route":"/api/writer/stories","timestamp":"2024-02-26T18:45:38.115Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllDonors","route":"/api/writer/delete-comment/14","timestamp":"2024-02-26T18:55:37.940Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllDonors","route":"/api/writer/delete-comment/14","timestamp":"2024-02-26T18:55:44.024Z"}
+{"error":{"clientVersion":"5.8.1","code":"P2025","meta":{"cause":"Record to delete does not exist.","modelName":"Comment"},"name":"PrismaClientKnownRequestError"},"level":"error","message":"Error in getAllDonors","route":"/api/writer/delete-comment/14","timestamp":"2024-02-26T18:57:50.757Z"}
+{"error":{"clientVersion":"5.8.1","code":"P2025","meta":{"cause":"Record to delete does not exist.","modelName":"Comment"},"name":"PrismaClientKnownRequestError"},"level":"error","message":"Error in getAllDonors","route":"/api/writer/delete-comment/14","timestamp":"2024-02-26T18:57:53.941Z"}
+{"error":{"clientVersion":"5.8.1","code":"P2025","meta":{"cause":"Record to delete does not exist.","modelName":"Comment"},"name":"PrismaClientKnownRequestError"},"level":"error","message":"Error in getAllDonors","route":"/api/writer/delete-comment/15","timestamp":"2024-02-26T18:58:05.356Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllDonors","route":"/api/writer/delete-comment/22","timestamp":"2024-02-26T19:03:44.355Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientUnknownRequestError"},"level":"error","message":"Error in getAllDonors","route":"/api/writer/details?username=imtiyazsayyid","timestamp":"2024-02-26T19:48:08.592Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientUnknownRequestError"},"level":"error","message":"Error in getAllDonors","route":"/api/writer/details?username=imtiyazsayyid","timestamp":"2024-02-26T19:48:08.598Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientUnknownRequestError"},"level":"error","message":"Error in getAllDonors","route":"/api/writer/details?username=imtiyazsayyid","timestamp":"2024-02-26T19:48:11.833Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientUnknownRequestError"},"level":"error","message":"Error in getAllDonors","route":"/api/writer/details?username=imtiyazsayyid","timestamp":"2024-02-26T19:48:11.838Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientUnknownRequestError"},"level":"error","message":"Error in getAllDonors","route":"/api/writer/details?username=imtiyazsayyid","timestamp":"2024-02-26T19:48:28.030Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientUnknownRequestError"},"level":"error","message":"Error in getAllDonors","route":"/api/writer/details?username=imtiyazsayyid","timestamp":"2024-02-26T19:48:28.037Z"}
+{"level":"info","message":"No authorization Token Provided","route":"/api/writer/details","timestamp":"2024-02-26T20:08:10.662Z"}
+{"level":"info","message":"No authorization Token Provided","route":"/api/writer/stories","timestamp":"2024-02-26T20:08:10.666Z"}
+{"level":"info","message":"No authorization Token Provided","route":"/api/writer/details","timestamp":"2024-02-26T20:08:10.669Z"}
+{"level":"info","message":"No authorization Token Provided","route":"/api/writer/stories","timestamp":"2024-02-26T20:08:10.672Z"}
+{"level":"info","message":"No authorization Token Provided","route":"/api/writer/details","timestamp":"2024-02-26T20:17:26.989Z"}
+{"level":"info","message":"No authorization Token Provided","route":"/api/writer/stories","timestamp":"2024-02-26T20:17:26.997Z"}
+{"level":"info","message":"No authorization Token Provided","route":"/api/writer/details","timestamp":"2024-02-26T20:17:27.005Z"}
+{"level":"info","message":"No authorization Token Provided","route":"/api/writer/stories","timestamp":"2024-02-26T20:17:27.006Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllStories","route":"/api/writer/story","timestamp":"2024-02-27T10:57:03.099Z"}
+{"error":{"clientVersion":"5.8.1","code":"P2000","meta":{"column_name":"synopsis","modelName":"Story"},"name":"PrismaClientKnownRequestError"},"level":"error","message":"Error in getAllStories","route":"/api/writer/story","timestamp":"2024-02-27T13:30:06.939Z"}
+{"error":{"clientVersion":"5.8.1","code":"P2000","meta":{"column_name":"synopsis","modelName":"Story"},"name":"PrismaClientKnownRequestError"},"level":"error","message":"Error in getAllStories","route":"/api/writer/story","timestamp":"2024-02-27T13:30:18.481Z"}
+{"error":{"expiredAt":"2024-02-27T14:03:09.000Z","message":"jwt expired","name":"TokenExpiredError"},"level":"error","message":"Error in jwtAccessTokenVerify","route":"core","timestamp":"2024-02-27T16:57:12.944Z"}
+{"error":{"expiredAt":"2024-02-27T14:03:09.000Z","message":"jwt expired","name":"TokenExpiredError"},"level":"error","message":"Error in jwtAccessTokenVerify","route":"core","timestamp":"2024-02-27T16:57:12.948Z"}
+{"error":{"expiredAt":"2024-02-27T14:03:09.000Z","message":"jwt expired","name":"TokenExpiredError"},"level":"error","message":"Error in jwtAccessTokenVerify","route":"core","timestamp":"2024-02-27T16:57:12.953Z"}
+{"error":{"expiredAt":"2024-02-27T14:03:09.000Z","message":"jwt expired","name":"TokenExpiredError"},"level":"error","message":"Error in jwtAccessTokenVerify","route":"core","timestamp":"2024-02-27T16:57:12.955Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllDonors","route":"/api/writer/story/undefined","timestamp":"2024-02-27T17:01:29.867Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllDonors","route":"/api/writer/story/undefined","timestamp":"2024-02-27T17:01:29.883Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllDonors","route":"/api/writer/story/undefined","timestamp":"2024-02-27T17:02:14.240Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllDonors","route":"/api/writer/story/undefined","timestamp":"2024-02-27T17:02:14.256Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllDonors","route":"/api/writer/story/undefined","timestamp":"2024-02-27T17:02:20.495Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllDonors","route":"/api/writer/story/undefined","timestamp":"2024-02-27T17:02:20.525Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllDonors","route":"/api/writer/story/undefined","timestamp":"2024-02-27T17:02:58.810Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllDonors","route":"/api/writer/story/undefined","timestamp":"2024-02-27T17:02:58.839Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllDonors","route":"/api/writer/story/undefined","timestamp":"2024-02-27T17:03:04.044Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllDonors","route":"/api/writer/story/undefined","timestamp":"2024-02-27T17:03:04.065Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllDonors","route":"/api/writer/story/undefined","timestamp":"2024-02-27T17:03:38.415Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllDonors","route":"/api/writer/story/undefined","timestamp":"2024-02-27T17:03:38.427Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllDonors","route":"/api/writer/story/20","timestamp":"2024-02-27T17:48:01.646Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllDonors","route":"/api/writer/story/20","timestamp":"2024-02-27T17:48:53.127Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllDonors","route":"/api/writer/story/20","timestamp":"2024-02-27T17:49:27.567Z"}
+{"error":{"clientVersion":"5.8.1","code":"P2003","meta":{"field_name":"storyId","modelName":"Story"},"name":"PrismaClientKnownRequestError"},"level":"error","message":"Error in deleteStory","route":"/api/writer/story/15","timestamp":"2024-02-27T17:51:05.123Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllDonors","route":"/api/writer/story/undefined","timestamp":"2024-02-27T19:31:13.752Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllDonors","route":"/api/writer/story/undefined","timestamp":"2024-02-27T19:31:13.795Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllDonors","route":"/api/writer/unlike/22","timestamp":"2024-02-28T07:52:49.238Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllDonors","route":"/api/writer/unlike/22","timestamp":"2024-02-28T07:53:17.582Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in login","route":"/api/writer/auth/login","timestamp":"2024-02-28T15:17:55.401Z"}
+{"error":{},"level":"error","message":"Error in login","route":"/api/writer/auth/login","timestamp":"2024-02-28T15:22:34.322Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in saveWriter","route":"/api/writer/register","timestamp":"2024-02-28T19:22:12.955Z"}
+{"level":"info","message":"No authorization Token Provided","route":"/api/writer/delete?email=hello%40test.com","timestamp":"2024-02-28T19:27:51.421Z"}
+{"level":"info","message":"No authorization Token Provided","route":"/api/writer/delete?email=hello%40test.com","timestamp":"2024-02-28T19:28:50.267Z"}
+{"level":"info","message":"No authorization Token Provided","route":"/api/writer/delete?email=asdasd%40asdasd.com","timestamp":"2024-02-28T19:30:11.773Z"}
+{"level":"info","message":"No authorization Token Provided","route":"/api/writer/delete?email=asdad%40asdad.com","timestamp":"2024-02-28T19:31:16.671Z"}
+{"error":{"clientVersion":"5.8.1","code":"P2025","meta":{"cause":"Record to delete does not exist.","modelName":"Writer"},"name":"PrismaClientKnownRequestError"},"level":"error","message":"Error in saveWriter","route":"/api/writer/register","timestamp":"2024-02-28T19:32:15.653Z"}
+{"error":{"clientVersion":"5.8.1","code":"P2025","meta":{"cause":"Record to delete does not exist.","modelName":"Writer"},"name":"PrismaClientKnownRequestError"},"level":"error","message":"Error in saveWriter","route":"/api/writer/register","timestamp":"2024-02-28T19:32:34.791Z"}
+{"level":"info","message":"No authorization Token Provided","route":"/api/writer/delete-writer?email=asdasd%40asdasd.com","timestamp":"2024-02-28T19:34:28.641Z"}
+{"level":"info","message":"No authorization Token Provided","route":"/api/writer/delete-writer?email=asd%40asd.com","timestamp":"2024-02-28T19:35:48.539Z"}
+{"level":"info","message":"No authorization Token Provided","route":"/api/writer/details","timestamp":"2024-02-29T18:54:38.049Z"}
+{"level":"info","message":"No authorization Token Provided","route":"/api/writer/notifications","timestamp":"2024-02-29T18:54:38.066Z"}
+{"level":"info","message":"No authorization Token Provided","route":"/api/writer/details","timestamp":"2024-02-29T18:54:38.067Z"}
+{"level":"info","message":"No authorization Token Provided","route":"/api/writer/notifications","timestamp":"2024-02-29T18:54:38.068Z"}
+{"level":"info","message":"No authorization Token Provided","route":"/api/writer/unread-notifications","timestamp":"2024-02-29T19:53:30.489Z"}
+{"error":{"expiredAt":"2024-02-29T20:19:11.000Z","message":"jwt expired","name":"TokenExpiredError"},"level":"error","message":"Error in jwtAccessTokenVerify","route":"core","timestamp":"2024-02-29T20:19:11.208Z"}
+{"error":{"expiredAt":"2024-02-29T20:19:11.000Z","message":"jwt expired","name":"TokenExpiredError"},"level":"error","message":"Error in jwtAccessTokenVerify","route":"core","timestamp":"2024-02-29T20:19:11.211Z"}
+{"level":"info","message":"No authorization Token Provided","route":"/api/writer/notifications","timestamp":"2024-02-29T20:19:24.219Z"}
+{"level":"info","message":"No authorization Token Provided","route":"/api/writer/unread-notifications","timestamp":"2024-02-29T20:19:24.221Z"}
+{"level":"info","message":"No authorization Token Provided","route":"/api/writer/details","timestamp":"2024-03-02T14:02:01.189Z"}
+{"error":{"clientVersion":"5.8.1","code":"P2024","meta":{"connection_limit":17,"modelName":"Writer","timeout":10},"name":"PrismaClientKnownRequestError"},"level":"error","message":"Error in accessMiddleware ","route":"/api/writer/unread-notifications","timestamp":"2024-03-02T15:13:01.514Z"}
+{"error":{"clientVersion":"5.8.1","code":"P2024","meta":{"connection_limit":17,"modelName":"Writer","timeout":10},"name":"PrismaClientKnownRequestError"},"level":"error","message":"Error in accessMiddleware ","route":"/api/writer/details?username=imtiyazsayyid","timestamp":"2024-03-02T15:13:27.591Z"}
+{"level":"info","message":"No authorization Token Provided","route":"/api/writer/details","timestamp":"2024-03-02T16:48:18.044Z"}
+{"level":"info","message":"No authorization Token Provided","route":"/api/writer/notifications","timestamp":"2024-03-02T16:48:18.047Z"}
+{"level":"info","message":"No authorization Token Provided","route":"/api/writer/unread-notifications","timestamp":"2024-03-02T16:48:18.048Z"}
+{"level":"info","message":"No authorization Token Provided","route":"/api/writer/details","timestamp":"2024-03-02T16:48:18.048Z"}
+{"level":"info","message":"No authorization Token Provided","route":"/api/writer/notifications","timestamp":"2024-03-02T16:48:18.049Z"}
+{"level":"info","message":"No authorization Token Provided","route":"/api/writer/unread-notifications","timestamp":"2024-03-02T16:48:18.050Z"}
+{"error":{"clientVersion":"5.8.1","code":"P1001","meta":{"database_host":"literary-lantern-prod.cps26ec6wrh3.eu-north-1.rds.amazonaws.com","database_port":3306,"modelName":"Writer"},"name":"PrismaClientKnownRequestError"},"level":"error","message":"Error in accessMiddleware ","route":"/api/writer/unread-notifications","timestamp":"2024-03-02T16:49:46.792Z"}
+{"error":{},"level":"error","message":"Error in deleteNotifications.","route":"/api/writer/delete-notification/71","timestamp":"2024-03-02T16:49:58.405Z"}
+{"error":{},"level":"error","message":"Error in deleteNotifications.","route":"/api/writer/delete-notification/40","timestamp":"2024-03-02T16:50:41.008Z"}
+{"error":{},"level":"error","message":"Error in deleteNotifications.","route":"/api/writer/delete-notification/39","timestamp":"2024-03-02T16:50:41.144Z"}
+{"error":{"clientVersion":"5.8.1","code":"P2024","meta":{"connection_limit":17,"modelName":"Writer","timeout":10},"name":"PrismaClientKnownRequestError"},"level":"error","message":"Error in accessMiddleware ","route":"/api/writer/notifications","timestamp":"2024-03-02T17:09:49.769Z"}
+{"error":{"clientVersion":"5.8.1","code":"P2024","meta":{"connection_limit":17,"modelName":"Writer","timeout":10},"name":"PrismaClientKnownRequestError"},"level":"error","message":"Error in accessMiddleware ","route":"/api/writer/notifications","timestamp":"2024-03-02T17:09:49.774Z"}
+{"error":{"clientVersion":"5.8.1","code":"P2024","meta":{"connection_limit":17,"modelName":"Writer","timeout":10},"name":"PrismaClientKnownRequestError"},"level":"error","message":"Error in accessMiddleware ","route":"/api/writer/unread-notifications","timestamp":"2024-03-02T17:09:56.745Z"}
+{"error":{"clientVersion":"5.8.1","code":"P2024","meta":{"connection_limit":17,"modelName":"Writer","timeout":10},"name":"PrismaClientKnownRequestError"},"level":"error","message":"Error in accessMiddleware ","route":"/api/writer/unread-notifications","timestamp":"2024-03-02T17:09:56.751Z"}
+{"error":{"clientVersion":"5.8.1","code":"P2024","meta":{"connection_limit":17,"modelName":"Writer","timeout":10},"name":"PrismaClientKnownRequestError"},"level":"error","message":"Error in accessMiddleware ","route":"/api/writer/unread-notifications","timestamp":"2024-03-02T17:09:59.752Z"}
+{"error":{"clientVersion":"5.8.1","code":"P2024","meta":{"connection_limit":17,"modelName":"Writer","timeout":10},"name":"PrismaClientKnownRequestError"},"level":"error","message":"Error in accessMiddleware ","route":"/api/writer/unread-notifications","timestamp":"2024-03-02T17:09:59.762Z"}
+{"error":{"clientVersion":"5.8.1","code":"P1001","meta":{"database_host":"literary-lantern-prod.cps26ec6wrh3.eu-north-1.rds.amazonaws.com","database_port":3306,"modelName":"Writer"},"name":"PrismaClientKnownRequestError"},"level":"error","message":"Error in accessMiddleware ","route":"/api/writer/unread-notifications","timestamp":"2024-03-02T17:10:18.739Z"}
+{"error":{"clientVersion":"5.8.1","code":"P1001","meta":{"database_host":"literary-lantern-prod.cps26ec6wrh3.eu-north-1.rds.amazonaws.com","database_port":3306,"modelName":"Writer"},"name":"PrismaClientKnownRequestError"},"level":"error","message":"Error in accessMiddleware ","route":"/api/writer/unread-notifications","timestamp":"2024-03-02T17:10:19.762Z"}
+{"error":{"clientVersion":"5.8.1","code":"P2024","meta":{"connection_limit":17,"modelName":"Writer","timeout":10},"name":"PrismaClientKnownRequestError"},"level":"error","message":"Error in accessMiddleware ","route":"/api/writer/unread-notifications","timestamp":"2024-03-02T17:28:00.019Z"}
+{"error":{"clientVersion":"5.8.1","code":"P2024","meta":{"connection_limit":17,"modelName":"Writer","timeout":10},"name":"PrismaClientKnownRequestError"},"level":"error","message":"Error in accessMiddleware ","route":"/api/writer/notifications","timestamp":"2024-03-02T17:28:00.023Z"}
+{"error":{"clientVersion":"5.8.1","code":"P2024","meta":{"connection_limit":17,"modelName":"Writer","timeout":10},"name":"PrismaClientKnownRequestError"},"level":"error","message":"Error in accessMiddleware ","route":"/api/writer/notifications","timestamp":"2024-03-02T17:28:00.026Z"}
+{"error":{"clientVersion":"5.8.1","code":"P2024","meta":{"connection_limit":17,"modelName":"Writer","timeout":10},"name":"PrismaClientKnownRequestError"},"level":"error","message":"Error in accessMiddleware ","route":"/api/writer/unread-notifications","timestamp":"2024-03-02T17:28:00.028Z"}
+{"error":{"clientVersion":"5.8.1","code":"P2024","meta":{"connection_limit":17,"modelName":"Writer","timeout":10},"name":"PrismaClientKnownRequestError"},"level":"error","message":"Error in accessMiddleware ","route":"/api/writer/details","timestamp":"2024-03-02T18:02:38.344Z"}
+{"error":{"expiredAt":"2024-03-04T18:42:14.000Z","message":"jwt expired","name":"TokenExpiredError"},"level":"error","message":"Error in jwtAccessTokenVerify","route":"core","timestamp":"2024-03-07T14:26:29.488Z"}
+{"level":"info","message":"No authorization Token Provided","route":"/api/writer/unread-notifications","timestamp":"2024-03-07T14:26:31.003Z"}
+{"level":"info","message":"No authorization Token Provided","route":"/api/writer/details","timestamp":"2024-03-07T14:26:31.004Z"}
+{"level":"info","message":"No authorization Token Provided","route":"/api/writer/stories?onlyFollowers=true","timestamp":"2024-03-07T14:26:31.005Z"}
+{"level":"info","message":"No authorization Token Provided","route":"/api/writer/unread-notifications","timestamp":"2024-03-07T14:26:31.006Z"}
+{"level":"info","message":"No authorization Token Provided","route":"/api/writer/details","timestamp":"2024-03-07T14:26:31.007Z"}
+{"level":"info","message":"No authorization Token Provided","route":"/api/writer/stories?onlyFollowers=true","timestamp":"2024-03-07T14:26:31.008Z"}
+{"level":"info","message":"No authorization Token Provided","route":"/api/writer/details","timestamp":"2024-03-07T14:26:31.011Z"}
+{"level":"info","message":"No authorization Token Provided","route":"/api/writer/details","timestamp":"2024-03-07T14:26:31.012Z"}
+{"error":{"clientVersion":"5.8.1","code":"P2024","meta":{"connection_limit":17,"modelName":"Writer","timeout":10},"name":"PrismaClientKnownRequestError"},"level":"error","message":"Error in accessMiddleware ","route":"/api/writer/writers?searchText=","timestamp":"2024-03-07T15:00:09.979Z"}
+{"error":{"clientVersion":"5.8.1","code":"P2024","meta":{"connection_limit":17,"modelName":"Writer","timeout":10},"name":"PrismaClientKnownRequestError"},"level":"error","message":"Error in accessMiddleware ","route":"/api/writer/unread-notifications","timestamp":"2024-03-07T15:00:09.985Z"}
+{"error":{"clientVersion":"5.8.1","code":"P2024","meta":{"connection_limit":17,"modelName":"Writer","timeout":10},"name":"PrismaClientKnownRequestError"},"level":"error","message":"Error in accessMiddleware ","route":"/api/writer/details","timestamp":"2024-03-07T15:00:09.986Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllDonors","route":"/api/writer/story/[object%20Object]","timestamp":"2024-03-07T15:28:43.761Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllDonors","route":"/api/writer/story/[object%20Object]","timestamp":"2024-03-07T15:32:21.615Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllDonors","route":"/api/writer/story/[object%20Object]","timestamp":"2024-03-07T15:33:37.269Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllDonors","route":"/api/writer/story/[object%20Object]","timestamp":"2024-03-07T15:36:40.702Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllDonors","route":"/api/writer/story/[object%20Object]","timestamp":"2024-03-07T15:36:42.889Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllDonors","route":"/api/writer/story/[object%20Object]","timestamp":"2024-03-07T15:36:57.475Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllDonors","route":"/api/writer/story/[object%20Object]","timestamp":"2024-03-07T15:36:58.637Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllDonors","route":"/api/writer/story/[object%20Object]","timestamp":"2024-03-07T15:37:00.798Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllDonors","route":"/api/writer/story/[object%20Object]","timestamp":"2024-03-07T15:37:04.964Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllDonors","route":"/api/writer/story/[object%20Object]","timestamp":"2024-03-07T15:37:14.659Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllDonors","route":"/api/writer/story/[object%20Object]","timestamp":"2024-03-07T15:37:15.821Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllDonors","route":"/api/writer/story/[object%20Object]","timestamp":"2024-03-07T15:37:17.983Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllDonors","route":"/api/writer/story/[object%20Object]","timestamp":"2024-03-07T15:37:22.146Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllDonors","route":"/api/writer/story/[object%20Object]","timestamp":"2024-03-07T15:37:35.441Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllDonors","route":"/api/writer/story/[object%20Object]","timestamp":"2024-03-07T15:37:39.632Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllDonors","route":"/api/writer/story/[object%20Object]","timestamp":"2024-03-07T15:37:41.799Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllDonors","route":"/api/writer/story/[object%20Object]","timestamp":"2024-03-07T15:37:45.961Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllDonors","route":"/api/writer/story/[object%20Object]","timestamp":"2024-03-07T15:37:47.613Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllDonors","route":"/api/writer/story/[object%20Object]","timestamp":"2024-03-07T15:37:48.774Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllDonors","route":"/api/writer/story/[object%20Object]","timestamp":"2024-03-07T15:38:18.849Z"}
+{"error":{"clientVersion":"5.8.1","code":"P2024","meta":{"connection_limit":17,"modelName":"Writer","timeout":10},"name":"PrismaClientKnownRequestError"},"level":"error","message":"Error in accessMiddleware ","route":"/api/writer/details","timestamp":"2024-03-07T15:44:44.097Z"}
+{"error":{"clientVersion":"5.8.1","code":"P2024","meta":{"connection_limit":17,"modelName":"Writer","timeout":10},"name":"PrismaClientKnownRequestError"},"level":"error","message":"Error in accessMiddleware ","route":"/api/writer/story/3","timestamp":"2024-03-07T15:44:48.859Z"}
+{"level":"info","message":"No authorization Token Provided","route":"/api/writer/details","timestamp":"2024-03-07T15:45:45.575Z"}
+{"level":"info","message":"No authorization Token Provided","route":"/api/writer/unread-notifications","timestamp":"2024-03-07T15:45:45.577Z"}
+{"level":"info","message":"No authorization Token Provided","route":"/api/writer/stories?searchText=&orderByViews=true","timestamp":"2024-03-07T15:45:45.579Z"}
+{"level":"info","message":"No authorization Token Provided","route":"/api/writer/writers?searchText=","timestamp":"2024-03-07T15:45:45.579Z"}
+{"level":"info","message":"No authorization Token Provided","route":"/api/writer/unread-notifications","timestamp":"2024-03-07T15:45:45.580Z"}
+{"level":"info","message":"No authorization Token Provided","route":"/api/writer/details","timestamp":"2024-03-07T15:45:45.581Z"}
+{"level":"info","message":"No authorization Token Provided","route":"/api/writer/details","timestamp":"2024-03-07T15:45:45.582Z"}
+{"level":"info","message":"No authorization Token Provided","route":"/api/writer/stories?searchText=&orderByViews=true","timestamp":"2024-03-07T15:45:46.595Z"}
+{"level":"info","message":"No authorization Token Provided","route":"/api/writer/writers?searchText=","timestamp":"2024-03-07T15:45:46.596Z"}
+{"level":"info","message":"No authorization Token Provided","route":"/api/writer/details","timestamp":"2024-03-07T15:45:46.597Z"}
+{"error":{},"level":"error","message":"Error in getAllDonors","route":"/api/writer/story/4?onlyAvailable=false","timestamp":"2024-03-07T15:47:26.796Z"}
+{"error":{},"level":"error","message":"Error in getAllDonors","route":"/api/writer/story/4?onlyAvailable=false","timestamp":"2024-03-07T15:47:30.087Z"}
+{"error":{},"level":"error","message":"Error in getAllDonors","route":"/api/writer/story/4?onlyAvailable=false","timestamp":"2024-03-07T15:47:32.388Z"}
+{"error":{},"level":"error","message":"Error in getAllDonors","route":"/api/writer/story/4?onlyAvailable=false","timestamp":"2024-03-07T15:47:43.908Z"}
+{"error":{},"level":"error","message":"Error in getAllDonors","route":"/api/writer/story/4?onlyAvailable=false","timestamp":"2024-03-07T15:47:44.215Z"}
+{"error":{},"level":"error","message":"Error in getAllDonors","route":"/api/writer/story/4?onlyAvailable=false","timestamp":"2024-03-07T15:47:44.521Z"}
+{"error":{},"level":"error","message":"Error in getAllDonors","route":"/api/writer/story/4?onlyAvailable=false","timestamp":"2024-03-07T15:47:52.412Z"}
+{"error":{},"level":"error","message":"Error in getAllDonors","route":"/api/writer/story/4?onlyAvailable=false","timestamp":"2024-03-07T15:47:53.708Z"}
+{"error":{},"level":"error","message":"Error in getAllDonors","route":"/api/writer/story/4?onlyAvailable=false","timestamp":"2024-03-07T15:47:56.157Z"}
+{"error":{},"level":"error","message":"Error in getAllDonors","route":"/api/writer/story/4?onlyAvailable=false","timestamp":"2024-03-07T15:48:02.268Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllDonors","route":"/api/writer/story/3","timestamp":"2024-03-07T15:54:54.709Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllDonors","route":"/api/writer/story/3","timestamp":"2024-03-07T15:55:02.598Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllDonors","route":"/api/writer/story/3","timestamp":"2024-03-07T15:55:04.758Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllDonors","route":"/api/writer/story/3","timestamp":"2024-03-07T15:55:09.154Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllDonors","route":"/api/writer/story/3","timestamp":"2024-03-07T15:55:10.317Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllDonors","route":"/api/writer/story/3","timestamp":"2024-03-07T15:55:12.477Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllDonors","route":"/api/writer/story/3","timestamp":"2024-03-07T15:55:16.638Z"}
+{"error":{"clientVersion":"5.8.1","code":"P2024","meta":{"connection_limit":17,"modelName":"Writer","timeout":10},"name":"PrismaClientKnownRequestError"},"level":"error","message":"Error in accessMiddleware ","route":"/api/writer/unread-notifications","timestamp":"2024-03-07T16:39:12.298Z"}
+{"error":{"clientVersion":"5.8.1","code":"P2024","meta":{"connection_limit":17,"modelName":"Writer","timeout":10},"name":"PrismaClientKnownRequestError"},"level":"error","message":"Error in accessMiddleware ","route":"/api/writer/stories?onlyFollowers=true","timestamp":"2024-03-07T16:55:25.923Z"}
+{"error":{"clientVersion":"5.8.1","code":"P2024","meta":{"connection_limit":17,"modelName":"Writer","timeout":10},"name":"PrismaClientKnownRequestError"},"level":"error","message":"Error in accessMiddleware ","route":"/api/writer/details?username=imtiyazsayyid","timestamp":"2024-03-08T11:11:58.470Z"}
+{"error":{"clientVersion":"5.8.1","code":"P2024","meta":{"connection_limit":17,"modelName":"Writer","timeout":10},"name":"PrismaClientKnownRequestError"},"level":"error","message":"Error in accessMiddleware ","route":"/api/writer/unread-notifications","timestamp":"2024-03-08T11:11:59.400Z"}
+{"error":{"clientVersion":"5.8.1","code":"P2024","meta":{"connection_limit":17,"modelName":"Writer","timeout":10},"name":"PrismaClientKnownRequestError"},"level":"error","message":"Error in accessMiddleware ","route":"/api/writer/unread-notifications","timestamp":"2024-03-08T11:21:56.633Z"}
+{"error":{"clientVersion":"5.8.1","code":"P2024","meta":{"connection_limit":17,"modelName":"Writer","timeout":10},"name":"PrismaClientKnownRequestError"},"level":"error","message":"Error in accessMiddleware ","route":"/api/writer/unread-notifications","timestamp":"2024-03-08T11:21:59.670Z"}
+{"error":{"clientVersion":"5.8.1","code":"P2024","meta":{"connection_limit":17,"modelName":"Writer","timeout":10},"name":"PrismaClientKnownRequestError"},"level":"error","message":"Error in accessMiddleware ","route":"/api/writer/unread-notifications","timestamp":"2024-03-08T11:30:49.437Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in saveWriter","route":"/api/writer/save","timestamp":"2024-03-08T11:56:36.628Z"}
+{"error":{"clientVersion":"5.8.1","code":"P2002","meta":{"modelName":"Writer","target":"Writer_username_key"},"name":"PrismaClientKnownRequestError"},"level":"error","message":"Error in saveWriter","route":"/api/writer/save","timestamp":"2024-03-08T12:16:59.115Z"}
+{"error":{"expiredAt":"2024-03-08T14:26:38.000Z","message":"jwt expired","name":"TokenExpiredError"},"level":"error","message":"Error in jwtAccessTokenVerify","route":"core","timestamp":"2024-03-08T15:57:02.018Z"}
+{"error":{"expiredAt":"2024-03-08T14:26:38.000Z","message":"jwt expired","name":"TokenExpiredError"},"level":"error","message":"Error in jwtAccessTokenVerify","route":"core","timestamp":"2024-03-08T15:57:02.021Z"}
+{"error":{"expiredAt":"2024-03-08T14:26:38.000Z","message":"jwt expired","name":"TokenExpiredError"},"level":"error","message":"Error in jwtAccessTokenVerify","route":"core","timestamp":"2024-03-08T15:57:02.023Z"}
+{"error":{"expiredAt":"2024-03-08T14:26:38.000Z","message":"jwt expired","name":"TokenExpiredError"},"level":"error","message":"Error in jwtAccessTokenVerify","route":"core","timestamp":"2024-03-08T15:57:02.024Z"}
+{"error":{"expiredAt":"2024-03-08T14:26:38.000Z","message":"jwt expired","name":"TokenExpiredError"},"level":"error","message":"Error in jwtAccessTokenVerify","route":"core","timestamp":"2024-03-08T15:57:02.025Z"}
+{"error":{"expiredAt":"2024-03-08T14:26:38.000Z","message":"jwt expired","name":"TokenExpiredError"},"level":"error","message":"Error in jwtAccessTokenVerify","route":"core","timestamp":"2024-03-08T15:57:02.059Z"}
+{"error":{"clientVersion":"5.8.1","code":"P2024","meta":{"connection_limit":17,"modelName":"Writer","timeout":10},"name":"PrismaClientKnownRequestError"},"level":"error","message":"Error in accessMiddleware ","route":"/api/writer/unread-notifications","timestamp":"2024-03-08T16:34:32.954Z"}
+{"level":"info","message":"No authorization Token Provided","route":"/api/writer/unread-notifications","timestamp":"2024-03-08T16:35:12.955Z"}
+{"error":{"clientVersion":"5.8.1","code":"P2024","meta":{"connection_limit":17,"modelName":"Writer","timeout":10},"name":"PrismaClientKnownRequestError"},"level":"error","message":"Error in accessMiddleware ","route":"/api/writer/stories?searchText=&orderByViews=true","timestamp":"2024-03-08T16:46:32.821Z"}
+{"error":{"clientVersion":"5.8.1","code":"P2024","meta":{"connection_limit":17,"modelName":"Writer","timeout":10},"name":"PrismaClientKnownRequestError"},"level":"error","message":"Error in accessMiddleware ","route":"/api/writer/writers?searchText=","timestamp":"2024-03-08T16:46:32.831Z"}
+{"error":{"clientVersion":"5.8.1","code":"P2024","meta":{"connection_limit":17,"modelName":"Writer","timeout":10},"name":"PrismaClientKnownRequestError"},"level":"error","message":"Error in accessMiddleware ","route":"/api/writer/unread-notifications","timestamp":"2024-03-08T17:12:30.767Z"}
+{"error":{"clientVersion":"5.8.1","code":"P2024","meta":{"connection_limit":17,"modelName":"Writer","timeout":10},"name":"PrismaClientKnownRequestError"},"level":"error","message":"Error in accessMiddleware ","route":"/api/writer/details?username=aditisankara","timestamp":"2024-03-08T17:12:32.074Z"}
+{"error":{"clientVersion":"5.8.1","code":"P2024","meta":{"connection_limit":17,"modelName":"Writer","timeout":10},"name":"PrismaClientKnownRequestError"},"level":"error","message":"Error in accessMiddleware ","route":"/api/writer/details","timestamp":"2024-03-08T17:12:32.084Z"}
+{"error":{"clientVersion":"5.8.1","code":"P2024","meta":{"connection_limit":17,"modelName":"Writer","timeout":10},"name":"PrismaClientKnownRequestError"},"level":"error","message":"Error in accessMiddleware ","route":"/api/writer/unread-notifications","timestamp":"2024-03-08T17:12:40.814Z"}
+{"level":"info","message":"No authorization Token Provided","route":"/api/writer/details","timestamp":"2024-03-08T17:27:52.361Z"}
+{"error":{"clientVersion":"5.8.1","code":"P2024","meta":{"connection_limit":17,"modelName":"Notification","timeout":10},"name":"PrismaClientKnownRequestError"},"level":"error","message":"Error in getAllStories","route":"/api/writer/unread-notifications","timestamp":"2024-03-08T17:36:18.695Z"}
+{"error":{"clientVersion":"5.8.1","code":"P1001","meta":{"database_host":"literary-lantern-prod.cps26ec6wrh3.eu-north-1.rds.amazonaws.com","database_port":3306,"modelName":"Writer"},"name":"PrismaClientKnownRequestError"},"level":"error","message":"Error in accessMiddleware ","route":"/api/writer/unread-notifications","timestamp":"2024-03-08T17:36:47.565Z"}
+{"error":{"clientVersion":"5.8.1","code":"P2024","meta":{"connection_limit":17,"modelName":"Writer","timeout":10},"name":"PrismaClientKnownRequestError"},"level":"error","message":"Error in accessMiddleware ","route":"/api/writer/unread-notifications","timestamp":"2024-03-08T17:36:49.563Z"}
+{"error":{"clientVersion":"5.8.1","code":"P1001","meta":{"database_host":"literary-lantern-prod.cps26ec6wrh3.eu-north-1.rds.amazonaws.com","database_port":3306,"modelName":"Writer"},"name":"PrismaClientKnownRequestError"},"level":"error","message":"Error in accessMiddleware ","route":"/api/writer/unread-notifications","timestamp":"2024-03-08T17:36:50.566Z"}
+{"error":{"clientVersion":"5.8.1","code":"P1001","meta":{"database_host":"literary-lantern-prod.cps26ec6wrh3.eu-north-1.rds.amazonaws.com","database_port":3306,"modelName":"Writer"},"name":"PrismaClientKnownRequestError"},"level":"error","message":"Error in accessMiddleware ","route":"/api/writer/unread-notifications","timestamp":"2024-03-08T17:36:53.560Z"}
+{"error":{"clientVersion":"5.8.1","code":"P1001","meta":{"database_host":"literary-lantern-prod.cps26ec6wrh3.eu-north-1.rds.amazonaws.com","database_port":3306,"modelName":"Writer"},"name":"PrismaClientKnownRequestError"},"level":"error","message":"Error in accessMiddleware ","route":"/api/writer/unread-notifications","timestamp":"2024-03-08T17:36:56.557Z"}
+{"error":{"clientVersion":"5.8.1","code":"P1001","meta":{"database_host":"literary-lantern-prod.cps26ec6wrh3.eu-north-1.rds.amazonaws.com","database_port":3306,"modelName":"Writer"},"name":"PrismaClientKnownRequestError"},"level":"error","message":"Error in accessMiddleware ","route":"/api/writer/unread-notifications","timestamp":"2024-03-08T17:37:02.564Z"}
+{"level":"info","message":"No authorization Token Provided","route":"/api/writer/unread-notifications","timestamp":"2024-03-08T20:21:15.827Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in saveWriter","route":"/api/writer/register","timestamp":"2024-03-08T20:22:42.989Z"}
+{"level":"info","message":"No authorization Token Provided","route":"/api/admin/details","timestamp":"2024-03-09T21:25:54.569Z"}
+{"level":"info","message":"No authorization Token Provided","route":"/api/admin/details","timestamp":"2024-03-09T21:25:54.572Z"}

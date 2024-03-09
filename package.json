@@ -1,0 +1,60 @@
+{
+  "name": "node-express-starter",
+  "version": "1.0.0",
+  "description": "A Starter Project In Node Using ExpressJS",
+  "main": "./src/index.js",
+  "engines": {
+    "node": "18.x"
+  },
+  "prisma": {
+    "seed": "node prisma/seed.mjs"
+  },
+  "scripts": {
+    "postinstall": "prisma generate",
+    "build": "prisma generate && babel src -d dist",
+    "dev": "kill-port 8003 && nodemon ./src/index.js --exec babel-node",
+    "start": "node ./dist/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "preview-email": "email dev -p 3030 -d src/emails"
+  },
+  "author": "Rv",
+  "license": "ISC",
+  "_moduleAliases": {
+    "@": "./src",
+    "@core": "./src/@core"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.23.4",
+    "@babel/core": "^7.23.7",
+    "@babel/node": "^7.22.19",
+    "@babel/plugin-transform-runtime": "^7.23.7",
+    "@babel/preset-env": "^7.23.8",
+    "eslint": "^8.56.0",
+    "kill-port": "^2.0.1",
+    "nodemon": "^3.0.3",
+    "prettier": "3.2.4"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.23.8",
+    "@babel/preset-react": "^7.23.3",
+    "@prisma/client": "^5.8.1",
+    "@react-email/components": "^0.0.14",
+    "@react-email/render": "^0.0.12",
+    "babel-plugin-module-resolver": "^5.0.0",
+    "body-parser": "^1.20.2",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "express-fileupload": "^1.4.3",
+    "jsonwebtoken": "^9.0.2",
+    "module-alias": "^2.2.3",
+    "moment": "^2.30.1",
+    "nodemailer": "^6.9.9",
+    "prisma": "^5.8.1",
+    "react-email": "^2.0.0",
+    "react-hot-toast": "^2.4.1",
+    "winston": "^3.11.0",
+    "zod": "^3.22.4"
+  }
+}

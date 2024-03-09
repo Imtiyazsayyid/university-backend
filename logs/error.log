@@ -1,0 +1,104 @@
+{"level":"error","message":"/ \n homeController.js - getHome \n  myFunction is not defined","service":"Enpointe Software Service","stack":"ReferenceError: myFunction is not defined\n    at _callee$ (/home/atharv/Job_WorkSpace/StarterProjects/node-express-starter/src/app/modules/home/homeController.js:9:21)\n    at tryCatch (/home/atharv/Job_WorkSpace/StarterProjects/node-express-starter/node_modules/@babel/runtime/helpers/regeneratorRuntime.js:86:17)\n    at Generator._invoke (/home/atharv/Job_WorkSpace/StarterProjects/node-express-starter/node_modules/@babel/runtime/helpers/regeneratorRuntime.js:66:24)\n    at Generator.next (/home/atharv/Job_WorkSpace/StarterProjects/node-express-starter/node_modules/@babel/runtime/helpers/regeneratorRuntime.js:117:21)\n    at asyncGeneratorStep (/home/atharv/Job_WorkSpace/StarterProjects/node-express-starter/node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:24)\n    at _next (/home/atharv/Job_WorkSpace/StarterProjects/node-express-starter/node_modules/@babel/runtime/helpers/asyncToGenerator.js:25:9)\n    at /home/atharv/Job_WorkSpace/StarterProjects/node-express-starter/node_modules/@babel/runtime/helpers/asyncToGenerator.js:32:7\n    at new Promise (<anonymous>)\n    at /home/atharv/Job_WorkSpace/StarterProjects/node-express-starter/node_modules/@babel/runtime/helpers/asyncToGenerator.js:21:12\n    at _getHome (/home/atharv/Job_WorkSpace/StarterProjects/node-express-starter/src/app/modules/home/homeController.js:51:19)","timestamp":"2022-07-11T06:56:12.850Z"}
+{"level":"error","message":"\n\t\t\t/ \n\t\t\thomeController.js - getHome \n\t\t\t 'caller', 'callee', and 'arguments' properties may not be accessed on strict mode functions or the arguments objects for calls to them","service":"Enpointe Software Service","stack":"TypeError: 'caller', 'callee', and 'arguments' properties may not be accessed on strict mode functions or the arguments objects for calls to them\n    at _callee$ (/home/atharv/Job_WorkSpace/StarterProjects/node-express-starter/src/app/modules/home/homeController.js:9:31)\n    at tryCatch (/home/atharv/Job_WorkSpace/StarterProjects/node-express-starter/node_modules/@babel/runtime/helpers/regeneratorRuntime.js:86:17)\n    at Generator._invoke (/home/atharv/Job_WorkSpace/StarterProjects/node-express-starter/node_modules/@babel/runtime/helpers/regeneratorRuntime.js:66:24)\n    at Generator.next (/home/atharv/Job_WorkSpace/StarterProjects/node-express-starter/node_modules/@babel/runtime/helpers/regeneratorRuntime.js:117:21)\n    at asyncGeneratorStep (/home/atharv/Job_WorkSpace/StarterProjects/node-express-starter/node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:24)\n    at _next (/home/atharv/Job_WorkSpace/StarterProjects/node-express-starter/node_modules/@babel/runtime/helpers/asyncToGenerator.js:25:9)\n    at /home/atharv/Job_WorkSpace/StarterProjects/node-express-starter/node_modules/@babel/runtime/helpers/asyncToGenerator.js:32:7\n    at new Promise (<anonymous>)\n    at /home/atharv/Job_WorkSpace/StarterProjects/node-express-starter/node_modules/@babel/runtime/helpers/asyncToGenerator.js:21:12\n    at _getHome (/home/atharv/Job_WorkSpace/StarterProjects/node-express-starter/src/app/modules/home/homeController.js:52:19)","timestamp":"2022-07-11T06:58:10.174Z"}
+{"error":{},"level":"error","message":"Error in getHome","route":"/home/","service":"Enpointe Software Service","timestamp":"2022-07-11T07:08:27.980Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientInitializationError"},"level":"error","message":"Error in functionName","route":"/api/admin/users","timestamp":"2024-01-18T07:43:49.818Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientInitializationError"},"level":"error","message":"Error in functionName","route":"/api/admin/users","timestamp":"2024-01-18T07:44:17.357Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientInitializationError"},"level":"error","message":"Error in functionName","route":"/api/admin/users","timestamp":"2024-01-18T07:48:34.983Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientInitializationError"},"level":"error","message":"Error in functionName","route":"/api/admin/users","timestamp":"2024-01-18T07:49:35.618Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientInitializationError"},"level":"error","message":"Error in getAllUsers","route":"/api/admin/users","timestamp":"2024-01-18T17:03:10.769Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientInitializationError"},"level":"error","message":"Error in getAllUsers","route":"/api/admin/users","timestamp":"2024-01-18T17:03:11.037Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientInitializationError"},"level":"error","message":"Error in getAllUsers","route":"/api/admin/users","timestamp":"2024-01-18T17:06:14.742Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientInitializationError"},"level":"error","message":"Error in getAllUsers","route":"/api/admin/users","timestamp":"2024-01-18T17:06:14.988Z"}
+{"error":{"clientVersion":"5.8.1","code":"P2022","meta":{"column":"(not available)","modelName":"Donor"},"name":"PrismaClientKnownRequestError"},"level":"error","message":"Error in getAllDonors","route":"/api/admin/donors","timestamp":"2024-01-18T18:09:10.619Z"}
+{"error":{"clientVersion":"5.8.1","code":"P2022","meta":{"column":"(not available)","modelName":"Donor"},"name":"PrismaClientKnownRequestError"},"level":"error","message":"Error in getAllDonors","route":"/api/admin/donors","timestamp":"2024-01-18T18:09:10.642Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientInitializationError"},"level":"error","message":"Error in getAllDonors","route":"/api/admin/donors","timestamp":"2024-01-18T18:33:28.351Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientInitializationError"},"level":"error","message":"Error in getAllDonors","route":"/api/admin/donors","timestamp":"2024-01-18T18:33:28.576Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientInitializationError"},"level":"error","message":"Error in getAllDonors","route":"/api/admin/donors","timestamp":"2024-01-18T18:33:46.576Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientInitializationError"},"level":"error","message":"Error in getAllDonors","route":"/api/admin/donors","timestamp":"2024-01-18T18:33:46.799Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientInitializationError"},"level":"error","message":"Error in getAllDonors","route":"/api/admin/donors","timestamp":"2024-01-18T18:35:38.341Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientInitializationError"},"level":"error","message":"Error in getAllDonors","route":"/api/admin/donors","timestamp":"2024-01-18T18:35:38.578Z"}
+{"error":{},"level":"error","message":"Error in getAllDonors","route":"/api/admin/donors","timestamp":"2024-01-18T13:11:11.831Z"}
+{"error":{},"level":"error","message":"Error in getAllDonors","route":"/api/admin/donors","timestamp":"2024-01-18T13:11:11.839Z"}
+{"error":{},"level":"error","message":"Error in getAllDonors","route":"/api/admin/donors","timestamp":"2024-01-18T13:11:26.455Z"}
+{"error":{},"level":"error","message":"Error in getAllDonors","route":"/api/admin/donors","timestamp":"2024-01-18T13:11:26.459Z"}
+{"error":{},"level":"error","message":"Error in getAllDonors","route":"/api/admin/donors","timestamp":"2024-01-18T13:12:55.931Z"}
+{"error":{},"level":"error","message":"Error in getAllDonors","route":"/api/admin/donors","timestamp":"2024-01-18T13:12:55.939Z"}
+{"error":{},"level":"error","message":"Error in getAllDonors","route":"/api/admin/donors","timestamp":"2024-01-18T13:13:20.195Z"}
+{"error":{},"level":"error","message":"Error in getAllDonors","route":"/api/admin/donors","timestamp":"2024-01-18T13:16:34.816Z"}
+{"error":{},"level":"error","message":"Error in getAllDonors","route":"/api/admin/donors","timestamp":"2024-01-18T13:16:34.820Z"}
+{"error":{},"level":"error","message":"Error in getAllDonors","route":"/api/admin/donors","timestamp":"2024-01-18T13:16:45.258Z"}
+{"error":{},"level":"error","message":"Error in getAllDonors","route":"/api/admin/donors","timestamp":"2024-01-18T13:16:45.261Z"}
+{"error":{},"level":"error","message":"Error in getAllDonors","route":"/api/admin/donors","timestamp":"2024-01-18T13:17:00.890Z"}
+{"error":{},"level":"error","message":"Error in getAllDonors","route":"/api/admin/donors","timestamp":"2024-01-18T13:17:00.900Z"}
+{"error":{},"level":"error","message":"Error in getAllDonors","route":"/api/admin/donors","timestamp":"2024-01-18T13:17:08.064Z"}
+{"error":{},"level":"error","message":"Error in getAllDonors","route":"/api/admin/donors","timestamp":"2024-01-18T13:17:08.070Z"}
+{"error":{},"level":"error","message":"Error in getAllDonors","route":"/api/admin/donors","timestamp":"2024-01-18T13:19:30.725Z"}
+{"error":{},"level":"error","message":"Error in getAllDonors","route":"/api/admin/donors","timestamp":"2024-01-18T13:19:30.729Z"}
+{"error":{},"level":"error","message":"Error in getAllDonors","route":"/api/admin/donors","timestamp":"2024-01-18T13:21:13.362Z"}
+{"error":{},"level":"error","message":"Error in getAllDonors","route":"/api/admin/donors","timestamp":"2024-01-18T13:21:13.378Z"}
+{"error":{},"level":"error","message":"Error in getAllDonors","route":"/api/admin/donors","timestamp":"2024-01-18T13:21:45.441Z"}
+{"error":{},"level":"error","message":"Error in getAllDonors","route":"/api/admin/donors","timestamp":"2024-01-18T13:21:45.444Z"}
+{"error":{},"level":"error","message":"Error in getAllDonors","route":"/api/admin/donors","timestamp":"2024-01-18T13:21:47.463Z"}
+{"error":{},"level":"error","message":"Error in getAllDonors","route":"/api/admin/donors","timestamp":"2024-01-18T13:21:47.466Z"}
+{"error":{},"level":"error","message":"Error in getAllDonors","route":"/api/admin/donors","timestamp":"2024-01-18T13:22:05.324Z"}
+{"error":{},"level":"error","message":"Error in getAllDonors","route":"/api/admin/donors","timestamp":"2024-01-18T13:22:05.330Z"}
+{"error":{},"level":"error","message":"Error in getAllDonors","route":"/api/admin/donors","timestamp":"2024-01-18T13:23:45.539Z"}
+{"error":{},"level":"error","message":"Error in getAllDonors","route":"/api/admin/donors","timestamp":"2024-01-18T13:23:53.253Z"}
+{"error":{},"level":"error","message":"Error in getAllDonors","route":"/api/admin/donors","timestamp":"2024-01-18T13:24:02.809Z"}
+{"error":{},"level":"error","message":"Error in getAllDonors","route":"/api/admin/donors","timestamp":"2024-01-18T13:24:36.839Z"}
+{"error":{},"level":"error","message":"Error in getAllDonors","route":"/api/admin/donors","timestamp":"2024-01-18T13:24:36.854Z"}
+{"error":{},"level":"error","message":"Error in getAllDonors","route":"/api/admin/donors","timestamp":"2024-01-18T13:25:12.468Z"}
+{"error":{},"level":"error","message":"Error in getAllDonors","route":"/api/admin/donors","timestamp":"2024-01-18T13:25:12.477Z"}
+{"error":{},"level":"error","message":"Error in getAllDonors","route":"/api/admin/donors","timestamp":"2024-01-18T13:25:14.526Z"}
+{"error":{},"level":"error","message":"Error in getAllDonors","route":"/api/admin/donors","timestamp":"2024-01-18T13:25:15.891Z"}
+{"error":{},"level":"error","message":"Error in getAllDonors","route":"/api/admin/donors","timestamp":"2024-01-18T13:25:23.290Z"}
+{"error":{},"level":"error","message":"Error in getAllDonors","route":"/api/admin/donors?searchText=J","timestamp":"2024-01-21T05:43:26.418Z"}
+{"error":{},"level":"error","message":"Error in getAllDonors","route":"/api/admin/donors?searchText=Jo","timestamp":"2024-01-21T05:43:27.189Z"}
+{"error":{},"level":"error","message":"Error in getAllDonors","route":"/api/admin/donors?searchText=j","timestamp":"2024-01-21T05:44:36.729Z"}
+{"error":{},"level":"error","message":"Error in getAllDonors","route":"/api/admin/donors?searchText=jo","timestamp":"2024-01-21T05:44:37.144Z"}
+{"error":{},"level":"error","message":"Error in getAllDonors","route":"/api/admin/donors?searchText=joh","timestamp":"2024-01-21T05:44:37.390Z"}
+{"error":{},"level":"error","message":"Error in getAllDonors","route":"/api/admin/donors?searchText=njoh","timestamp":"2024-01-21T05:44:46.958Z"}
+{"error":{"clientVersion":"5.8.1","code":"P2024","meta":{"connection_limit":17,"modelName":"Donor","timeout":10},"name":"PrismaClientKnownRequestError"},"level":"error","message":"Error in getAllDonors","route":"/api/admin/donors?searchText=","timestamp":"2024-01-21T06:30:49.895Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllOrganisations","route":"/api/admin/organisations?searchText=&approvalStatus=all","timestamp":"2024-01-21T07:58:35.944Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllOrganisations","route":"/api/admin/organisations?searchText=&approvalStatus=all","timestamp":"2024-01-21T07:58:35.953Z"}
+{"error":{},"level":"error","message":"Error in saveDonor","route":"/api/admin/donors","timestamp":"2024-01-21T09:32:29.111Z"}
+{"error":{},"level":"error","message":"Error in saveDonor","route":"/api/admin/donors","timestamp":"2024-01-21T09:33:07.926Z"}
+{"error":{},"level":"error","message":"Error in saveDonor","route":"/api/admin/donors","timestamp":"2024-01-21T09:33:14.961Z"}
+{"error":{},"level":"error","message":"Error in saveDonor","route":"/api/admin/donors","timestamp":"2024-01-21T09:33:59.052Z"}
+{"error":{},"level":"error","message":"Error in getAllDonatedItems","timestamp":"2024-01-21T16:19:49.477Z"}
+{"error":{},"level":"error","message":"Error in getAllDonatedItems","timestamp":"2024-01-21T16:19:49.483Z"}
+{"error":{},"level":"error","message":"Error in getAllDonatedItems","timestamp":"2024-01-21T16:19:51.522Z"}
+{"error":{},"level":"error","message":"Error in getAllDonatedItems","timestamp":"2024-01-21T16:19:51.523Z"}
+{"error":{},"level":"error","message":"Error in getAllDonatedItems","timestamp":"2024-01-21T16:19:52.926Z"}
+{"error":{},"level":"error","message":"Error in getAllDonatedItems","timestamp":"2024-01-21T16:19:54.294Z"}
+{"error":{},"level":"error","message":"Error in getAllDonatedItems","timestamp":"2024-01-21T16:19:54.295Z"}
+{"error":{},"level":"error","message":"Error in saveOrganisation","route":"/api/admin/organisations","timestamp":"2024-01-21T17:23:53.246Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in saveOrganisation","route":"/api/admin/organisations","timestamp":"2024-01-21T17:24:02.761Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllDonatedItems","timestamp":"2024-01-22T08:09:02.694Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllDonatedItems","timestamp":"2024-01-22T08:09:02.700Z"}
+{"error":{},"level":"error","message":"Error in login","route":"/api/admin/auth/login","timestamp":"2024-01-22T11:49:44.899Z"}
+{"error":{},"level":"error","message":"Error in login","route":"/api/admin/auth/login","timestamp":"2024-01-22T11:50:51.511Z"}
+{"error":{},"level":"error","message":"Error in login","route":"/api/admin/auth/login","timestamp":"2024-01-22T11:52:02.332Z"}
+{"error":{},"level":"error","message":"Error in login","route":"/api/admin/auth/login","timestamp":"2024-01-22T11:52:19.679Z"}
+{"error":{},"level":"error","message":"Error in login","route":"/api/admin/auth/login","timestamp":"2024-01-22T11:52:30.443Z"}
+{"error":{},"level":"error","message":"Error in jwtRefreshTokenEncode","route":"core","timestamp":"2024-01-22T12:04:37.388Z"}
+{"error":{},"level":"error","message":"Error in jwtRefreshTokenEncode","route":"core","timestamp":"2024-01-22T12:04:50.167Z"}
+{"error":{},"level":"error","message":"Error in jwtRefreshTokenEncode","route":"core","timestamp":"2024-01-22T12:05:27.616Z"}
+{"error":{},"level":"error","message":"Error in jwtRefreshTokenEncode","route":"core","timestamp":"2024-01-22T12:05:45.109Z"}
+{"error":{},"level":"error","message":"Error in jwtRefreshTokenEncode","route":"core","timestamp":"2024-01-22T12:07:01.637Z"}
+{"error":{},"level":"error","message":"Error in jwtRefreshTokenEncode","route":"core","timestamp":"2024-01-22T12:07:35.909Z"}
+{"error":{},"level":"error","message":"Error in login","route":"/api/admin/auth/login","timestamp":"2024-01-22T12:09:58.132Z"}
+{"error":{"message":"jwt must be provided","name":"JsonWebTokenError"},"level":"error","message":"Error in jwtRefreshTokenVerify","route":"core","timestamp":"2024-01-22T12:22:24.545Z"}
+{"error":{"message":"jwt must be provided","name":"JsonWebTokenError"},"level":"error","message":"Error in jwtRefreshTokenVerify","route":"core","timestamp":"2024-01-22T12:24:43.795Z"}
+{"error":{"message":"jwt must be provided","name":"JsonWebTokenError"},"level":"error","message":"Error in jwtRefreshTokenVerify","route":"core","timestamp":"2024-01-22T12:25:25.548Z"}
+{"error":{"message":"jwt must be provided","name":"JsonWebTokenError"},"level":"error","message":"Error in jwtRefreshTokenVerify","route":"core","timestamp":"2024-01-22T12:27:02.742Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in accessMiddleware ","route":"/api/admin/donors?searchText=","timestamp":"2024-01-22T12:35:25.983Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in accessMiddleware ","route":"/api/admin/donors?searchText=","timestamp":"2024-01-22T12:35:25.989Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in accessMiddleware ","route":"/api/admin/donors?searchText=","timestamp":"2024-01-22T12:35:55.781Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in accessMiddleware ","route":"/api/admin/donors?searchText=","timestamp":"2024-01-22T12:35:55.787Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in accessMiddleware ","route":"/api/admin/donors?searchText=","timestamp":"2024-01-22T12:36:45.164Z"}
+{"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in accessMiddleware ","route":"/api/admin/donors?searchText=","timestamp":"2024-01-22T12:36:45.167Z"}
+{"error":{"clientVersion":"5.8.1","code":"P2024","meta":{"connection_limit":17,"modelName":"Admin","timeout":10},"name":"PrismaClientKnownRequestError"},"level":"error","message":"Error in accessMiddleware ","route":"/api/admin/details","timestamp":"2024-01-22T13:14:49.624Z"}
+{"error":{"clientVersion":"5.8.1","code":"P2024","meta":{"connection_limit":17,"modelName":"Admin","timeout":10},"name":"PrismaClientKnownRequestError"},"level":"error","message":"Error in accessMiddleware ","route":"/api/admin/donated-items?searchText=&approvalStatus=&categoryId=&condition=&availability=true","timestamp":"2024-01-22T15:35:22.822Z"}
+{"error":{"clientVersion":"5.8.1","code":"P2024","meta":{"connection_limit":17,"modelName":"Admin","timeout":10},"name":"PrismaClientKnownRequestError"},"level":"error","message":"Error in accessMiddleware ","route":"/api/admin/details","timestamp":"2024-01-22T15:35:22.825Z"}
+{"error":{"clientVersion":"5.8.1","code":"P2024","meta":{"connection_limit":17,"modelName":"Admin","timeout":10},"name":"PrismaClientKnownRequestError"},"level":"error","message":"Error in accessMiddleware ","route":"/api/admin/categories","timestamp":"2024-01-22T15:35:22.827Z"}
