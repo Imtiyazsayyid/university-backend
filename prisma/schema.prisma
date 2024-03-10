@@ -30,6 +30,41 @@ model Admin {
   updated_at DateTime @default(now())
 }
 
+model Course {
+  id       Int    @id @default(autoincrement())
+  name     String
+  abbr     String
+  duration Int    // years
+
+  description          String? @db.Text
+  programOutcome       String? @db.Text
+  departmentalStrength String? @db.Text
+  aboutFacility        String? @db.Text
+  eligibilty           String? @db.Text
+  significance         String? @db.Text
+  vision               String? @db.Text
+  mission              String? @db.Text
+  technicalActivities  String? @db.Text
+
+  semesters            Semester[]
+
+  status     Boolean  @default(true)
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+}
+
+model Semester {
+  id        Int    @id @default(autoincrement())
+  semNumber Int
+  duration  Int
+  courseId  Int
+  course    Course @relation(fields: [courseId], references: [id])
+
+  status     Boolean  @default(true)
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+}
+
 enum Gender {
   male
   female

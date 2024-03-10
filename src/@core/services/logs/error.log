@@ -284,3 +284,32 @@
 {"error":{"clientVersion":"5.8.1","code":"P1001","meta":{"database_host":"literary-lantern-prod.cps26ec6wrh3.eu-north-1.rds.amazonaws.com","database_port":3306,"modelName":"Writer"},"name":"PrismaClientKnownRequestError"},"level":"error","message":"Error in accessMiddleware ","route":"/api/writer/unread-notifications","timestamp":"2024-03-08T17:36:56.557Z"}
 {"error":{"clientVersion":"5.8.1","code":"P1001","meta":{"database_host":"literary-lantern-prod.cps26ec6wrh3.eu-north-1.rds.amazonaws.com","database_port":3306,"modelName":"Writer"},"name":"PrismaClientKnownRequestError"},"level":"error","message":"Error in accessMiddleware ","route":"/api/writer/unread-notifications","timestamp":"2024-03-08T17:37:02.564Z"}
 {"error":{"clientVersion":"5.8.1","name":"PrismaClientValidationError"},"level":"error","message":"Error in saveWriter","route":"/api/writer/register","timestamp":"2024-03-08T20:22:42.989Z"}
+{"error":{},"level":"error","message":"Error in getAllDonors","route":"/api/admin/courses?searchText=h","timestamp":"2024-03-10T08:43:48.376Z"}
+{"error":{},"level":"error","message":"Error in getAllDonors","route":"/api/admin/courses?searchText=he","timestamp":"2024-03-10T08:43:48.618Z"}
+{"error":{},"level":"error","message":"Error in getAllDonors","route":"/api/admin/courses?searchText=hel","timestamp":"2024-03-10T08:43:49.208Z"}
+{"error":{},"level":"error","message":"Error in getAllDonors","route":"/api/admin/courses?searchText=hell","timestamp":"2024-03-10T08:43:49.325Z"}
+{"error":{},"level":"error","message":"Error in getAllDonors","route":"/api/admin/courses?searchText=hello","timestamp":"2024-03-10T08:43:49.509Z"}
+{"error":{},"level":"error","message":"Error in getAllDonors","route":"/api/admin/courses?searchText=hell","timestamp":"2024-03-10T08:43:50.187Z"}
+{"error":{},"level":"error","message":"Error in getAllDonors","route":"/api/admin/courses?searchText=","timestamp":"2024-03-10T08:43:51.355Z"}
+{"error":{},"level":"error","message":"Error in getAllDonors","route":"/api/admin/courses?searchText=s","timestamp":"2024-03-10T08:44:14.040Z"}
+{"error":{},"level":"error","message":"Error in getAllDonors","route":"/api/admin/courses?searchText=sd","timestamp":"2024-03-10T08:44:17.119Z"}
+{"error":{},"level":"error","message":"Error in getAllDonors","route":"/api/admin/courses?searchText=sds","timestamp":"2024-03-10T08:44:34.035Z"}
+{"error":{"clientVersion":"5.10.2","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllDonors","route":"/api/admin/courses?searchText=&currentPage=1&itemsPerPage=5","timestamp":"2024-03-10T09:37:58.416Z"}
+{"error":{"clientVersion":"5.10.2","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllDonors","route":"/api/admin/courses?searchText=&currentPage=1&itemsPerPage=5","timestamp":"2024-03-10T09:37:58.423Z"}
+{"error":{"clientVersion":"5.10.2","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllDonors","route":"/api/admin/courses?searchText=&currentPage=1&itemsPerPage=5","timestamp":"2024-03-10T09:38:24.747Z"}
+{"error":{"clientVersion":"5.10.2","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllDonors","route":"/api/admin/courses?searchText=&currentPage=1&itemsPerPage=5","timestamp":"2024-03-10T09:38:24.758Z"}
+{"error":{"clientVersion":"5.10.2","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllDonors","route":"/api/admin/courses?searchText=&currentPage=1&itemsPerPage=5","timestamp":"2024-03-10T09:38:41.350Z"}
+{"error":{"clientVersion":"5.10.2","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllDonors","route":"/api/admin/courses?searchText=&currentPage=1&itemsPerPage=5","timestamp":"2024-03-10T09:38:41.356Z"}
+{"error":{"clientVersion":"5.10.2","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllDonors","route":"/api/admin/courses?searchText=&currentPage=1&itemsPerPage=5","timestamp":"2024-03-10T09:38:45.164Z"}
+{"error":{"clientVersion":"5.10.2","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllDonors","route":"/api/admin/courses?searchText=&currentPage=1&itemsPerPage=5","timestamp":"2024-03-10T09:38:45.168Z"}
+{"error":{"clientVersion":"5.10.2","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllDonors","route":"/api/admin/courses?searchText=&currentPage=1&itemsPerPage=5","timestamp":"2024-03-10T09:38:50.054Z"}
+{"error":{"clientVersion":"5.10.2","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllDonors","route":"/api/admin/courses?searchText=&currentPage=1&itemsPerPage=5","timestamp":"2024-03-10T09:38:50.062Z"}
+{"error":{"clientVersion":"5.10.2","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllDonors","route":"/api/admin/courses?searchText=&currentPage=1&itemsPerPage=5","timestamp":"2024-03-10T09:39:12.678Z"}
+{"error":{"clientVersion":"5.10.2","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllDonors","route":"/api/admin/courses?searchText=&currentPage=1&itemsPerPage=5","timestamp":"2024-03-10T09:39:12.685Z"}
+{"error":{},"level":"error","message":"Error in getAllSemesters","route":"/api/admin/semesters?searchText=&currentPage=1&itemsPerPage=7","timestamp":"2024-03-10T17:02:33.280Z"}
+{"error":{},"level":"error","message":"Error in getAllSemesters","route":"/api/admin/semesters?searchText=&currentPage=1&itemsPerPage=7","timestamp":"2024-03-10T17:02:33.286Z"}
+{"error":{},"level":"error","message":"Error in getAllSemesters","route":"/api/admin/semesters?currentPage=1&itemsPerPage=7","timestamp":"2024-03-10T17:02:53.207Z"}
+{"error":{},"level":"error","message":"Error in getAllSemesters","route":"/api/admin/semesters?currentPage=1&itemsPerPage=7","timestamp":"2024-03-10T17:02:53.212Z"}
+{"error":{},"level":"error","message":"Error in getAllSemesters","route":"/api/admin/semesters?currentPage=1&itemsPerPage=7","timestamp":"2024-03-10T17:03:05.608Z"}
+{"error":{},"level":"error","message":"Error in getAllSemesters","route":"/api/admin/semesters?currentPage=1&itemsPerPage=7","timestamp":"2024-03-10T17:03:05.612Z"}
+{"error":{"clientVersion":"5.10.2","name":"PrismaClientValidationError"},"level":"error","message":"Error in saveSemester","route":"/api/admin/semester","timestamp":"2024-03-10T17:44:10.281Z"}

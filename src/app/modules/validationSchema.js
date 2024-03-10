@@ -2,32 +2,30 @@ import z from "zod";
 
 const allowedGenders = ["male", "female", "other"];
 
-const storySchema = z.object({
-  title: z.string({ required_error: "Title is required" }).min(2, "Title is too short").max(100, "Title is too long"),
-  content: z.string({ required_error: "Content is required" }).min(2, "Content is too short"),
-});
-
-const writerSchema = z.object({
-  firstName: z
-    .string({ required_error: "First Name is required" })
-    .min(2, "First Name is too short")
-    .max(50, "First Name is too long"),
-  lastName: z
-    .string({ required_error: "Last Name is required" })
-    .min(2, "Last Name is too short")
-    .max(50, "Last Name is too long"),
-  username: z
-    .string({ required_error: "Username is required" })
-    .min(2, "Username is too short")
-    .max(50, "Username is too long"),
-  email: z.string({ required_error: "Email is required" }).email(),
-  password: z
-    .string({ required_error: "Password is required" })
-    .min(3, "Password is too short")
-    .max(45, "Password is too long"),
-  gender: z.string({ required_error: "Gender is required" }).refine((data) => allowedGenders.includes(data), {
-    message: "Invalid gender",
+const courseSchema = z.object({
+  name: z
+    .string({ required_error: "Course Name is required" })
+    .min(3, "Course Name is too short")
+    .max(100, "Course Name is too long"),
+  abbr: z
+    .string({ required_error: "Course Abbreviation is required" })
+    .min(1, "Course Abbreviation is too short")
+    .max(20, "Course Abbreviation is too long"),
+  duration: z.number({
+    required_error: "Duration is required",
+    invalid_type_error: "Duration is required",
   }),
 });
 
-export { storySchema, writerSchema };
+const semesterSchema = z.object({
+  duration: z.number({
+    required_error: "Duration is required",
+    invalid_type_error: "Duration is required",
+  }),
+  semNumber: z.number({
+    required_error: "Sem Number is required",
+    invalid_type_error: "Sem Number is required",
+  }),
+});
+
+export { courseSchema, semesterSchema };
