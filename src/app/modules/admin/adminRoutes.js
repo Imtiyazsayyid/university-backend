@@ -23,4 +23,25 @@ router.route("/semester/:id").get(adminController.getSingleSemester);
 router.route("/semester").post(adminController.saveSemester);
 router.route("/semester/:id").delete(adminController.deleteSemester);
 
+// Subjects
+router.route("/subjects").get(adminController.getAllSubjects);
+router.route("/subject/:id").get(adminController.getSingleSubject);
+router.route("/subject").post(adminController.saveSubject);
+router.route("/subject/:id").delete(adminController.deleteSubject);
+
+// Subject Types
+router.route("/subject-types").get(adminController.getAllSubjectTypes);
+
+// Units
+router.route("/units").get(adminController.getAllUnits);
+router.route("/unit/:id").get(adminController.getSingleUnit);
+router.route("/unit").post(adminController.saveUnit);
+router.route("/unit/:id").delete(adminController.deleteUnit);
+
+// Unit Material
+router.route("/unit-material").get(adminController.getAllUnitMaterial);
+router.route("/unit-material/:id").get(adminController.getSingleUnitMaterial);
+router.route("/unit-material").post(adminController.saveUnitMaterial);
+router.route("/unit-material/:id").delete(adminController.deleteUnitMaterial);
+
 export default router;

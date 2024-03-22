@@ -34,7 +34,7 @@ model Course {
   id       Int    @id @default(autoincrement())
   name     String
   abbr     String
-  duration Int    // years
+  duration Int // years
 
   description          String? @db.Text
   programOutcome       String? @db.Text
@@ -46,7 +46,7 @@ model Course {
   mission              String? @db.Text
   technicalActivities  String? @db.Text
 
-  semesters            Semester[]
+  semesters Semester[]
 
   status     Boolean  @default(true)
   created_at DateTime @default(now())
@@ -59,6 +59,65 @@ model Semester {
   duration  Int
   courseId  Int
   course    Course @relation(fields: [courseId], references: [id])
+
+  subjects Subject[]
+
+  status     Boolean  @default(true)
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+}
+
+model Subject {
+  id            Int         @id @default(autoincrement())
+  name          String
+  abbr          String
+  code          String      @unique
+  subjectTypeId Int
+  subjectType   SubjectType @relation(fields: [subjectTypeId], references: [id])
+  credits       Int
+  semesterId    Int
+  semester      Semester    @relation(fields: [semesterId], references: [id])
+
+  units         Unit[]
+
+  status     Boolean  @default(true)
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+}
+
+model Unit {
+  id           Int            @id @default(autoincrement())
+  number       Int
+  name         String
+  description  String?        @db.Text
+  subjectId    Int
+  subject      Subject        @relation(fields: [subjectId], references: [id])
+  unitMaterial UnitMaterial[]
+
+  status     Boolean  @default(true)
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+}
+
+model UnitMaterial {
+  id     Int              @id @default(autoincrement())
+  name   String
+  link   String           @db.Text
+  description  String?        @db.Text
+  
+  unitId Int
+  unit   Unit             @relation(fields: [unitId], references: [id])
+
+  status     Boolean  @default(true)
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+}
+
+model SubjectType {
+  id   Int    @id @default(autoincrement())
+  name String
+
+  subjects Subject[]
 
   status     Boolean  @default(true)
   created_at DateTime @default(now())

@@ -313,3 +313,35 @@
 {"error":{},"level":"error","message":"Error in getAllSemesters","route":"/api/admin/semesters?currentPage=1&itemsPerPage=7","timestamp":"2024-03-10T17:03:05.608Z"}
 {"error":{},"level":"error","message":"Error in getAllSemesters","route":"/api/admin/semesters?currentPage=1&itemsPerPage=7","timestamp":"2024-03-10T17:03:05.612Z"}
 {"error":{"clientVersion":"5.10.2","name":"PrismaClientValidationError"},"level":"error","message":"Error in saveSemester","route":"/api/admin/semester","timestamp":"2024-03-10T17:44:10.281Z"}
+{"error":{},"level":"error","message":"Error in deleteSemester","route":"/api/admin/subject/7","timestamp":"2024-03-13T23:27:17.342Z"}
+{"error":{"expiredAt":"2024-03-14T01:14:04.000Z","message":"jwt expired","name":"TokenExpiredError"},"level":"error","message":"Error in jwtAccessTokenVerify","route":"core","timestamp":"2024-03-14T09:33:48.675Z"}
+{"error":{"expiredAt":"2024-03-14T01:14:04.000Z","message":"jwt expired","name":"TokenExpiredError"},"level":"error","message":"Error in jwtAccessTokenVerify","route":"core","timestamp":"2024-03-14T09:33:48.684Z"}
+{"error":{"expiredAt":"2024-03-14T01:14:04.000Z","message":"jwt expired","name":"TokenExpiredError"},"level":"error","message":"Error in jwtAccessTokenVerify","route":"core","timestamp":"2024-03-14T09:33:48.687Z"}
+{"error":{"expiredAt":"2024-03-14T01:14:04.000Z","message":"jwt expired","name":"TokenExpiredError"},"level":"error","message":"Error in jwtAccessTokenVerify","route":"core","timestamp":"2024-03-14T09:33:48.688Z"}
+{"error":{"expiredAt":"2024-03-16T06:54:52.000Z","message":"jwt expired","name":"TokenExpiredError"},"level":"error","message":"Error in jwtAccessTokenVerify","route":"core","timestamp":"2024-03-17T09:21:34.677Z"}
+{"error":{"expiredAt":"2024-03-16T06:54:52.000Z","message":"jwt expired","name":"TokenExpiredError"},"level":"error","message":"Error in jwtAccessTokenVerify","route":"core","timestamp":"2024-03-17T09:21:34.681Z"}
+{"error":{},"level":"error","message":"Error in saveUnit","route":"/api/admin/unit","timestamp":"2024-03-17T10:04:02.924Z"}
+{"error":{},"level":"error","message":"Error in saveUnit","route":"/api/admin/unit","timestamp":"2024-03-17T10:04:48.191Z"}
+{"error":{},"level":"error","message":"Error in getAllUnitMaterials","route":"/api/admin/unit-material?currentPage=1&itemsPerPage=7&unitId=3&searchText=","timestamp":"2024-03-17T11:33:13.721Z"}
+{"error":{},"level":"error","message":"Error in getAllUnitMaterials","route":"/api/admin/unit-material?currentPage=1&itemsPerPage=7&unitId=3&searchText=","timestamp":"2024-03-17T11:33:13.730Z"}
+{"error":{},"level":"error","message":"Error in getAllUnitMaterials","route":"/api/admin/unit-material?currentPage=1&itemsPerPage=7&unitId=2&searchText=","timestamp":"2024-03-17T11:53:02.939Z"}
+{"error":{},"level":"error","message":"Error in getAllUnitMaterials","route":"/api/admin/unit-material?currentPage=1&itemsPerPage=7&unitId=2&searchText=","timestamp":"2024-03-17T11:53:02.944Z"}
+{"error":{},"level":"error","message":"Error in getAllUnitMaterials","route":"/api/admin/unit-material?currentPage=1&itemsPerPage=7&unitId=2&searchText=","timestamp":"2024-03-17T12:03:38.063Z"}
+{"error":{},"level":"error","message":"Error in getAllUnitMaterials","route":"/api/admin/unit-material?currentPage=1&itemsPerPage=7&unitId=2&searchText=","timestamp":"2024-03-17T12:03:38.083Z"}
+{"error":{},"level":"error","message":"Error in getAllUnitMaterials","route":"/api/admin/unit-material?currentPage=1&itemsPerPage=7&unitId=2&searchText=","timestamp":"2024-03-17T12:04:01.689Z"}
+{"error":{},"level":"error","message":"Error in getAllUnitMaterials","route":"/api/admin/unit-material?currentPage=1&itemsPerPage=7&unitId=2&searchText=","timestamp":"2024-03-17T12:04:01.700Z"}
+{"error":{"expiredAt":"2024-03-18T09:21:40.000Z","message":"jwt expired","name":"TokenExpiredError"},"level":"error","message":"Error in jwtAccessTokenVerify","route":"core","timestamp":"2024-03-18T10:51:48.854Z"}
+{"error":{"expiredAt":"2024-03-18T09:21:40.000Z","message":"jwt expired","name":"TokenExpiredError"},"level":"error","message":"Error in jwtAccessTokenVerify","route":"core","timestamp":"2024-03-18T10:51:48.875Z"}
+{"error":{"expiredAt":"2024-03-18T09:21:40.000Z","message":"jwt expired","name":"TokenExpiredError"},"level":"error","message":"Error in jwtAccessTokenVerify","route":"core","timestamp":"2024-03-18T10:51:48.877Z"}
+{"error":{"expiredAt":"2024-03-18T09:21:40.000Z","message":"jwt expired","name":"TokenExpiredError"},"level":"error","message":"Error in jwtAccessTokenVerify","route":"core","timestamp":"2024-03-18T10:51:48.878Z"}
+{"error":{"expiredAt":"2024-03-18T09:21:40.000Z","message":"jwt expired","name":"TokenExpiredError"},"level":"error","message":"Error in jwtAccessTokenVerify","route":"core","timestamp":"2024-03-18T10:51:48.886Z"}
+{"error":{"expiredAt":"2024-03-18T09:21:40.000Z","message":"jwt expired","name":"TokenExpiredError"},"level":"error","message":"Error in jwtAccessTokenVerify","route":"core","timestamp":"2024-03-18T10:51:48.895Z"}
+{"error":{"expiredAt":"2024-03-18T09:21:40.000Z","message":"jwt expired","name":"TokenExpiredError"},"level":"error","message":"Error in jwtAccessTokenVerify","route":"core","timestamp":"2024-03-18T10:51:48.899Z"}
+{"error":{"expiredAt":"2024-03-18T09:21:40.000Z","message":"jwt expired","name":"TokenExpiredError"},"level":"error","message":"Error in jwtAccessTokenVerify","route":"core","timestamp":"2024-03-18T10:51:48.900Z"}
+{"error":{"expiredAt":"2024-03-18T09:21:40.000Z","message":"jwt expired","name":"TokenExpiredError"},"level":"error","message":"Error in jwtAccessTokenVerify","route":"core","timestamp":"2024-03-18T10:51:48.903Z"}
+{"error":{"expiredAt":"2024-03-18T09:21:40.000Z","message":"jwt expired","name":"TokenExpiredError"},"level":"error","message":"Error in jwtAccessTokenVerify","route":"core","timestamp":"2024-03-18T10:51:48.906Z"}
+{"error":{"expiredAt":"2024-03-19T10:51:52.000Z","message":"jwt expired","name":"TokenExpiredError"},"level":"error","message":"Error in jwtAccessTokenVerify","route":"core","timestamp":"2024-03-21T09:31:53.601Z"}
+{"error":{"expiredAt":"2024-03-19T10:51:52.000Z","message":"jwt expired","name":"TokenExpiredError"},"level":"error","message":"Error in jwtAccessTokenVerify","route":"core","timestamp":"2024-03-21T09:31:53.607Z"}
+{"error":{"expiredAt":"2024-03-22T09:32:15.000Z","message":"jwt expired","name":"TokenExpiredError"},"level":"error","message":"Error in jwtAccessTokenVerify","route":"core","timestamp":"2024-03-22T19:40:10.676Z"}
+{"error":{"expiredAt":"2024-03-22T09:32:15.000Z","message":"jwt expired","name":"TokenExpiredError"},"level":"error","message":"Error in jwtAccessTokenVerify","route":"core","timestamp":"2024-03-22T19:40:10.680Z"}
+{"error":{},"level":"error","message":"Error in saveUnitMaterial","route":"/api/admin/unit-material","timestamp":"2024-03-22T20:03:59.988Z"}
