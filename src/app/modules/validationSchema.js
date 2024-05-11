@@ -80,4 +80,15 @@ const unitMaterialSchema = z.object({
   }),
 });
 
-export { courseSchema, semesterSchema, subjectSchema, unitSchema, unitMaterialSchema };
+const batchSchema = z.object({
+  year: z.number({
+    required_error: "Year is required",
+    invalid_type_error: "Year is required",
+  }),
+  courseId: z.number({
+    required_error: "Course is required",
+    invalid_type_error: "Course is required",
+  }),
+});
+
+export { courseSchema, semesterSchema, subjectSchema, unitSchema, unitMaterialSchema, batchSchema };

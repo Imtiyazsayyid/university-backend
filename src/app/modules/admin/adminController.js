@@ -2,7 +2,15 @@ import statusType from "../../../@core/enum/statusTypes";
 import logger from "../../../@core/services/LoggingService";
 import { sendResponse } from "../../../@core/services/ResponseService";
 import prisma from "../../../@core/helpers/prisma";
-import { courseSchema, semesterSchema, subjectSchema, unitMaterialSchema, unitSchema } from "../validationSchema";
+import {
+  batchSchema,
+  courseSchema,
+  semesterSchema,
+  subjectSchema,
+  unitMaterialSchema,
+  unitSchema,
+} from "../validationSchema";
+import getPrismaPagination from "@/app/helpers/prismaPaginationHelper";
 
 // Admin Details
 export async function getAdminDetails(req, res) {
@@ -27,9 +35,6 @@ export async function getAllCourses(req, res) {
   try {
     let { searchText, currentPage, itemsPerPage } = req.query;
 
-    itemsPerPage = parseInt(itemsPerPage);
-    currentPage = parseInt(currentPage);
-
     let where = {};
 
     if (searchText) {
@@ -43,8 +48,7 @@ export async function getAllCourses(req, res) {
 
     const courses = await prisma.course.findMany({
       where,
-      take: itemsPerPage,
-      skip: (currentPage - 1) * itemsPerPage,
+      ...getPrismaPagination(currentPage, itemsPerPage),
     });
 
     const courseCount = await prisma.course.count({
@@ -171,15 +175,11 @@ export async function getAllSemesters(req, res) {
 
     if (!courseId) return sendResponse(res, true, null, "Send Course ID");
 
-    itemsPerPage = parseInt(itemsPerPage);
-    currentPage = parseInt(currentPage);
-
     const semesters = await prisma.semester.findMany({
       where: {
         courseId: parseInt(courseId),
       },
-      take: itemsPerPage,
-      skip: (currentPage - 1) * itemsPerPage,
+      ...getPrismaPagination(currentPage, itemsPerPage),
       orderBy: {
         semNumber: "asc",
       },
@@ -287,18 +287,6 @@ export async function getAllSubjects(req, res) {
 
     if (!semesterId) return sendResponse(res, true, null, "Send Semester ID");
 
-    let pagination = {};
-
-    if (itemsPerPage && currentPage) {
-      itemsPerPage = parseInt(itemsPerPage);
-      currentPage = parseInt(currentPage);
-
-      pagination = {
-        take: itemsPerPage,
-        skip: (currentPage - 1) * itemsPerPage,
-      };
-    }
-
     let where = {};
 
     if (searchText) {
@@ -325,7 +313,7 @@ export async function getAllSubjects(req, res) {
         semesterId: parseInt(semesterId),
         ...where,
       },
-      ...pagination,
+      ...getPrismaPagination(currentPage, itemsPerPage),
     });
 
     const subjectCount = await prisma.subject.count({
@@ -432,20 +420,8 @@ export async function getAllSubjectTypes(req, res) {
   try {
     let { currentPage, itemsPerPage } = req.query;
 
-    let pagination = {};
-
-    if (itemsPerPage && currentPage) {
-      itemsPerPage = parseInt(itemsPerPage);
-      currentPage = parseInt(currentPage);
-
-      pagination = {
-        take: itemsPerPage,
-        skip: (currentPage - 1) * itemsPerPage,
-      };
-    }
-
     const subjectTypes = await prisma.subjectType.findMany({
-      ...pagination,
+      ...getPrismaPagination(currentPage, itemsPerPage),
     });
 
     const subjectTypeCount = await prisma.subjectType.count();
@@ -464,18 +440,6 @@ export async function getAllUnits(req, res) {
 
     if (!subjectId) return sendResponse(res, true, null, "Send Subject ID");
 
-    let pagination = {};
-
-    if (itemsPerPage && currentPage) {
-      itemsPerPage = parseInt(itemsPerPage);
-      currentPage = parseInt(currentPage);
-
-      pagination = {
-        take: itemsPerPage,
-        skip: (currentPage - 1) * itemsPerPage,
-      };
-    }
-
     let where = {};
 
     if (searchText) {
@@ -492,7 +456,7 @@ export async function getAllUnits(req, res) {
         subjectId: parseInt(subjectId),
         ...where,
       },
-      ...pagination,
+      ...getPrismaPagination(currentPage, itemsPerPage),
     });
 
     const unitCount = await prisma.unit.count({
@@ -599,18 +563,6 @@ export async function getAllUnitMaterial(req, res) {
 
     if (!unitId) return sendResponse(res, true, null, "Send Unit ID");
 
-    let pagination = {};
-
-    if (itemsPerPage && currentPage) {
-      itemsPerPage = parseInt(itemsPerPage);
-      currentPage = parseInt(currentPage);
-
-      pagination = {
-        take: itemsPerPage,
-        skip: (currentPage - 1) * itemsPerPage,
-      };
-    }
-
     let where = {};
 
     if (searchText) {
@@ -627,7 +579,7 @@ export async function getAllUnitMaterial(req, res) {
         unitId: parseInt(unitId),
         ...where,
       },
-      ...pagination,
+      ...getPrismaPagination(currentPage, itemsPerPage),
     });
 
     const unitMaterialsCount = await prisma.unitMaterial.count({
@@ -725,6 +677,155 @@ export async function deleteUnitMaterial(req, res) {
     return sendResponse(res, true, deletedUnitMaterial, "Success");
   } catch (error) {
     logger.consoleErrorLog(req.originalUrl, "Error in deleteSemester", error);
+    return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
+  }
+}
+
+// Batches
+export async function getAllBatches(req, res) {
+  try {
+    let { currentPage, itemsPerPage } = req.query;
+
+    let where = {};
+
+    const batches = await prisma.batch.findMany({
+      where,
+      include: {
+        course: true,
+        accessibleSemesters: {
+          include: {
+            semester: true,
+          },
+          orderBy: {
+            semester: {
+              semNumber: "asc",
+            },
+          },
+        },
+      },
+      ...getPrismaPagination(currentPage, itemsPerPage),
+    });
+
+    const batchCount = await prisma.batch.count({
+      where,
+    });
+
+    return sendResponse(res, true, { batches, batchCount }, "Success");
+  } catch (error) {
+    logger.consoleErrorLog(req.originalUrl, "Error in getAllBatches", error);
+    return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
+  }
+}
+
+export async function getSingleBatch(req, res) {
+  try {
+    let { id } = req.params;
+
+    if (!id) return sendResponse(res, true, null, "Send A Valid ID");
+
+    const batch = await prisma.batch.findUnique({
+      where: {
+        id: parseInt(id),
+      },
+    });
+
+    return sendResponse(res, true, batch, "Success");
+  } catch (error) {
+    logger.consoleErrorLog(req.originalUrl, "Error in getSingleBatch", error);
+    return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
+  }
+}
+
+export async function saveBatch(req, res) {
+  // try {
+  const { id, year, courseId, status, accessibleSemesterIds } = req.body;
+
+  const batchData = {
+    year,
+    courseId,
+    status,
+  };
+
+  const validation = batchSchema.safeParse(batchData);
+  if (!validation.success) {
+    console.log({ errors: validation.error.errors });
+
+    return sendResponse(res, false, null, "Please Provide All Details.");
+  }
+
+  let batch;
+
+  if (id) {
+    batch = await prisma.batch.update({
+      data: batchData,
+      where: {
+        id,
+      },
+    });
+
+    await prisma.batchSemesterMap.deleteMany({
+      where: {
+        batchId: batch.id,
+      },
+    });
+  } else {
+    const checkIfBatchExists = await prisma.batch.findFirst({
+      where: {
+        year,
+        courseId,
+      },
+    });
+
+    if (checkIfBatchExists) {
+      return sendResponse(res, false, null, "Batch Already Exists.");
+    }
+
+    batch = await prisma.batch.create({
+      data: batchData,
+    });
+  }
+
+  if (accessibleSemesterIds && accessibleSemesterIds.length > 0) {
+    await prisma.batchSemesterMap.createMany({
+      data: accessibleSemesterIds.map((semesterId) => ({ semesterId, batchId: batch.id })),
+    });
+  }
+  return sendResponse(res, true, null, "Batch Saved.");
+  // } catch (error) {
+  //   logger.consoleErrorLog(req.originalUrl, "Error in saveBatch", error);
+  //   return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
+  // }
+}
+
+export async function deleteBatch(req, res) {
+  try {
+    let { id } = req.params;
+
+    if (!id) return sendResponse(res, true, null, "Send A Valid ID");
+
+    const checkBatch = await prisma.batch.findUnique({
+      where: {
+        id: parseInt(id),
+      },
+    });
+
+    if (!checkBatch) return sendResponse(res, true, null, "Batch Does Not Exists.");
+
+    await prisma.batchSemesterMap.deleteMany({
+      where: {
+        batchId: checkBatch.id,
+      },
+    });
+
+    const deletedBatch = await prisma.batch.delete({
+      where: {
+        id: parseInt(id),
+      },
+    });
+
+    return sendResponse(res, true, deletedBatch, "Success");
+  } catch (error) {
+    logger.consoleErrorLog(req.originalUrl, "Error in deleteBatch", error);
     return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
   }
 }

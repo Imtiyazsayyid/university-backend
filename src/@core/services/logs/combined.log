@@ -432,3 +432,66 @@
 {"error":{"expiredAt":"2024-03-22T09:32:15.000Z","message":"jwt expired","name":"TokenExpiredError"},"level":"error","message":"Error in jwtAccessTokenVerify","route":"core","timestamp":"2024-03-22T19:40:10.676Z"}
 {"error":{"expiredAt":"2024-03-22T09:32:15.000Z","message":"jwt expired","name":"TokenExpiredError"},"level":"error","message":"Error in jwtAccessTokenVerify","route":"core","timestamp":"2024-03-22T19:40:10.680Z"}
 {"error":{},"level":"error","message":"Error in saveUnitMaterial","route":"/api/admin/unit-material","timestamp":"2024-03-22T20:03:59.988Z"}
+{"level":"info","message":"No authorization Token Provided","route":"/api/admin/details","timestamp":"2024-04-17T14:58:10.964Z"}
+{"level":"info","message":"No authorization Token Provided","route":"/api/admin/details","timestamp":"2024-04-17T14:58:10.967Z"}
+{"error":{"expiredAt":"2024-04-18T14:58:25.000Z","message":"jwt expired","name":"TokenExpiredError"},"level":"error","message":"Error in jwtAccessTokenVerify","route":"core","timestamp":"2024-05-10T11:40:00.536Z"}
+{"error":{"expiredAt":"2024-04-18T14:58:25.000Z","message":"jwt expired","name":"TokenExpiredError"},"level":"error","message":"Error in jwtAccessTokenVerify","route":"core","timestamp":"2024-05-10T11:40:00.540Z"}
+{"error":{"clientVersion":"5.10.2","name":"PrismaClientValidationError"},"level":"error","message":"Error in getSingleCourse","route":"/api/admin/course/undefined","timestamp":"2024-05-10T12:10:57.041Z"}
+{"error":{"clientVersion":"5.10.2","name":"PrismaClientValidationError"},"level":"error","message":"Error in getSingleCourse","route":"/api/admin/course/undefined","timestamp":"2024-05-10T12:10:57.047Z"}
+{"error":{"clientVersion":"5.10.2","name":"PrismaClientValidationError"},"level":"error","message":"Error in getSingleCourse","route":"/api/admin/course/undefined","timestamp":"2024-05-10T12:14:14.059Z"}
+{"error":{"clientVersion":"5.10.2","name":"PrismaClientValidationError"},"level":"error","message":"Error in getSingleCourse","route":"/api/admin/course/undefined","timestamp":"2024-05-10T12:14:14.065Z"}
+{"error":{"clientVersion":"5.10.2","name":"PrismaClientValidationError"},"level":"error","message":"Error in getSingleCourse","route":"/api/admin/course/undefined","timestamp":"2024-05-10T12:14:40.324Z"}
+{"error":{"clientVersion":"5.10.2","name":"PrismaClientValidationError"},"level":"error","message":"Error in getSingleCourse","route":"/api/admin/course/undefined","timestamp":"2024-05-10T12:14:40.332Z"}
+{"error":{"clientVersion":"5.10.2","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllCourses","route":"/api/admin/courses","timestamp":"2024-05-10T12:30:24.967Z"}
+{"error":{"clientVersion":"5.10.2","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllCourses","route":"/api/admin/courses","timestamp":"2024-05-10T12:30:24.981Z"}
+{"error":{"clientVersion":"5.10.2","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllCourses","route":"/api/admin/courses","timestamp":"2024-05-10T12:30:24.990Z"}
+{"error":{"clientVersion":"5.10.2","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllCourses","route":"/api/admin/courses","timestamp":"2024-05-10T12:30:24.997Z"}
+{"error":{"clientVersion":"5.10.2","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllCourses","route":"/api/admin/courses","timestamp":"2024-05-10T12:30:25.081Z"}
+{"error":{"clientVersion":"5.10.2","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllCourses","route":"/api/admin/courses","timestamp":"2024-05-10T12:30:26.444Z"}
+{"error":{"clientVersion":"5.10.2","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllCourses","route":"/api/admin/courses","timestamp":"2024-05-10T12:30:26.452Z"}
+{"error":{"clientVersion":"5.10.2","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllCourses","route":"/api/admin/courses","timestamp":"2024-05-10T12:30:26.461Z"}
+{"error":{"clientVersion":"5.10.2","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllCourses","route":"/api/admin/courses","timestamp":"2024-05-10T12:30:26.467Z"}
+{"error":{"clientVersion":"5.10.2","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllCourses","route":"/api/admin/courses","timestamp":"2024-05-10T12:30:31.049Z"}
+{"error":{"clientVersion":"5.10.2","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllCourses","route":"/api/admin/courses","timestamp":"2024-05-10T12:30:31.054Z"}
+{"error":{"clientVersion":"5.10.2","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllCourses","route":"/api/admin/courses","timestamp":"2024-05-10T12:30:31.063Z"}
+{"error":{"clientVersion":"5.10.2","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllCourses","route":"/api/admin/courses","timestamp":"2024-05-10T12:30:31.068Z"}
+{"error":{"clientVersion":"5.10.2","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllCourses","route":"/api/admin/courses","timestamp":"2024-05-10T12:30:35.873Z"}
+{"error":{"clientVersion":"5.10.2","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllCourses","route":"/api/admin/courses","timestamp":"2024-05-10T12:32:18.289Z"}
+{"error":{"clientVersion":"5.10.2","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllCourses","route":"/api/admin/courses","timestamp":"2024-05-10T12:32:18.294Z"}
+{"error":{"clientVersion":"5.10.2","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllCourses","route":"/api/admin/courses","timestamp":"2024-05-10T12:32:29.357Z"}
+{"error":{"clientVersion":"5.10.2","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllCourses","route":"/api/admin/courses","timestamp":"2024-05-10T12:32:29.368Z"}
+{"error":{"clientVersion":"5.10.2","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllCourses","route":"/api/admin/courses","timestamp":"2024-05-10T12:33:59.590Z"}
+{"error":{"clientVersion":"5.10.2","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllCourses","route":"/api/admin/courses","timestamp":"2024-05-10T12:33:59.603Z"}
+{"error":{"clientVersion":"5.10.2","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllCourses","route":"/api/admin/courses","timestamp":"2024-05-10T12:34:03.752Z"}
+{"error":{"clientVersion":"5.10.2","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllCourses","route":"/api/admin/courses","timestamp":"2024-05-10T12:34:03.759Z"}
+{"error":{"clientVersion":"5.10.2","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllCourses","route":"/api/admin/courses","timestamp":"2024-05-10T12:34:08.153Z"}
+{"error":{"clientVersion":"5.10.2","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllCourses","route":"/api/admin/courses","timestamp":"2024-05-10T12:34:08.159Z"}
+{"error":{"clientVersion":"5.10.2","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllCourses","route":"/api/admin/courses","timestamp":"2024-05-10T12:34:24.696Z"}
+{"error":{"clientVersion":"5.10.2","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllCourses","route":"/api/admin/courses","timestamp":"2024-05-10T12:34:24.704Z"}
+{"error":{"clientVersion":"5.10.2","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllCourses","route":"/api/admin/courses","timestamp":"2024-05-10T12:34:27.676Z"}
+{"error":{"clientVersion":"5.10.2","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllCourses","route":"/api/admin/courses","timestamp":"2024-05-10T12:34:27.684Z"}
+{"error":{"expiredAt":"2024-05-11T11:40:26.000Z","message":"jwt expired","name":"TokenExpiredError"},"level":"error","message":"Error in jwtAccessTokenVerify","route":"core","timestamp":"2024-05-11T11:42:00.012Z"}
+{"error":{"expiredAt":"2024-05-11T11:40:26.000Z","message":"jwt expired","name":"TokenExpiredError"},"level":"error","message":"Error in jwtAccessTokenVerify","route":"core","timestamp":"2024-05-11T11:42:00.019Z"}
+{"error":{"expiredAt":"2024-05-11T11:40:26.000Z","message":"jwt expired","name":"TokenExpiredError"},"level":"error","message":"Error in jwtAccessTokenVerify","route":"core","timestamp":"2024-05-11T11:42:00.031Z"}
+{"error":{"expiredAt":"2024-05-11T11:40:26.000Z","message":"jwt expired","name":"TokenExpiredError"},"level":"error","message":"Error in jwtAccessTokenVerify","route":"core","timestamp":"2024-05-11T11:42:00.040Z"}
+{"error":{"expiredAt":"2024-05-11T11:40:26.000Z","message":"jwt expired","name":"TokenExpiredError"},"level":"error","message":"Error in jwtAccessTokenVerify","route":"core","timestamp":"2024-05-11T11:42:00.044Z"}
+{"error":{"expiredAt":"2024-05-11T11:40:26.000Z","message":"jwt expired","name":"TokenExpiredError"},"level":"error","message":"Error in jwtAccessTokenVerify","route":"core","timestamp":"2024-05-11T11:42:00.050Z"}
+{"error":{"expiredAt":"2024-05-11T11:40:26.000Z","message":"jwt expired","name":"TokenExpiredError"},"level":"error","message":"Error in jwtAccessTokenVerify","route":"core","timestamp":"2024-05-11T11:42:00.068Z"}
+{"error":{"expiredAt":"2024-05-11T11:40:26.000Z","message":"jwt expired","name":"TokenExpiredError"},"level":"error","message":"Error in jwtAccessTokenVerify","route":"core","timestamp":"2024-05-11T11:42:00.078Z"}
+{"error":{"expiredAt":"2024-05-11T11:40:26.000Z","message":"jwt expired","name":"TokenExpiredError"},"level":"error","message":"Error in jwtAccessTokenVerify","route":"core","timestamp":"2024-05-11T11:42:00.087Z"}
+{"error":{"expiredAt":"2024-05-11T11:40:26.000Z","message":"jwt expired","name":"TokenExpiredError"},"level":"error","message":"Error in jwtAccessTokenVerify","route":"core","timestamp":"2024-05-11T11:42:00.092Z"}
+{"error":{"expiredAt":"2024-05-11T11:40:26.000Z","message":"jwt expired","name":"TokenExpiredError"},"level":"error","message":"Error in jwtAccessTokenVerify","route":"core","timestamp":"2024-05-11T11:42:00.099Z"}
+{"error":{"expiredAt":"2024-05-11T11:40:26.000Z","message":"jwt expired","name":"TokenExpiredError"},"level":"error","message":"Error in jwtAccessTokenVerify","route":"core","timestamp":"2024-05-11T11:42:00.103Z"}
+{"error":{"expiredAt":"2024-05-11T11:40:26.000Z","message":"jwt expired","name":"TokenExpiredError"},"level":"error","message":"Error in jwtAccessTokenVerify","route":"core","timestamp":"2024-05-11T11:42:00.107Z"}
+{"error":{"expiredAt":"2024-05-11T11:40:26.000Z","message":"jwt expired","name":"TokenExpiredError"},"level":"error","message":"Error in jwtAccessTokenVerify","route":"core","timestamp":"2024-05-11T11:42:00.112Z"}
+{"error":{"expiredAt":"2024-05-11T11:40:26.000Z","message":"jwt expired","name":"TokenExpiredError"},"level":"error","message":"Error in jwtAccessTokenVerify","route":"core","timestamp":"2024-05-11T11:42:00.115Z"}
+{"error":{"expiredAt":"2024-05-11T11:40:26.000Z","message":"jwt expired","name":"TokenExpiredError"},"level":"error","message":"Error in jwtAccessTokenVerify","route":"core","timestamp":"2024-05-11T11:42:00.120Z"}
+{"error":{},"level":"error","message":"Error in saveBatch","route":"/api/admin/batch","timestamp":"2024-05-11T14:22:05.836Z"}
+{"error":{"clientVersion":"5.10.2","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllBatches","route":"/api/admin/batch?currentPage=1&itemsPerPage=7","timestamp":"2024-05-11T14:52:35.691Z"}
+{"error":{"clientVersion":"5.10.2","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllBatches","route":"/api/admin/batch?currentPage=1&itemsPerPage=7","timestamp":"2024-05-11T14:52:35.702Z"}
+{"error":{"clientVersion":"5.10.2","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllBatches","route":"/api/admin/batch?currentPage=1&itemsPerPage=7","timestamp":"2024-05-11T14:52:41.457Z"}
+{"error":{"clientVersion":"5.10.2","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllBatches","route":"/api/admin/batch?currentPage=1&itemsPerPage=7","timestamp":"2024-05-11T14:52:41.464Z"}
+{"error":{"clientVersion":"5.10.2","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllBatches","route":"/api/admin/batch?currentPage=1&itemsPerPage=7","timestamp":"2024-05-11T14:53:23.849Z"}
+{"error":{"clientVersion":"5.10.2","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllBatches","route":"/api/admin/batch?currentPage=1&itemsPerPage=7","timestamp":"2024-05-11T14:53:23.859Z"}
+{"error":{"clientVersion":"5.10.2","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllBatches","route":"/api/admin/batch?currentPage=1&itemsPerPage=7","timestamp":"2024-05-11T14:53:25.935Z"}
+{"error":{"clientVersion":"5.10.2","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllBatches","route":"/api/admin/batch?currentPage=1&itemsPerPage=7","timestamp":"2024-05-11T14:53:25.943Z"}

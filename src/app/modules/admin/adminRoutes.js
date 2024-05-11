@@ -44,4 +44,10 @@ router.route("/unit-material/:id").get(adminController.getSingleUnitMaterial);
 router.route("/unit-material").post(adminController.saveUnitMaterial);
 router.route("/unit-material/:id").delete(adminController.deleteUnitMaterial);
 
+// Batch
+router.route("/batch").get(adminController.getAllBatches);
+router.route("/batch/:id").get(adminController.getSingleBatch);
+router.route("/batch").post(adminController.saveBatch);
+router.route("/batch/:id").delete(adminController.deleteBatch);
+
 export default router;
