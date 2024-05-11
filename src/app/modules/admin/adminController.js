@@ -11,6 +11,7 @@ import {
   unitSchema,
 } from "../validationSchema";
 import getPrismaPagination from "@/app/helpers/prismaPaginationHelper";
+import { getIntOrNull } from "@/@core/helpers/commonHelpers";
 
 // Admin Details
 export async function getAdminDetails(req, res) {
@@ -684,9 +685,23 @@ export async function deleteUnitMaterial(req, res) {
 // Batches
 export async function getAllBatches(req, res) {
   try {
-    let { currentPage, itemsPerPage } = req.query;
+    let { currentPage, itemsPerPage, courseId, year } = req.query;
 
     let where = {};
+
+    if (courseId && getIntOrNull(courseId)) {
+      where = {
+        ...where,
+        courseId: getIntOrNull(courseId),
+      };
+    }
+
+    if (year && getIntOrNull(year)) {
+      where = {
+        ...where,
+        year: getIntOrNull(year),
+      };
+    }
 
     const batches = await prisma.batch.findMany({
       where,
