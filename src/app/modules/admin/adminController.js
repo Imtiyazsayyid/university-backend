@@ -9,9 +9,12 @@ import {
   subjectSchema,
   unitMaterialSchema,
   unitSchema,
+  divisionSchema,
+  teacherSchema,
 } from "../validationSchema";
-import getPrismaPagination from "@/app/helpers/prismaPaginationHelper";
-import { getIntOrNull } from "@/@core/helpers/commonHelpers";
+import getPrismaPagination from "../../helpers/prismaPaginationHelper";
+import { getIntOrNull } from "../../../@core/helpers/commonHelpers";
+import { likeIfValue, whereIfValue } from "../../helpers/prismaHelpers";
 
 // Admin Details
 export async function getAdminDetails(req, res) {
@@ -739,6 +742,9 @@ export async function getSingleBatch(req, res) {
     if (!id) return sendResponse(res, true, null, "Send A Valid ID");
 
     const batch = await prisma.batch.findUnique({
+      include: {
+        course: true,
+      },
       where: {
         id: parseInt(id),
       },
@@ -802,7 +808,10 @@ export async function saveBatch(req, res) {
 
   if (accessibleSemesterIds && accessibleSemesterIds.length > 0) {
     await prisma.batchSemesterMap.createMany({
-      data: accessibleSemesterIds.map((semesterId) => ({ semesterId, batchId: batch.id })),
+      data: accessibleSemesterIds.map((semesterId) => ({
+        semesterId,
+        batchId: batch.id,
+      })),
     });
   }
   return sendResponse(res, true, null, "Batch Saved.");
@@ -841,6 +850,294 @@ export async function deleteBatch(req, res) {
     return sendResponse(res, true, deletedBatch, "Success");
   } catch (error) {
     logger.consoleErrorLog(req.originalUrl, "Error in deleteBatch", error);
+    return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
+  }
+}
+
+// Divisions
+export async function getAllDivisions(req, res) {
+  try {
+    let { currentPage, itemsPerPage, batchId, searchText } = req.query;
+
+    let options = {};
+
+    if (!getIntOrNull(batchId)) {
+      return sendResponse(res, false, null, "Send Batch ID");
+    }
+
+    whereIfValue(options, "batchId", batchId, getIntOrNull);
+    likeIfValue(options, ["name"], searchText);
+
+    const divisions = await prisma.division.findMany({
+      ...options,
+      ...getPrismaPagination(currentPage, itemsPerPage),
+    });
+
+    const divisionCount = await prisma.division.count(options);
+
+    return sendResponse(res, true, { divisions, divisionCount }, "Success");
+  } catch (error) {
+    logger.consoleErrorLog(req.originalUrl, "Error in getAllDivisions", error);
+    return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
+  }
+}
+
+export async function getSingleDivision(req, res) {
+  try {
+    let { id } = req.params;
+
+    if (!id) return sendResponse(res, true, null, "Send A Valid ID");
+
+    const division = await prisma.division.findUnique({
+      where: {
+        id: parseInt(id),
+      },
+    });
+
+    return sendResponse(res, true, division, "Success");
+  } catch (error) {
+    logger.consoleErrorLog(req.originalUrl, "Error in getSingleDivision", error);
+    return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
+  }
+}
+
+export async function saveDivision(req, res) {
+  // try {
+  const { id, batchId, name, status } = req.body;
+
+  const divisionData = {
+    name,
+    batchId,
+    status,
+  };
+
+  const validation = divisionSchema.safeParse(divisionData);
+  if (!validation.success) {
+    console.log({ errors: validation.error.errors });
+
+    return sendResponse(res, false, null, "Please Provide All Details.");
+  }
+
+  let division;
+
+  if (id) {
+    division = await prisma.division.update({
+      data: divisionData,
+      where: {
+        id,
+      },
+    });
+  } else {
+    division = await prisma.division.create({
+      data: divisionData,
+    });
+  }
+
+  return sendResponse(res, true, null, "Division Saved.");
+  // } catch (error) {
+  //   logger.consoleErrorLog(req.originalUrl, "Error in saveDivision", error);
+  //   return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
+  // }
+}
+
+export async function deleteDivision(req, res) {
+  try {
+    let { id } = req.params;
+
+    if (!id) return sendResponse(res, true, null, "Send A Valid ID");
+
+    const checkDivision = await prisma.division.findUnique({
+      where: {
+        id: parseInt(id),
+      },
+    });
+
+    if (!checkDivision) return sendResponse(res, true, null, "Division Does Not Exists.");
+
+    const deletedDivision = await prisma.division.delete({
+      where: {
+        id: parseInt(id),
+      },
+    });
+
+    return sendResponse(res, true, deletedDivision, "Success");
+  } catch (error) {
+    logger.consoleErrorLog(req.originalUrl, "Error in deleteDivision", error);
+    return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
+  }
+}
+
+// Teachers
+export async function getAllTeachers(req, res) {
+  try {
+    let { searchText, currentPage, itemsPerPage } = req.query;
+
+    const options = {};
+    likeIfValue(options, ["firstName", "lastName"], searchText);
+
+    const teachers = await prisma.teacher.findMany({
+      include: {
+        role: true,
+      },
+      ...options,
+      ...getPrismaPagination(currentPage, itemsPerPage),
+    });
+
+    const teacherCount = await prisma.teacher.count(options);
+
+    return sendResponse(res, true, { teachers, teacherCount }, "Success");
+  } catch (error) {
+    logger.consoleErrorLog(req.originalUrl, "Error in getAllTeachers", error);
+    return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
+  }
+}
+
+export async function getSingleTeacher(req, res) {
+  try {
+    let { id } = req.params;
+
+    if (!id) return sendResponse(res, true, null, "Send A Valid ID");
+
+    const teacher = await prisma.teacher.findUnique({
+      where: {
+        id: parseInt(id),
+      },
+    });
+
+    return sendResponse(res, true, teacher, "Success");
+  } catch (error) {
+    logger.consoleErrorLog(req.originalUrl, "Error in getSingleTeacher", error);
+    return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
+  }
+}
+
+export async function saveTeacher(req, res) {
+  try {
+    const {
+      id,
+      firstName,
+      lastName,
+      email,
+      password,
+      gender,
+      profileImg,
+      roleId,
+      address,
+      qualification,
+      experience,
+      about,
+      awardsAndRecognition,
+      guestSpeakerAndResourcePerson,
+      participationInCWTP,
+      researchPublications,
+      certificationCourses,
+      booksOrChapter,
+      professionalMemberships,
+      status,
+    } = req.body;
+
+    const teacherData = {
+      firstName,
+      lastName,
+      email,
+      password,
+      gender,
+      profileImg,
+      roleId,
+      address,
+      qualification,
+      experience,
+      about,
+      awardsAndRecognition,
+      guestSpeakerAndResourcePerson,
+      participationInCWTP,
+      researchPublications,
+      certificationCourses,
+      booksOrChapter,
+      professionalMemberships,
+      status,
+    };
+
+    const validation = teacherSchema.safeParse(teacherData);
+    if (!validation.success) {
+      return sendResponse(res, false, null, "Please Provide All Details.");
+    }
+
+    if (id) {
+      const updatedTeacher = await prisma.teacher.update({
+        data: teacherData,
+        where: {
+          id,
+        },
+      });
+    } else {
+      const newTeacher = await prisma.teacher.create({
+        data: teacherData,
+      });
+    }
+
+    return sendResponse(res, true, null, "Teacher Saved.");
+  } catch (error) {
+    logger.consoleErrorLog(req.originalUrl, "Error in saveTeacher", error);
+    return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
+  }
+}
+
+export async function deleteTeacher(req, res) {
+  try {
+    let { id } = req.params;
+
+    if (!id) return sendResponse(res, true, null, "Send A Valid ID");
+
+    const checkTeacher = await prisma.teacher.findUnique({
+      where: {
+        id: parseInt(id),
+      },
+    });
+
+    if (!checkTeacher) return sendResponse(res, true, null, "Teacher Does Not Exists.");
+
+    const deletedTeacher = await prisma.teacher.delete({
+      where: {
+        id: parseInt(id),
+      },
+    });
+
+    return sendResponse(res, true, deletedTeacher, "Success");
+  } catch (error) {
+    logger.consoleErrorLog(req.originalUrl, "Error in deleteTeacher", error);
+    return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
+  }
+}
+
+// Teacher Roles
+export async function getAllTeacherRoles(req, res) {
+  try {
+    let { searchText, currentPage, itemsPerPage } = req.query;
+
+    let where = {};
+
+    if (searchText) {
+      where = {
+        ...where,
+        name: {
+          contains: searchText,
+        },
+      };
+    }
+
+    const teacherRoles = await prisma.teacherRole.findMany({
+      where,
+      ...getPrismaPagination(currentPage, itemsPerPage),
+    });
+
+    const teacherRoleCount = await prisma.teacherRole.count({
+      where,
+    });
+
+    return sendResponse(res, true, { teacherRoles, teacherRoleCount }, "Success");
+  } catch (error) {
+    logger.consoleErrorLog(req.originalUrl, "Error in getAllTeacherRoles", error);
     return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
   }
 }

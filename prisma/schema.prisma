@@ -135,11 +135,25 @@ model Batch {
   course   Course   @relation(fields: [courseId], references: [id])
 
   accessibleSemesters BatchSemesterMap[]
+  divisions           Division[]
 
   status     Boolean  @default(true)
   created_at DateTime @default(now())
   updated_at DateTime @default(now())
 }
+
+model Division {
+  id   Int    @id @default(autoincrement())
+
+  name       String   @db.VarChar(5)
+  batchId    Int
+  batch      Batch    @relation(fields: [batchId], references: [id])
+
+  status     Boolean  @default(true)
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+}
+
 
 model BatchSemesterMap {
   id   Int    @id @default(autoincrement())
@@ -154,6 +168,48 @@ model BatchSemesterMap {
   created_at DateTime @default(now())
   updated_at DateTime @default(now())
 }
+
+model Teacher {
+  id        Int         @id @default(autoincrement())
+  firstName String
+  lastName  String
+  email     String @unique
+  roleId    Int
+  role      TeacherRole @relation(fields: [roleId], references: [id])
+
+  password   String
+  gender     Gender
+  profileImg String? @db.Text
+  address    String? @db.Text
+
+  qualification String?     @db.Text
+  experience    Int?
+  about         String?     @db.Text
+
+  awardsAndRecognition          String? @db.Text
+  guestSpeakerAndResourcePerson String? @db.Text
+  participationInCWTP           String? @db.Text // Conferences Workshops & Training Programs
+  researchPublications          String? @db.Text
+  certificationCourses          String? @db.Text
+  booksOrChapter                String? @db.Text
+  professionalMemberships       String? @db.Text
+
+
+  status     Boolean  @default(true)
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+}
+
+model TeacherRole {
+  id       Int       @id @default(autoincrement())
+  name     String
+  teachers Teacher[]
+
+  status     Boolean  @default(true)
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+}
+
 
 enum Gender {
   male

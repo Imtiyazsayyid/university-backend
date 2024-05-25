@@ -44,10 +44,28 @@ router.route("/unit-material/:id").get(adminController.getSingleUnitMaterial);
 router.route("/unit-material").post(adminController.saveUnitMaterial);
 router.route("/unit-material/:id").delete(adminController.deleteUnitMaterial);
 
-// Batch
-router.route("/batch").get(adminController.getAllBatches);
+// Batchs
+router.route("/batches").get(adminController.getAllBatches);
 router.route("/batch/:id").get(adminController.getSingleBatch);
 router.route("/batch").post(adminController.saveBatch);
 router.route("/batch/:id").delete(adminController.deleteBatch);
+
+// Divisions
+router.route("/divisions").get(adminController.getAllDivisions);
+router.route("/division/:id").get(adminController.getSingleDivision);
+router.route("/division").post(adminController.saveDivision);
+router.route("/division/:id").delete(adminController.deleteDivision);
+
+// Teachers
+router.route("/teachers").get(adminController.getAllTeachers);
+router.route("/teacher/:id").get(adminController.getSingleTeacher);
+router.route("/teacher").post(adminController.saveTeacher);
+router.route("/teacher/:id").delete(adminController.deleteTeacher);
+
+// Teacher Roles
+router.route("/teacher-roles").get(adminController.getAllTeacherRoles);
+// router.route("/teacher-role/:id").get(adminController.getSingleTeacherRole);
+// router.route("/teacher-role").post(adminController.saveTeacherRole);
+// router.route("/teacher-role/:id").delete(adminController.deleteTeacherRole);
 
 export default router;
