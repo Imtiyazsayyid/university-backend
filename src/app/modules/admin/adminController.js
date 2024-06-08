@@ -1205,7 +1205,7 @@ export async function getAllStudents(req, res) {
     let { searchText, courseId, batchId, divisionId, currentPage, itemsPerPage } = req.query;
 
     const options = {};
-    likeIfValue(options, ["firstName", "lastName"], searchText);
+    likeIfValue(options, ["firstName", "lastName", "rollNumber", "email"], searchText);
     whereIfValue(options, "courseId", courseId, getIntOrNull);
     whereIfValue(options, "batchId", batchId, getIntOrNull);
     whereIfValue(options, "divisionId", divisionId, getIntOrNull);
@@ -1213,6 +1213,14 @@ export async function getAllStudents(req, res) {
     const students = await prisma.student.findMany({
       ...options,
       ...getPrismaPagination(currentPage, itemsPerPage),
+      include: {
+        batch: {
+          include: {
+            course: true,
+          },
+        },
+        division: true,
+      },
       orderBy: {
         rollNumber: "asc",
       },
