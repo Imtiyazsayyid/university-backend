@@ -68,4 +68,14 @@ router.route("/teacher-roles").get(adminController.getAllTeacherRoles);
 // router.route("/teacher-role").post(adminController.saveTeacherRole);
 // router.route("/teacher-role/:id").delete(adminController.deleteTeacherRole);
 
+// Division Subject Teachers
+router.route("/division-subject-teachers").get(adminController.getAllDivisionSubjectTeachers);
+router.route("/division-subject-teacher").post(adminController.saveDivisionSubjectTeacher);
+
+// Student
+router.route("/students").get(adminController.getAllStudents);
+router.route("/student/:id").get(adminController.getSingleStudent);
+router.route("/student").post(adminController.saveStudent);
+router.route("/student/:id").delete(adminController.deleteStudent);
+
 export default router;

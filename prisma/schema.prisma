@@ -48,6 +48,7 @@ model Course {
 
   semesters Semester[]
   bacthes   Batch[]
+  students  Student[]
 
   status     Boolean  @default(true)
   created_at DateTime @default(now())
@@ -63,7 +64,6 @@ model Semester {
 
   subjects Subject[]
   batches  BatchSemesterMap[]
-  
 
   status     Boolean  @default(true)
   created_at DateTime @default(now())
@@ -81,7 +81,8 @@ model Subject {
   semesterId    Int
   semester      Semester    @relation(fields: [semesterId], references: [id])
 
-  units         Unit[]
+  units            Unit[]
+  divisionTeachers DivisionSubjectTeacher[]
 
   status     Boolean  @default(true)
   created_at DateTime @default(now())
@@ -103,13 +104,13 @@ model Unit {
 }
 
 model UnitMaterial {
-  id     Int              @id @default(autoincrement())
-  name   String
-  link   String           @db.Text
-  description  String?        @db.Text
-  
+  id          Int     @id @default(autoincrement())
+  name        String
+  link        String  @db.Text
+  description String? @db.Text
+
   unitId Int
-  unit   Unit             @relation(fields: [unitId], references: [id])
+  unit   Unit @relation(fields: [unitId], references: [id])
 
   status     Boolean  @default(true)
   created_at DateTime @default(now())
@@ -128,14 +129,15 @@ model SubjectType {
 }
 
 model Batch {
-  id   Int    @id @default(autoincrement())
-  year Int    
+  id   Int @id @default(autoincrement())
+  year Int
 
   courseId Int
-  course   Course   @relation(fields: [courseId], references: [id])
+  course   Course @relation(fields: [courseId], references: [id])
 
   accessibleSemesters BatchSemesterMap[]
   divisions           Division[]
+  students            Student[]
 
   status     Boolean  @default(true)
   created_at DateTime @default(now())
@@ -143,26 +145,28 @@ model Batch {
 }
 
 model Division {
-  id   Int    @id @default(autoincrement())
+  id Int @id @default(autoincrement())
 
-  name       String   @db.VarChar(5)
-  batchId    Int
-  batch      Batch    @relation(fields: [batchId], references: [id])
+  name    String @db.VarChar(5)
+  batchId Int
+  batch   Batch  @relation(fields: [batchId], references: [id])
+
+  subjectTeachers DivisionSubjectTeacher[]
+  students        Student[]
 
   status     Boolean  @default(true)
   created_at DateTime @default(now())
   updated_at DateTime @default(now())
 }
 
-
 model BatchSemesterMap {
-  id   Int    @id @default(autoincrement())
+  id Int @id @default(autoincrement())
 
-  semesterId    Int
-  semester      Semester    @relation(fields: [semesterId], references: [id])
+  semesterId Int
+  semester   Semester @relation(fields: [semesterId], references: [id])
 
-  batchId    Int
-  batch      Batch    @relation(fields: [batchId], references: [id])
+  batchId Int
+  batch   Batch @relation(fields: [batchId], references: [id])
 
   status     Boolean  @default(true)
   created_at DateTime @default(now())
@@ -173,7 +177,7 @@ model Teacher {
   id        Int         @id @default(autoincrement())
   firstName String
   lastName  String
-  email     String @unique
+  email     String      @unique
   roleId    Int
   role      TeacherRole @relation(fields: [roleId], references: [id])
 
@@ -182,9 +186,9 @@ model Teacher {
   profileImg String? @db.Text
   address    String? @db.Text
 
-  qualification String?     @db.Text
+  qualification String? @db.Text
   experience    Int?
-  about         String?     @db.Text
+  about         String? @db.Text
 
   awardsAndRecognition          String? @db.Text
   guestSpeakerAndResourcePerson String? @db.Text
@@ -194,6 +198,7 @@ model Teacher {
   booksOrChapter                String? @db.Text
   professionalMemberships       String? @db.Text
 
+  divisionSubjects DivisionSubjectTeacher[]
 
   status     Boolean  @default(true)
   created_at DateTime @default(now())
@@ -210,6 +215,47 @@ model TeacherRole {
   updated_at DateTime @default(now())
 }
 
+model DivisionSubjectTeacher {
+  id        Int     @id @default(autoincrement())
+  subjectId Int
+  subject   Subject @relation(fields: [subjectId], references: [id])
+
+  teacherId Int
+  teacher   Teacher @relation(fields: [teacherId], references: [id])
+
+  divisionId Int
+  division   Division @relation(fields: [divisionId], references: [id])
+
+  status     Boolean  @default(true)
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+}
+
+model Student {
+  id Int @id @default(autoincrement())
+
+  rollNumber String @unique
+  firstName  String
+  lastName   String
+  email      String @unique
+  password   String
+  gender     Gender
+  profileImg String? @db.Text
+  address    String? @db.Text
+
+  courseId Int
+  course   Course @relation(fields: [courseId], references: [id])
+
+  batchId Int
+  batch   Batch @relation(fields: [batchId], references: [id])
+
+  divisionId Int
+  division   Division @relation(fields: [divisionId], references: [id])
+
+  status     Boolean  @default(true)
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+}
 
 enum Gender {
   male

@@ -2,6 +2,7 @@ import { getIntOrNull, getStringOrNull } from "../../@core/helpers/commonHelpers
 
 export function whereIfValue(options, col_name, value, filterFunction) {
   value = filterFunction(value);
+
   if (value !== undefined && value !== null) {
     if (!options.where) {
       options.where = {};
@@ -10,6 +11,29 @@ export function whereIfValue(options, col_name, value, filterFunction) {
     options.where[col_name] = value;
   }
 }
+
+// export function whereOrIfValue(options, col_name, values, filterFunction) {
+//   let allValues = values.map((v) => filterFunction(v));
+
+//   if (!options.where) {
+//     options.where = {};
+//   }
+
+//   if (!options.where.OR) {
+//     options.where.OR = [];
+//   }
+
+//   for (let value of allValues) {
+//     if (value !== undefined && value !== null) continue;
+
+//     options.where.OR = [
+//       ...options.where.OR,
+//       {
+//         [col_name]: value,
+//       },
+//     ];
+//   }
+// }
 
 export function whereSomeIfValue(options, relation_name, col_name, value, filterFunction) {
   value = filterFunction(value);

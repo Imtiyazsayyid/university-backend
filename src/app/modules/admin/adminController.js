@@ -11,6 +11,7 @@ import {
   unitSchema,
   divisionSchema,
   teacherSchema,
+  studentSchema,
 } from "../validationSchema";
 import getPrismaPagination from "../../helpers/prismaPaginationHelper";
 import { getIntOrNull } from "../../../@core/helpers/commonHelpers";
@@ -291,32 +292,18 @@ export async function getAllSubjects(req, res) {
 
     if (!semesterId) return sendResponse(res, true, null, "Send Semester ID");
 
-    let where = {};
+    const options = {};
 
-    if (searchText) {
-      where = {
-        ...where,
-        name: {
-          contains: searchText,
-        },
-      };
-    }
-
-    if (subjectTypeId) {
-      where = {
-        ...where,
-        subjectTypeId: parseInt(subjectTypeId),
-      };
-    }
+    likeIfValue(options, "name", searchText);
+    whereIfValue(options, "subjectTypeId", subjectTypeId, getIntOrNull);
+    whereIfValue(options, "semesterId", semesterId, getIntOrNull);
 
     const subjects = await prisma.subject.findMany({
       include: {
         subjectType: true,
       },
-      where: {
-        semesterId: parseInt(semesterId),
-        ...where,
-      },
+
+      ...options,
       ...getPrismaPagination(currentPage, itemsPerPage),
     });
 
@@ -710,6 +697,7 @@ export async function getAllBatches(req, res) {
       where,
       include: {
         course: true,
+        divisions: true,
         accessibleSemesters: {
           include: {
             semester: true,
@@ -736,25 +724,39 @@ export async function getAllBatches(req, res) {
 }
 
 export async function getSingleBatch(req, res) {
-  try {
-    let { id } = req.params;
+  // try {
+  let { id } = req.params;
 
-    if (!id) return sendResponse(res, true, null, "Send A Valid ID");
+  if (!id) return sendResponse(res, true, null, "Send A Valid ID");
 
-    const batch = await prisma.batch.findUnique({
-      include: {
-        course: true,
+  const batch = await prisma.batch.findUnique({
+    include: {
+      course: true,
+      accessibleSemesters: {
+        include: {
+          semester: {
+            include: {
+              subjects: true,
+            },
+          },
+        },
+        orderBy: {
+          semester: {
+            semNumber: "asc",
+          },
+        },
       },
-      where: {
-        id: parseInt(id),
-      },
-    });
+    },
+    where: {
+      id: parseInt(id),
+    },
+  });
 
-    return sendResponse(res, true, batch, "Success");
-  } catch (error) {
-    logger.consoleErrorLog(req.originalUrl, "Error in getSingleBatch", error);
-    return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
-  }
+  return sendResponse(res, true, batch, "Success");
+  // } catch (error) {
+  //   logger.consoleErrorLog(req.originalUrl, "Error in getSingleBatch", error);
+  //   return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
+  // }
 }
 
 export async function saveBatch(req, res) {
@@ -1138,6 +1140,194 @@ export async function getAllTeacherRoles(req, res) {
     return sendResponse(res, true, { teacherRoles, teacherRoleCount }, "Success");
   } catch (error) {
     logger.consoleErrorLog(req.originalUrl, "Error in getAllTeacherRoles", error);
+    return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
+  }
+}
+
+// Subject Teachers
+export async function getAllDivisionSubjectTeachers(req, res) {
+  try {
+    let { divisionId } = req.query;
+
+    if (!divisionId) return sendResponse(res, true, null, "Send A Valid Division ID");
+
+    const divisionSubjectTeachers = await prisma.divisionSubjectTeacher.findMany({
+      include: {
+        subject: true,
+      },
+      where: {
+        divisionId: parseInt(divisionId),
+        status: true,
+      },
+    });
+
+    return sendResponse(res, true, divisionSubjectTeachers, "Success");
+  } catch (error) {
+    logger.consoleErrorLog(req.originalUrl, "Error in getSingleDivision", error);
+    return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
+  }
+}
+
+export async function saveDivisionSubjectTeacher(req, res) {
+  // try {
+  const { divisionId, teacherId, subjectId } = req.body;
+
+  if (!teacherId) {
+    await prisma.divisionSubjectTeacher.updateMany({
+      data: {
+        status: false,
+      },
+      where: {
+        subjectId: parseInt(subjectId),
+        divisionId: parseInt(divisionId),
+      },
+    });
+  } else {
+    await prisma.divisionSubjectTeacher.create({
+      data: {
+        divisionId: parseInt(divisionId),
+        teacherId: parseInt(teacherId),
+        subjectId: parseInt(subjectId),
+      },
+    });
+  }
+
+  return sendResponse(res, true, null, "Success");
+  // } catch (error) {
+  //   logger.consoleErrorLog(req.originalUrl, "Error in getSingleDivision", error);
+  //   return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
+  // }
+}
+
+// Students
+export async function getAllStudents(req, res) {
+  try {
+    let { searchText, courseId, batchId, divisionId, currentPage, itemsPerPage } = req.query;
+
+    const options = {};
+    likeIfValue(options, ["firstName", "lastName"], searchText);
+    whereIfValue(options, "courseId", courseId, getIntOrNull);
+    whereIfValue(options, "batchId", batchId, getIntOrNull);
+    whereIfValue(options, "divisionId", divisionId, getIntOrNull);
+
+    const students = await prisma.student.findMany({
+      ...options,
+      ...getPrismaPagination(currentPage, itemsPerPage),
+      orderBy: {
+        rollNumber: "asc",
+      },
+    });
+
+    const studentCount = await prisma.student.count(options);
+
+    return sendResponse(res, true, { students, studentCount }, "Success");
+  } catch (error) {
+    logger.consoleErrorLog(req.originalUrl, "Error in getAllStudents", error);
+    return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
+  }
+}
+
+export async function getSingleStudent(req, res) {
+  try {
+    let { id } = req.params;
+
+    if (!id) return sendResponse(res, true, null, "Send A Valid ID");
+
+    const student = await prisma.student.findUnique({
+      where: {
+        id: parseInt(id),
+      },
+    });
+
+    return sendResponse(res, true, student, "Success");
+  } catch (error) {
+    logger.consoleErrorLog(req.originalUrl, "Error in getSingleStudent", error);
+    return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
+  }
+}
+
+export async function saveStudent(req, res) {
+  try {
+    const {
+      id,
+      rollNumber,
+      firstName,
+      lastName,
+      email,
+      password,
+      gender,
+      profileImg,
+      address,
+      courseId,
+      batchId,
+      divisionId,
+      status,
+    } = req.body;
+
+    const studentData = {
+      rollNumber,
+      firstName,
+      lastName,
+      email,
+      password,
+      gender,
+      profileImg,
+      address,
+      courseId,
+      batchId,
+      divisionId,
+      status,
+    };
+
+    const validation = studentSchema.safeParse(studentData);
+    if (!validation.success) {
+      console.log({ e: validation.error.errors });
+      return sendResponse(res, false, null, "Please Provide All Details.");
+    }
+
+    if (id) {
+      const updatedStudent = await prisma.student.update({
+        data: studentData,
+        where: {
+          id,
+        },
+      });
+    } else {
+      const newStudent = await prisma.student.create({
+        data: studentData,
+      });
+    }
+
+    return sendResponse(res, true, null, "Student Saved.");
+  } catch (error) {
+    logger.consoleErrorLog(req.originalUrl, "Error in saveStudent", error);
+    return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
+  }
+}
+
+export async function deleteStudent(req, res) {
+  try {
+    let { id } = req.params;
+
+    if (!id) return sendResponse(res, true, null, "Send A Valid ID");
+
+    const checkStudent = await prisma.student.findUnique({
+      where: {
+        id: parseInt(id),
+      },
+    });
+
+    if (!checkStudent) return sendResponse(res, true, null, "Student Does Not Exists.");
+
+    const deletedStudent = await prisma.student.delete({
+      where: {
+        id: parseInt(id),
+      },
+    });
+
+    return sendResponse(res, true, deletedStudent, "Success");
+  } catch (error) {
+    logger.consoleErrorLog(req.originalUrl, "Error in deleteStudent", error);
     return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
   }
 }
