@@ -11,4 +11,13 @@ router.use(studentMiddleware);
 // Student Details
 router.route("/details").get(studentController.getStudentDetails);
 
+// Batch
+router.route("/batch").get(studentController.getStudentBatch);
+
+// Subject
+router.route("/subject/:subjectId").get(studentController.getSingleSubject);
+
+// Unit Materials
+router.route("/unit/:unitId").get(studentController.getSingleUnit);
+
 export default router;

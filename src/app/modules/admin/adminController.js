@@ -1168,17 +1168,19 @@ export async function saveDivisionSubjectTeacher(req, res) {
   // try {
   const { divisionId, teacherId, subjectId } = req.body;
 
-  if (!teacherId) {
-    await prisma.divisionSubjectTeacher.updateMany({
-      data: {
-        status: false,
-      },
-      where: {
-        subjectId: parseInt(subjectId),
-        divisionId: parseInt(divisionId),
-      },
-    });
-  } else {
+  console.log({ divisionId, teacherId, subjectId });
+
+  await prisma.divisionSubjectTeacher.updateMany({
+    data: {
+      status: false,
+    },
+    where: {
+      subjectId: parseInt(subjectId),
+      divisionId: parseInt(divisionId),
+    },
+  });
+
+  if (teacherId) {
     await prisma.divisionSubjectTeacher.create({
       data: {
         divisionId: parseInt(divisionId),
