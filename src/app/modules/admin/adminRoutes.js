@@ -62,12 +62,6 @@ router.route("/teacher/:id").get(adminController.getSingleTeacher);
 router.route("/teacher").post(adminController.saveTeacher);
 router.route("/teacher/:id").delete(adminController.deleteTeacher);
 
-// Teacher Roles
-router.route("/teacher-roles").get(adminController.getAllTeacherRoles);
-// router.route("/teacher-role/:id").get(adminController.getSingleTeacherRole);
-// router.route("/teacher-role").post(adminController.saveTeacherRole);
-// router.route("/teacher-role/:id").delete(adminController.deleteTeacherRole);
-
 // Division Subject Teachers
 router.route("/division-subject-teachers").get(adminController.getAllDivisionSubjectTeachers);
 router.route("/division-subject-teacher").post(adminController.saveDivisionSubjectTeacher);
@@ -77,5 +71,18 @@ router.route("/students").get(adminController.getAllStudents);
 router.route("/student/:id").get(adminController.getSingleStudent);
 router.route("/student").post(adminController.saveStudent);
 router.route("/student/:id").delete(adminController.deleteStudent);
+
+// ----------------- Masters -------------------------
+// Teacher Roles
+router.route("/teacher-roles").get(adminController.getAllTeacherRoles);
+router.route("/teacher-role/:id").get(adminController.getSingleTeacherRole);
+router.route("/teacher-role").post(adminController.saveTeacherRole);
+router.route("/teacher-role/:id").delete(adminController.deleteTeacherRole);
+
+// Student Documents Roles
+router.route("/student-documents").get(adminController.getAllStudentDocuments);
+router.route("/student-document/:id").get(adminController.getSingleStudentDocument);
+router.route("/student-document").post(adminController.saveStudentDocument);
+router.route("/student-document/:id").delete(adminController.deleteStudentDocument);
 
 export default router;

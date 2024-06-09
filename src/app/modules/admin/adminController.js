@@ -12,6 +12,8 @@ import {
   divisionSchema,
   teacherSchema,
   studentSchema,
+  teacherRoleSchema,
+  studentDocumentSchema,
 } from "../validationSchema";
 import getPrismaPagination from "../../helpers/prismaPaginationHelper";
 import { getIntOrNull } from "../../../@core/helpers/commonHelpers";
@@ -53,6 +55,13 @@ export async function getAllCourses(req, res) {
 
     const courses = await prisma.course.findMany({
       where,
+      include: {
+        documents: {
+          include: {
+            document: true,
+          },
+        },
+      },
       ...getPrismaPagination(currentPage, itemsPerPage),
     });
 
@@ -74,6 +83,9 @@ export async function getSingleCourse(req, res) {
     if (!id) return sendResponse(res, true, null, "Send A Valid ID");
 
     const course = await prisma.course.findUnique({
+      include: {
+        documents: true,
+      },
       where: {
         id: parseInt(id),
       },
@@ -126,16 +138,32 @@ export async function saveCourse(req, res) {
       return sendResponse(res, false, null, "Please Provide All Details.");
     }
 
+    let course;
+
     if (id) {
-      const updatedCourse = await prisma.course.update({
+      course = await prisma.course.update({
         data: courseData,
         where: {
           id,
         },
       });
     } else {
-      const newCourse = await prisma.course.create({
+      course = await prisma.course.create({
         data: courseData,
+      });
+    }
+
+    await prisma.courseStudentDocuments.deleteMany({
+      where: {
+        courseId: course.id,
+      },
+    });
+
+    if (req.body.documents && req.body.documents.length > 0) {
+      const documents = req.body.documents;
+
+      await prisma.courseStudentDocuments.createMany({
+        data: documents.map((d) => ({ courseId: course.id, documentId: d })),
       });
     }
 
@@ -1112,38 +1140,6 @@ export async function deleteTeacher(req, res) {
   }
 }
 
-// Teacher Roles
-export async function getAllTeacherRoles(req, res) {
-  try {
-    let { searchText, currentPage, itemsPerPage } = req.query;
-
-    let where = {};
-
-    if (searchText) {
-      where = {
-        ...where,
-        name: {
-          contains: searchText,
-        },
-      };
-    }
-
-    const teacherRoles = await prisma.teacherRole.findMany({
-      where,
-      ...getPrismaPagination(currentPage, itemsPerPage),
-    });
-
-    const teacherRoleCount = await prisma.teacherRole.count({
-      where,
-    });
-
-    return sendResponse(res, true, { teacherRoles, teacherRoleCount }, "Success");
-  } catch (error) {
-    logger.consoleErrorLog(req.originalUrl, "Error in getAllTeacherRoles", error);
-    return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
-  }
-}
-
 // Subject Teachers
 export async function getAllDivisionSubjectTeachers(req, res) {
   try {
@@ -1242,6 +1238,16 @@ export async function getSingleStudent(req, res) {
     if (!id) return sendResponse(res, true, null, "Send A Valid ID");
 
     const student = await prisma.student.findUnique({
+      include: {
+        uploadedStudentDocuments: {
+          include: {
+            document: true,
+          },
+          where: {
+            status: true,
+          },
+        },
+      },
       where: {
         id: parseInt(id),
       },
@@ -1293,16 +1299,41 @@ export async function saveStudent(req, res) {
       return sendResponse(res, false, null, "Please Provide All Details.");
     }
 
+    let student;
+
     if (id) {
-      const updatedStudent = await prisma.student.update({
+      student = await prisma.student.update({
         data: studentData,
         where: {
           id,
         },
       });
     } else {
-      const newStudent = await prisma.student.create({
+      student = await prisma.student.create({
         data: studentData,
+      });
+    }
+
+    await prisma.uploadedStudentDocument.updateMany({
+      data: {
+        status: false,
+      },
+      where: {
+        studentId: student.id,
+      },
+    });
+
+    if (req.body.uploadedStudentDocuments && req.body.uploadedStudentDocuments.length) {
+      let usd = req.body.uploadedStudentDocuments;
+
+      await prisma.uploadedStudentDocument.createMany({
+        data: usd
+          .filter((d) => d.url)
+          .map((d) => ({
+            studentId: student.id,
+            documentId: d.documentId,
+            url: d.url,
+          })),
       });
     }
 
@@ -1336,6 +1367,237 @@ export async function deleteStudent(req, res) {
     return sendResponse(res, true, deletedStudent, "Success");
   } catch (error) {
     logger.consoleErrorLog(req.originalUrl, "Error in deleteStudent", error);
+    return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
+  }
+}
+
+// ----------------- Masters -------------------------
+// Teacher Roles
+export async function getAllTeacherRoles(req, res) {
+  try {
+    let { searchText, currentPage, itemsPerPage } = req.query;
+
+    let where = {};
+
+    if (searchText) {
+      where = {
+        ...where,
+        name: {
+          contains: searchText,
+        },
+      };
+    }
+
+    const teacherRoles = await prisma.teacherRole.findMany({
+      where,
+      ...getPrismaPagination(currentPage, itemsPerPage),
+    });
+
+    const teacherRoleCount = await prisma.teacherRole.count({
+      where,
+    });
+
+    return sendResponse(res, true, { teacherRoles, teacherRoleCount }, "Success");
+  } catch (error) {
+    logger.consoleErrorLog(req.originalUrl, "Error in getAllTeacherRoles", error);
+    return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
+  }
+}
+
+export async function getSingleTeacherRole(req, res) {
+  try {
+    let { id } = req.params;
+
+    if (!id) return sendResponse(res, true, null, "Send A Valid ID");
+
+    const teacherRole = await prisma.teacherRole.findUnique({
+      where: {
+        id: parseInt(id),
+      },
+    });
+
+    return sendResponse(res, true, teacherRole, "Success");
+  } catch (error) {
+    logger.consoleErrorLog(req.originalUrl, "Error in getSingleTeacherRole", error);
+    return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
+  }
+}
+
+export async function saveTeacherRole(req, res) {
+  try {
+    const { id, name, status } = req.body;
+
+    const teacherRoleData = {
+      name,
+      status,
+    };
+
+    const validation = teacherRoleSchema.safeParse(teacherRoleData);
+    if (!validation.success) {
+      return sendResponse(res, false, null, "Please Provide All Details.");
+    }
+
+    if (id) {
+      const updatedTeacherRole = await prisma.teacherRole.update({
+        data: teacherRoleData,
+        where: {
+          id,
+        },
+      });
+    } else {
+      const newTeacherRole = await prisma.teacherRole.create({
+        data: teacherRoleData,
+      });
+    }
+
+    return sendResponse(res, true, null, "TeacherRole Saved.");
+  } catch (error) {
+    logger.consoleErrorLog(req.originalUrl, "Error in saveTeacherRole", error);
+    return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
+  }
+}
+
+export async function deleteTeacherRole(req, res) {
+  try {
+    let { id } = req.params;
+
+    if (!id) return sendResponse(res, true, null, "Send A Valid ID");
+
+    const checkTeacherRole = await prisma.teacherRole.findUnique({
+      where: {
+        id: parseInt(id),
+      },
+    });
+
+    if (!checkTeacherRole) return sendResponse(res, true, null, "TeacherRole Does Not Exists.");
+
+    const deletedTeacherRole = await prisma.teacherRole.delete({
+      where: {
+        id: parseInt(id),
+      },
+    });
+
+    return sendResponse(res, true, deletedTeacherRole, "Success");
+  } catch (error) {
+    logger.consoleErrorLog(req.originalUrl, "Error in deleteTeacherRole", error);
+    return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
+  }
+}
+
+// Student Documents
+export async function getAllStudentDocuments(req, res) {
+  try {
+    let { searchText, currentPage, itemsPerPage, showAll } = req.query;
+
+    let where = {
+      status: true,
+    };
+
+    if (showAll) {
+      where = {};
+    }
+
+    if (searchText) {
+      where = {
+        ...where,
+        name: {
+          contains: searchText,
+        },
+      };
+    }
+
+    const studentDocuments = await prisma.studentDocument.findMany({
+      where,
+      ...getPrismaPagination(currentPage, itemsPerPage),
+    });
+
+    const studentDocumentCount = await prisma.studentDocument.count({
+      where,
+    });
+
+    return sendResponse(res, true, { studentDocuments, studentDocumentCount }, "Success");
+  } catch (error) {
+    logger.consoleErrorLog(req.originalUrl, "Error in getAllStudentDocuments", error);
+    return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
+  }
+}
+
+export async function getSingleStudentDocument(req, res) {
+  try {
+    let { id } = req.params;
+
+    if (!id) return sendResponse(res, true, null, "Send A Valid ID");
+
+    const studentDocument = await prisma.studentDocument.findUnique({
+      where: {
+        id: parseInt(id),
+      },
+    });
+
+    return sendResponse(res, true, studentDocument, "Success");
+  } catch (error) {
+    logger.consoleErrorLog(req.originalUrl, "Error in getSingleStudentDocument", error);
+    return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
+  }
+}
+
+export async function saveStudentDocument(req, res) {
+  try {
+    const { id, name, status } = req.body;
+
+    const studentDocumentData = {
+      name,
+      status,
+    };
+
+    const validation = studentDocumentSchema.safeParse(studentDocumentData);
+    if (!validation.success) {
+      return sendResponse(res, false, null, "Please Provide All Details.");
+    }
+
+    if (id) {
+      const updatedStudentDocument = await prisma.studentDocument.update({
+        data: studentDocumentData,
+        where: {
+          id,
+        },
+      });
+    } else {
+      const newStudentDocument = await prisma.studentDocument.create({
+        data: studentDocumentData,
+      });
+    }
+
+    return sendResponse(res, true, null, "StudentDocument Saved.");
+  } catch (error) {
+    logger.consoleErrorLog(req.originalUrl, "Error in saveStudentDocument", error);
+    return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
+  }
+}
+
+export async function deleteStudentDocument(req, res) {
+  try {
+    let { id } = req.params;
+
+    if (!id) return sendResponse(res, true, null, "Send A Valid ID");
+
+    const checkStudentDocument = await prisma.studentDocument.findUnique({
+      where: {
+        id: parseInt(id),
+      },
+    });
+
+    if (!checkStudentDocument) return sendResponse(res, true, null, "StudentDocument Does Not Exists.");
+
+    const deletedStudentDocument = await prisma.studentDocument.delete({
+      where: {
+        id: parseInt(id),
+      },
+    });
+
+    return sendResponse(res, true, deletedStudentDocument, "Success");
+  } catch (error) {
+    logger.consoleErrorLog(req.originalUrl, "Error in deleteStudentDocument", error);
     return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
   }
 }

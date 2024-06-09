@@ -161,6 +161,20 @@ const studentSchema = z.object({
   }),
 });
 
+const teacherRoleSchema = z.object({
+  name: z
+    .string({ required_error: "Teacher Role Name is required" })
+    .min(1, "Teacher Role Name is too short")
+    .max(55, "Teacher Role Name is too long"),
+});
+
+const studentDocumentSchema = z.object({
+  name: z
+    .string({ required_error: "Student Document Name is required" })
+    .min(1, "Student Document Name is too short")
+    .max(55, "Student Document Name is too long"),
+});
+
 export {
   courseSchema,
   semesterSchema,
@@ -171,4 +185,6 @@ export {
   divisionSchema,
   teacherSchema,
   studentSchema,
+  teacherRoleSchema,
+  studentDocumentSchema,
 };

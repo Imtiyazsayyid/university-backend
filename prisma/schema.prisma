@@ -49,6 +49,7 @@ model Course {
   semesters Semester[]
   bacthes   Batch[]
   students  Student[]
+  documents CourseStudentDocuments[]
 
   status     Boolean  @default(true)
   created_at DateTime @default(now())
@@ -234,10 +235,10 @@ model DivisionSubjectTeacher {
 model Student {
   id Int @id @default(autoincrement())
 
-  rollNumber String @unique
+  rollNumber String  @unique
   firstName  String
   lastName   String
-  email      String @unique
+  email      String  @unique
   password   String
   gender     Gender
   profileImg String? @db.Text
@@ -251,6 +252,50 @@ model Student {
 
   divisionId Int
   division   Division @relation(fields: [divisionId], references: [id])
+
+  uploadedStudentDocuments UploadedStudentDocument[]
+
+  status     Boolean  @default(true)
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+}
+
+model StudentDocument {
+  id   Int    @id @default(autoincrement())
+  name String
+
+  courses                  CourseStudentDocuments[]
+  uploadedStudentDocuments UploadedStudentDocument[]
+
+  status     Boolean  @default(true)
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+}
+
+model CourseStudentDocuments {
+  id Int @id @default(autoincrement())
+
+  courseId Int
+  course   Course @relation(fields: [courseId], references: [id])
+
+  documentId Int
+  document   StudentDocument @relation(fields: [documentId], references: [id])
+
+  status     Boolean  @default(true)
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+}
+
+model UploadedStudentDocument {
+  id Int @id @default(autoincrement())
+
+  studentId Int
+  student   Student @relation(fields: [studentId], references: [id])
+
+  documentId Int
+  document   StudentDocument @relation(fields: [documentId], references: [id])
+
+  url String @db.Text
 
   status     Boolean  @default(true)
   created_at DateTime @default(now())
