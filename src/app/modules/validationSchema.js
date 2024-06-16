@@ -68,11 +68,23 @@ const unitSchema = z.object({
 
 const unitMaterialSchema = z.object({
   name: z
-    .string({ required_error: "Unit Name is required" })
-    .min(3, "Unit Name is too short")
-    .max(100, "Unit Name is too long"),
+    .string({ required_error: "Unit Material Name is required" })
+    .min(3, "Unit Material Name is too short")
+    .max(100, "Unit Material Name is too long"),
 
   link: z.string({ required_error: "File is required" }).min(3, "File is required"),
+
+  unitId: z.number({
+    required_error: "Unit is required",
+    invalid_type_error: "Unit is required",
+  }),
+});
+
+const unitQuizSchema = z.object({
+  name: z
+    .string({ required_error: "Unit Quiz Name is required" })
+    .min(3, "Unit Quiz Name is too short")
+    .max(100, "Unit Quiz Name is too long"),
 
   unitId: z.number({
     required_error: "Unit is required",
@@ -187,4 +199,5 @@ export {
   studentSchema,
   teacherRoleSchema,
   studentDocumentSchema,
+  unitQuizSchema,
 };

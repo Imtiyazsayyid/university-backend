@@ -91,13 +91,15 @@ model Subject {
 }
 
 model Unit {
-  id           Int            @id @default(autoincrement())
-  number       Int
-  name         String
-  description  String?        @db.Text
-  subjectId    Int
-  subject      Subject        @relation(fields: [subjectId], references: [id])
+  id          Int     @id @default(autoincrement())
+  number      Int
+  name        String
+  description String? @db.Text
+  subjectId   Int
+  subject     Subject @relation(fields: [subjectId], references: [id])
+
   unitMaterial UnitMaterial[]
+  unitQuizes   unitQuiz[]
 
   status     Boolean  @default(true)
   created_at DateTime @default(now())
@@ -254,6 +256,7 @@ model Student {
   division   Division @relation(fields: [divisionId], references: [id])
 
   uploadedStudentDocuments UploadedStudentDocument[]
+  unitQuizQuestionResponses unitQuizQuestionResponses[]
 
   status     Boolean  @default(true)
   created_at DateTime @default(now())
@@ -296,6 +299,74 @@ model UploadedStudentDocument {
   document   StudentDocument @relation(fields: [documentId], references: [id])
 
   url String @db.Text
+
+  status     Boolean  @default(true)
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+}
+
+model unitQuiz {
+  id Int @id @default(autoincrement())
+
+  name   String
+  unitId Int
+  unit   Unit   @relation(fields: [unitId], references: [id])
+
+  questions unitQuizQuestion[]
+
+  status     Boolean  @default(true)
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+}
+
+model unitQuizQuestion {
+  id Int @id @default(autoincrement())
+
+  unitQuizId Int
+  unitQuiz   unitQuiz @relation(fields: [unitQuizId], references: [id])
+  question   String   @db.VarChar(255)
+  order      Int      @default(0)
+
+  options   unitQuizQuestionOption[]
+  responses unitQuizQuestionResponses[]
+
+  status     Boolean  @default(true)
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+}
+
+model unitQuizQuestionOption {
+  id Int @id @default(autoincrement())
+
+  unitQuizId         Int
+  unitQuizQuestionId Int
+  unitQuizQuestion   unitQuizQuestion @relation(fields: [unitQuizQuestionId], references: [id])
+
+  value     String
+  isCorrect Boolean @default(false)
+
+  responses unitQuizQuestionResponses[]
+
+  status     Boolean  @default(true)
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+}
+
+model unitQuizQuestionResponses {
+  id Int @id @default(autoincrement())
+
+  unitQuizId Int
+
+  unitQuizQuestionId Int
+  unitQuizQuestion   unitQuizQuestion @relation(fields: [unitQuizQuestionId], references: [id])
+
+  selectedOptionId Int
+  selectedOption   unitQuizQuestionOption @relation(fields: [selectedOptionId], references: [id])
+
+  studentId Int
+  student   Student @relation(fields: [studentId], references: [id])
+
+  attemptId  String  @db.VarChar(255)
 
   status     Boolean  @default(true)
   created_at DateTime @default(now())

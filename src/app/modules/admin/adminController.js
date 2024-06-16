@@ -14,6 +14,7 @@ import {
   studentSchema,
   teacherRoleSchema,
   studentDocumentSchema,
+  unitQuizSchema,
 } from "../validationSchema";
 import getPrismaPagination from "../../helpers/prismaPaginationHelper";
 import { getIntOrNull } from "../../../@core/helpers/commonHelpers";
@@ -694,6 +695,197 @@ export async function deleteUnitMaterial(req, res) {
     });
 
     return sendResponse(res, true, deletedUnitMaterial, "Success");
+  } catch (error) {
+    logger.consoleErrorLog(req.originalUrl, "Error in deleteSemester", error);
+    return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
+  }
+}
+
+// Unit Quiz
+export async function getAllUnitQuizes(req, res) {
+  try {
+    let { currentPage, itemsPerPage, unitId, searchText } = req.query;
+
+    if (!unitId) return sendResponse(res, true, null, "Send Unit ID");
+
+    let where = {};
+
+    if (searchText) {
+      where = {
+        ...where,
+        name: {
+          contains: searchText,
+        },
+      };
+    }
+
+    const unitQuizes = await prisma.unitQuiz.findMany({
+      where: {
+        unitId: parseInt(unitId),
+        ...where,
+      },
+      ...getPrismaPagination(currentPage, itemsPerPage),
+    });
+
+    const unitQuizesCount = await prisma.unitQuiz.count({
+      where: {
+        unitId: parseInt(unitId),
+      },
+    });
+
+    return sendResponse(res, true, { unitQuizes, unitQuizesCount }, "Success");
+  } catch (error) {
+    logger.consoleErrorLog(req.originalUrl, "Error in getAllUnitMaterials", error);
+    return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
+  }
+}
+
+export async function getSingleUnitQuiz(req, res) {
+  try {
+    let { id } = req.params;
+
+    if (!id) return sendResponse(res, true, null, "Send A Valid ID");
+
+    const unit = await prisma.unitQuiz.findUnique({
+      include: {
+        questions: {
+          include: {
+            options: true,
+          },
+          orderBy: {
+            order: "asc",
+          },
+        },
+      },
+      where: {
+        id: parseInt(id),
+      },
+    });
+
+    return sendResponse(res, true, unit, "Success");
+  } catch (error) {
+    logger.consoleErrorLog(req.originalUrl, "Error in getSingleunitQuiz", error);
+    return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
+  }
+}
+
+export async function saveUnitQuiz(req, res) {
+  // try {
+  const { id, name, unitId, status } = req.body;
+
+  const unitQuizData = {
+    name,
+    unitId: unitId ? parseInt(unitId) : null,
+    status,
+  };
+
+  const validation = unitQuizSchema.safeParse(unitQuizData);
+
+  if (!validation.success) {
+    console.log(validation.error.errors);
+
+    return sendResponse(res, false, null, "Please Provide All Details.");
+  }
+
+  let currentQuiz;
+
+  if (id) {
+    currentQuiz = await prisma.unitQuiz.update({
+      data: unitQuizData,
+      where: {
+        id: parseInt(id),
+      },
+    });
+
+    await prisma.unitQuizQuestionOption.deleteMany({
+      where: {
+        unitQuizId: parseInt(id),
+      },
+    });
+
+    await prisma.unitQuizQuestion.deleteMany({
+      where: {
+        unitQuizId: parseInt(id),
+      },
+    });
+  } else {
+    currentQuiz = await prisma.unitQuiz.create({
+      data: unitQuizData,
+    });
+  }
+
+  const questions = req.body.questions;
+
+  if (questions && questions.length > 0) {
+    let index = 0;
+    for (let question of questions) {
+      const currentQuestion = await prisma.unitQuizQuestion.create({
+        data: {
+          unitQuizId: currentQuiz.id,
+          order: index,
+          question: question.question,
+        },
+      });
+
+      let options = question.options;
+
+      for (let option of options) {
+        if (option.value) {
+          await prisma.unitQuizQuestionOption.create({
+            data: {
+              unitQuizId: currentQuiz.id,
+              isCorrect: option.isCorrect,
+              value: option.value,
+              unitQuizQuestionId: currentQuestion.id,
+            },
+          });
+        }
+      }
+
+      index++;
+    }
+  }
+
+  return sendResponse(res, true, null, "Unit Quiz Saved.");
+  // } catch (error) {
+  //   logger.consoleErrorLog(req.originalUrl, "Error in saveUnitQuiz", error);
+  //   return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
+  // }
+}
+
+export async function deleteUnitQuiz(req, res) {
+  try {
+    let { id } = req.params;
+
+    if (!id) return sendResponse(res, true, null, "Send A Valid ID");
+
+    const checkUnitQuiz = await prisma.unitQuiz.findUnique({
+      where: {
+        id: parseInt(id),
+      },
+    });
+
+    if (!checkUnitQuiz) return sendResponse(res, true, null, "Unit Quiz Does Not Exists.");
+
+    await prisma.unitQuizQuestionOption.deleteMany({
+      where: {
+        unitQuizId: parseInt(id),
+      },
+    });
+
+    await prisma.unitQuizQuestion.deleteMany({
+      where: {
+        unitQuizId: parseInt(id),
+      },
+    });
+
+    const deletedUnitQuiz = await prisma.unitQuiz.delete({
+      where: {
+        id: parseInt(id),
+      },
+    });
+
+    return sendResponse(res, true, deletedUnitQuiz, "Success");
   } catch (error) {
     logger.consoleErrorLog(req.originalUrl, "Error in deleteSemester", error);
     return sendResponse(res, false, null, "Error", statusType.DB_ERROR);

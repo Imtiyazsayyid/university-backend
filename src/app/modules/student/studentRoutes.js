@@ -19,5 +19,8 @@ router.route("/subject/:subjectId").get(studentController.getSingleSubject);
 
 // Unit Materials
 router.route("/unit/:unitId").get(studentController.getSingleUnit);
+router.route("/unit-quiz/:quizId").get(studentController.getSingleUnitQuiz);
+router.route("/unit-quiz").post(studentController.saveUnitQuiz);
+router.route("/unit-quiz-responses").get(studentController.getAllQuizResponses);
 
 export default router;

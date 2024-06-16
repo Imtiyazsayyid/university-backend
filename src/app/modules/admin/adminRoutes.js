@@ -44,6 +44,12 @@ router.route("/unit-material/:id").get(adminController.getSingleUnitMaterial);
 router.route("/unit-material").post(adminController.saveUnitMaterial);
 router.route("/unit-material/:id").delete(adminController.deleteUnitMaterial);
 
+// Unit Quiz
+router.route("/unit-quiz").get(adminController.getAllUnitQuizes);
+router.route("/unit-quiz/:id").get(adminController.getSingleUnitQuiz);
+router.route("/unit-quiz").post(adminController.saveUnitQuiz);
+router.route("/unit-quiz/:id").delete(adminController.deleteUnitQuiz);
+
 // Batchs
 router.route("/batches").get(adminController.getAllBatches);
 router.route("/batch/:id").get(adminController.getSingleBatch);

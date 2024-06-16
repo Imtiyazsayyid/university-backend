@@ -35,8 +35,8 @@
     "prettier": "3.2.4"
   },
   "dependencies": {
-    "@babel/runtime": "^7.23.8",
     "@babel/preset-react": "^7.23.3",
+    "@babel/runtime": "^7.23.8",
     "@prisma/client": "^5.8.1",
     "@react-email/components": "^0.0.14",
     "@react-email/render": "^0.0.12",
@@ -54,6 +54,7 @@
     "prisma": "^5.8.1",
     "react-email": "^2.0.0",
     "react-hot-toast": "^2.4.1",
+    "uuid": "^10.0.0",
     "winston": "^3.11.0",
     "zod": "^3.22.4"
   }
