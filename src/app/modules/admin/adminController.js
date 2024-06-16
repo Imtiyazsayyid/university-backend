@@ -797,6 +797,12 @@ export async function saveUnitQuiz(req, res) {
       },
     });
 
+    await prisma.unitQuizQuestionResponses.deleteMany({
+      where: {
+        unitQuizId: parseInt(id),
+      },
+    });
+
     await prisma.unitQuizQuestionOption.deleteMany({
       where: {
         unitQuizId: parseInt(id),
