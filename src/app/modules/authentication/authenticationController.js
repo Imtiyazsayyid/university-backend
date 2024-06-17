@@ -40,6 +40,15 @@ export async function login(req, res) {
       });
     }
 
+    if (body.user_role === "teacher") {
+      user = await prisma.teacher.findUnique({
+        where: {
+          email: body.email,
+          status: true,
+        },
+      });
+    }
+
     if (!user) {
       return sendResponse(res, false, null, "Incorrect Email.");
     }
@@ -117,6 +126,15 @@ export async function getAccessToken(req, res) {
 
     if (decoded.user_role === "student") {
       user = await prisma.student.findUnique({
+        where: {
+          id: decoded.user_id,
+          status: true,
+        },
+      });
+    }
+
+    if (decoded.user_role === "teacher") {
+      user = await prisma.teacher.findUnique({
         where: {
           id: decoded.user_id,
           status: true,

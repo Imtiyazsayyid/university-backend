@@ -565,3 +565,9 @@
 {"error":{"expiredAt":"2024-06-16T09:04:30.000Z","message":"jwt expired","name":"TokenExpiredError"},"level":"error","message":"Error in jwtAccessTokenVerify","route":"core","timestamp":"2024-06-16T09:09:23.902Z"}
 {"error":{"expiredAt":"2024-06-16T09:04:30.000Z","message":"jwt expired","name":"TokenExpiredError"},"level":"error","message":"Error in jwtAccessTokenVerify","route":"core","timestamp":"2024-06-16T09:09:23.904Z"}
 {"error":{"expiredAt":"2024-06-16T09:03:55.000Z","message":"jwt expired","name":"TokenExpiredError"},"level":"error","message":"Error in jwtAccessTokenVerify","route":"core","timestamp":"2024-06-16T10:15:34.797Z"}
+{"error":{},"level":"error","message":"Error in getTeacherDetails","route":"/api/teacher/details","timestamp":"2024-06-17T10:31:31.672Z"}
+{"error":{},"level":"error","message":"Error in getTeacherDetails","route":"/api/teacher/details","timestamp":"2024-06-17T10:31:31.686Z"}
+{"error":{},"level":"error","message":"Error in getTeacherDetails","route":"/api/teacher/details","timestamp":"2024-06-17T10:31:53.410Z"}
+{"error":{},"level":"error","message":"Error in getTeacherDetails","route":"/api/teacher/details","timestamp":"2024-06-17T10:31:53.419Z"}
+{"error":{},"level":"error","message":"Error in getTeacherDetails","route":"/api/teacher/details","timestamp":"2024-06-17T10:32:02.098Z"}
+{"error":{},"level":"error","message":"Error in getTeacherDetails","route":"/api/teacher/details","timestamp":"2024-06-17T10:32:02.109Z"}
