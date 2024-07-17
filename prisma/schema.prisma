@@ -84,6 +84,7 @@ model Subject {
 
   units            Unit[]
   divisionTeachers DivisionSubjectTeacher[]
+  assignments      Assignment[]
 
   status     Boolean  @default(true)
   created_at DateTime @default(now())
@@ -156,6 +157,7 @@ model Division {
 
   subjectTeachers DivisionSubjectTeacher[]
   students        Student[]
+  assignments     Assignment[]
 
   status     Boolean  @default(true)
   created_at DateTime @default(now())
@@ -202,6 +204,7 @@ model Teacher {
   professionalMemberships       String? @db.Text
 
   divisionSubjects DivisionSubjectTeacher[]
+  assignments      Assignment[]
 
   status     Boolean  @default(true)
   created_at DateTime @default(now())
@@ -255,8 +258,9 @@ model Student {
   divisionId Int
   division   Division @relation(fields: [divisionId], references: [id])
 
-  uploadedStudentDocuments UploadedStudentDocument[]
+  uploadedStudentDocuments  UploadedStudentDocument[]
   unitQuizQuestionResponses unitQuizQuestionResponses[]
+  assignmentResponses       AssignmentQuestionResponses[]
 
   status     Boolean  @default(true)
   created_at DateTime @default(now())
@@ -366,7 +370,68 @@ model unitQuizQuestionResponses {
   studentId Int
   student   Student @relation(fields: [studentId], references: [id])
 
-  attemptId  String  @db.VarChar(255)
+  attemptId String @db.VarChar(255)
+
+  status     Boolean  @default(true)
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+}
+
+model Assignment {
+  id           Int      @id @default(autoincrement())
+  name         String   @db.VarChar(255)
+  description   String?   @db.VarChar(1000)
+  divisionId   Int
+  division     Division @relation(fields: [divisionId], references: [id])
+  teacherId    Int
+  teacher      Teacher  @relation(fields: [teacherId], references: [id])
+  subjectId    Int
+  subject      Subject  @relation(fields: [subjectId], references: [id]) 
+  dueDate     DateTime
+
+  questions AssignmentQuestion[]
+  responses AssignmentQuestionResponses[]
+  material  AssignmentMaterial[]
+
+  status     Boolean  @default(true)
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+}
+
+model AssignmentQuestion {
+  id           Int        @id @default(autoincrement())
+  question     String     @db.VarChar(255)
+  order        Int      @default(0)
+  assignmentId Int
+  assignment   Assignment @relation(fields: [assignmentId], references: [id])
+
+  responses AssignmentQuestionResponses[]
+
+  status     Boolean  @default(true)
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+}
+
+model AssignmentMaterial {
+  id           Int        @id @default(autoincrement())
+  material_url String     @db.Text
+  assignmentId Int
+  assignment   Assignment @relation(fields: [assignmentId], references: [id])
+
+  status     Boolean  @default(true)
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+}
+
+model AssignmentQuestionResponses {
+  id                   Int                @id @default(autoincrement())
+  answer               String             @db.LongText
+  assignmentQuestionId Int
+  assignmentQuestion   AssignmentQuestion @relation(fields: [assignmentQuestionId], references: [id])
+  studentId            Int
+  Student              Student            @relation(fields: [studentId], references: [id])
+  assignmentId         Int
+  assignment           Assignment         @relation(fields: [assignmentId], references: [id])
 
   status     Boolean  @default(true)
   created_at DateTime @default(now())
