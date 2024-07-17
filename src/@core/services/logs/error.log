@@ -608,3 +608,9 @@
 {"error":{"clientVersion":"5.10.2","name":"PrismaClientValidationError"},"level":"error","message":"Error in saveTeacher","route":"/api/teacher/assignment","timestamp":"2024-07-17T13:16:03.273Z"}
 {"error":{},"level":"error","message":"Error in saveTeacher","route":"/api/teacher/assignment","timestamp":"2024-07-17T13:55:47.278Z"}
 {"error":{},"level":"error","message":"Error in saveTeacher","route":"/api/teacher/assignment","timestamp":"2024-07-17T13:56:05.736Z"}
+{"error":{"clientVersion":"5.10.2","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllAssignments","route":"/api/teacher/assignment/undefined","timestamp":"2024-07-17T14:06:34.495Z"}
+{"error":{"clientVersion":"5.10.2","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllAssignments","route":"/api/teacher/assignment/undefined","timestamp":"2024-07-17T14:06:34.506Z"}
+{"error":{"clientVersion":"5.10.2","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllAssignments","route":"/api/teacher/assignment/undefined","timestamp":"2024-07-17T14:07:27.342Z"}
+{"error":{"clientVersion":"5.10.2","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllAssignments","route":"/api/teacher/assignment/undefined","timestamp":"2024-07-17T14:07:27.350Z"}
+{"error":{"clientVersion":"5.10.2","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllAssignments","route":"/api/teacher/assignment/undefined","timestamp":"2024-07-17T14:07:35.273Z"}
+{"error":{"clientVersion":"5.10.2","name":"PrismaClientValidationError"},"level":"error","message":"Error in getAllAssignments","route":"/api/teacher/assignment/undefined","timestamp":"2024-07-17T14:07:35.283Z"}

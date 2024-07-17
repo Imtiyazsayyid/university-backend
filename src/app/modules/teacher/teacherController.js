@@ -1063,6 +1063,15 @@ export async function getAllAssignments(req, res) {
       ...getPrismaPagination(currentPage, itemsPerPage),
       include: {
         subject: true,
+        division: {
+          include: {
+            batch: {
+              include: {
+                course: true,
+              },
+            },
+          },
+        },
       },
     });
 
