@@ -1571,6 +1571,89 @@ export async function deleteStudent(req, res) {
   }
 }
 
+// Events
+export async function getAllEvents(req, res) {
+  try {
+    let { searchText, currentPage, itemsPerPage } = req.query;
+
+    const options = {};
+    likeIfValue(options, ["name"], searchText);
+
+    const events = await prisma.event.findMany({
+      ...options,
+      ...getPrismaPagination(currentPage, itemsPerPage),
+      include: {
+        eventHead: true,
+        eventOrganisers: true,
+        eventParticipants: true,
+      },
+    });
+
+    const eventCount = await prisma.event.count(options);
+
+    return sendResponse(res, true, { events, eventCount }, "Success");
+  } catch (error) {
+    console.log({ error });
+    logger.consoleErrorLog(req.originalUrl, "Error in getAllEvents", error);
+    return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
+  }
+}
+
+export async function getSingleEvent(req, res) {
+  try {
+    let { eventId } = req.params;
+
+    const event = await prisma.event.findUnique({
+      include: {
+        eventOrganisers: {
+          include: {
+            teacher: true,
+          },
+        },
+        eventParticipants: {
+          include: {
+            event: true,
+            student: true,
+            teacher: true,
+          },
+        },
+        eventHead: true,
+      },
+      where: {
+        id: parseInt(eventId),
+      },
+    });
+
+    return sendResponse(res, true, event, "Success");
+  } catch (error) {
+    logger.consoleErrorLog(req.originalUrl, "Error in getAllEvents", error);
+    return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
+  }
+}
+
+export async function saveEvent(req, res) {
+  try {
+    const { eventId, approvalStatus } = req.body;
+
+    const eventData = {
+      approvalStatus,
+    };
+
+    await prisma.event.update({
+      data: eventData,
+      where: {
+        id: parseInt(eventId),
+      },
+    });
+
+    return sendResponse(res, true, null, "Success");
+  } catch (error) {
+    console.log({ error });
+    logger.consoleErrorLog(req.originalUrl, "Error in getAllEvents", error);
+    return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
+  }
+}
+
 // ----------------- Masters -------------------------
 // Teacher Roles
 export async function getAllTeacherRoles(req, res) {

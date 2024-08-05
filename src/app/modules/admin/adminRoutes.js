@@ -78,7 +78,13 @@ router.route("/student/:id").get(adminController.getSingleStudent);
 router.route("/student").post(adminController.saveStudent);
 router.route("/student/:id").delete(adminController.deleteStudent);
 
+// Event
+router.route("/events").get(adminController.getAllEvents);
+router.route("/event/:eventId").get(adminController.getSingleEvent);
+router.route("/event").post(adminController.saveEvent);
+
 // ----------------- Masters -------------------------
+
 // Teacher Roles
 router.route("/teacher-roles").get(adminController.getAllTeacherRoles);
 router.route("/teacher-role/:id").get(adminController.getSingleTeacherRole);

@@ -203,8 +203,11 @@ model Teacher {
   booksOrChapter                String? @db.Text
   professionalMemberships       String? @db.Text
 
-  divisionSubjects DivisionSubjectTeacher[]
-  assignments      Assignment[]
+  divisionSubjects    DivisionSubjectTeacher[]
+  assignments         Assignment[]
+  eventsWhereHead     Event[]
+  eventWhereOrganiser EventOrganiser[]
+  eventWhereParticipants EventParticipant[]
 
   status     Boolean  @default(true)
   created_at DateTime @default(now())
@@ -261,6 +264,9 @@ model Student {
   uploadedStudentDocuments  UploadedStudentDocument[]
   unitQuizQuestionResponses unitQuizQuestionResponses[]
   assignmentResponses       AssignmentQuestionResponses[]
+  submittedAssignments      AssignmentsSubmitted[]
+  assignmentUploads         AssignmentUploads[]
+  eventWhereParticipants    EventParticipant[]
 
   status     Boolean  @default(true)
   created_at DateTime @default(now())
@@ -378,20 +384,22 @@ model unitQuizQuestionResponses {
 }
 
 model Assignment {
-  id           Int      @id @default(autoincrement())
-  name         String   @db.VarChar(255)
-  description   String?   @db.VarChar(1000)
-  divisionId   Int
-  division     Division @relation(fields: [divisionId], references: [id])
-  teacherId    Int
-  teacher      Teacher  @relation(fields: [teacherId], references: [id])
-  subjectId    Int
-  subject      Subject  @relation(fields: [subjectId], references: [id]) 
+  id          Int      @id @default(autoincrement())
+  name        String   @db.VarChar(255)
+  description String?  @db.VarChar(1000)
+  divisionId  Int
+  division    Division @relation(fields: [divisionId], references: [id])
+  teacherId   Int
+  teacher     Teacher  @relation(fields: [teacherId], references: [id])
+  subjectId   Int
+  subject     Subject  @relation(fields: [subjectId], references: [id])
   dueDate     DateTime
 
-  questions AssignmentQuestion[]
-  responses AssignmentQuestionResponses[]
-  material  AssignmentMaterial[]
+  questions            AssignmentQuestion[]
+  responses            AssignmentQuestionResponses[]
+  material             AssignmentMaterial[]
+  submittedAssignments AssignmentsSubmitted[]
+  assignmentUploads    AssignmentUploads[]
 
   status     Boolean  @default(true)
   created_at DateTime @default(now())
@@ -401,7 +409,7 @@ model Assignment {
 model AssignmentQuestion {
   id           Int        @id @default(autoincrement())
   question     String     @db.VarChar(255)
-  order        Int      @default(0)
+  order        Int        @default(0)
   assignmentId Int
   assignment   Assignment @relation(fields: [assignmentId], references: [id])
 
@@ -438,8 +446,98 @@ model AssignmentQuestionResponses {
   updated_at DateTime @default(now())
 }
 
+model AssignmentUploads {
+  id           Int        @id @default(autoincrement())
+  material_url String     @db.LongText
+  studentId    Int
+  Student      Student    @relation(fields: [studentId], references: [id])
+  assignmentId Int
+  assignment   Assignment @relation(fields: [assignmentId], references: [id])
+
+  status     Boolean  @default(true)
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+}
+
+model AssignmentsSubmitted {
+  id           Int        @id @default(autoincrement())
+  studentId    Int
+  student      Student    @relation(fields: [studentId], references: [id])
+  assignmentId Int
+  assignment   Assignment @relation(fields: [assignmentId], references: [id])
+
+  status     Boolean  @default(true)
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+}
+
+model Event {
+  id Int @id @default(autoincrement())
+
+  name        String
+  description String
+  datetime    DateTime
+  eventHeadId Int
+  eventFor    EventFor                 @default(all)
+  venue       String?                  @db.Text
+  approvalStatus  ApprovalStatus       @default(pending)
+
+  eventHead         Teacher            @relation(fields: [eventHeadId], references: [id])
+  eventOrganisers   EventOrganiser[]
+  eventParticipants EventParticipant[]
+
+  status     Boolean  @default(true)
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+}
+
+model EventOrganiser {
+  id Int @id @default(autoincrement())
+
+  eventId        Int
+  teacherId      Int
+  approvalStatus ApprovalStatus @default(pending)
+  message        String?
+
+  event   Event   @relation(fields: [eventId], references: [id])
+  teacher Teacher @relation(fields: [teacherId], references: [id])
+
+  status     Boolean  @default(true)
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+}
+
+model EventParticipant {
+  id Int @id @default(autoincrement())
+
+  eventId Int
+  event   Event @relation(fields: [eventId], references: [id])
+
+  studentId Int?
+  student   Student? @relation(fields: [studentId], references: [id])
+
+  teacherId Int?
+  teacher   Teacher? @relation(fields: [teacherId], references: [id])
+
+  status     Boolean  @default(true)
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+}
+
 enum Gender {
   male
   female
   other
+}
+
+enum ApprovalStatus {
+  pending
+  approved
+  rejected
+}
+
+enum EventFor {
+  all
+  students
+  teachers
 }

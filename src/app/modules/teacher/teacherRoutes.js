@@ -70,17 +70,18 @@ router.route("/assignments").get(teacherController.getAllAssignments);
 router.route("/assignment/:id").get(teacherController.getSingleAssignment);
 router.route("/assignment").post(teacherController.saveAssignment);
 
-// ----------------- Masters -------------------------
-// Teacher Roles
-// router.route("/teacher-roles").get(teacherController.getAllTeacherRoles);
-// router.route("/teacher-role/:id").get(teacherController.getSingleTeacherRole);
-// router.route("/teacher-role").post(teacherController.saveTeacherRole);
-// router.route("/teacher-role/:id").delete(teacherController.deleteTeacherRole);
+router.route("/students-by-assignment/:assignmentId").get(teacherController.getStudentsByAssignment);
+router.route("/submitted-assignment/:submittedAssignmentId").get(teacherController.getSubmittedAssignment);
 
-// Student Documents Roles
-// router.route("/student-documents").get(teacherController.getAllStudentDocuments);
-// router.route("/student-document/:id").get(teacherController.getSingleStudentDocument);
-// router.route("/student-document").post(teacherController.saveStudentDocument);
-// router.route("/student-document/:id").delete(teacherController.deleteStudentDocument);
+// Events
+router.route("/events").get(teacherController.getAllEvents);
+router.route("/event/:eventId").get(teacherController.getSingleEvent);
+router.route("/event").post(teacherController.saveEvent);
+router.route("/event/:eventId").delete(teacherController.deleteEvent);
+
+router.route("/join-event-organisers").post(teacherController.joinEventOrganisers);
+router.route("/join-event-participants").post(teacherController.joinEventParticipants);
+router.route("/remove-event-participant/:eventParticipantId").delete(teacherController.deleteEventParticipants);
+router.route("/event-organisers-approval-status").post(teacherController.setEventOrganiserApprovalStatus);
 
 export default router;

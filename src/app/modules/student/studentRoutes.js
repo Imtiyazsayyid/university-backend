@@ -23,4 +23,9 @@ router.route("/unit-quiz/:quizId").get(studentController.getSingleUnitQuiz);
 router.route("/unit-quiz").post(studentController.saveUnitQuiz);
 router.route("/unit-quiz-responses").get(studentController.getAllQuizResponses);
 
+// Assignments
+router.route("/assignments").get(studentController.getAllAssignments);
+router.route("/assignment/:assignmentId").get(studentController.getSingleAssignment);
+router.route("/assignment").post(studentController.submitAssignment);
+
 export default router;
