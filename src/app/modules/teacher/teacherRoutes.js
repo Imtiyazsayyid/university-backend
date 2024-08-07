@@ -83,5 +83,6 @@ router.route("/join-event-organisers").post(teacherController.joinEventOrganiser
 router.route("/join-event-participants").post(teacherController.joinEventParticipants);
 router.route("/remove-event-participant/:eventParticipantId").delete(teacherController.deleteEventParticipants);
 router.route("/event-organisers-approval-status").post(teacherController.setEventOrganiserApprovalStatus);
+router.route("/mark-event-complete/:eventId").post(teacherController.markEventComplete);
 
 export default router;

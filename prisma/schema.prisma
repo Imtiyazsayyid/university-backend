@@ -203,10 +203,10 @@ model Teacher {
   booksOrChapter                String? @db.Text
   professionalMemberships       String? @db.Text
 
-  divisionSubjects    DivisionSubjectTeacher[]
-  assignments         Assignment[]
-  eventsWhereHead     Event[]
-  eventWhereOrganiser EventOrganiser[]
+  divisionSubjects       DivisionSubjectTeacher[]
+  assignments            Assignment[]
+  eventsWhereHead        Event[]
+  eventWhereOrganiser    EventOrganiser[]
   eventWhereParticipants EventParticipant[]
 
   status     Boolean  @default(true)
@@ -478,9 +478,12 @@ model Event {
   description String
   datetime    DateTime
   eventHeadId Int
-  eventFor    EventFor                 @default(all)
-  venue       String?                  @db.Text
-  approvalStatus  ApprovalStatus       @default(pending)
+  eventFor    EventFor @default(all)
+  venue       String?  @db.Text
+
+  finalRegistrationDate DateTime?
+  isCompleted           Boolean        @default(false)
+  approvalStatus        ApprovalStatus @default(pending)
 
   eventHead         Teacher            @relation(fields: [eventHeadId], references: [id])
   eventOrganisers   EventOrganiser[]

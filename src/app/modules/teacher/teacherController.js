@@ -19,6 +19,7 @@ import {
 import getPrismaPagination from "../../helpers/prismaPaginationHelper";
 import { getIntOrNull, getObjOrNull, getStringOrNull } from "../../../@core/helpers/commonHelpers";
 import { likeIfValue, whereIfValue } from "../../helpers/prismaHelpers";
+import moment from "moment";
 
 // Teacher Details
 export async function getTeacherDetails(req, res) {
@@ -1441,7 +1442,7 @@ export async function getSingleEvent(req, res) {
 export async function saveEvent(req, res) {
   try {
     const { id: teacherId } = req.app.settings.userInfo;
-    const { name, description, datetime, eventId, venue, eventFor } = req.body;
+    const { name, description, datetime, eventId, venue, eventFor, finalRegistrationDate } = req.body;
 
     const eventData = {
       name,
@@ -1450,6 +1451,8 @@ export async function saveEvent(req, res) {
       venue,
       eventFor,
       eventHeadId: teacherId,
+      finalRegistrationDate,
+      approvalStatus: "pending",
     };
 
     if (!eventId) {
@@ -1465,6 +1468,8 @@ export async function saveEvent(req, res) {
       });
 
       if (!currentEvent) return sendResponse(res, false, null, "You Do Not Have Access To Modify This Event");
+
+      if (currentEvent.isCompleted) return sendResponse(res, false, null, "A Complete Event Can No Longer Be Modified");
 
       await prisma.event.update({
         data: eventData,
@@ -1544,6 +1549,8 @@ export async function joinEventOrganisers(req, res) {
       return sendResponse(res, false, null, "No Such Event");
     }
 
+    if (event.isCompleted) return sendResponse(res, false, null, "You Cannot Join A Complete Event");
+
     const isEventHead = await prisma.event.findUnique({
       where: {
         id: parseInt(eventId),
@@ -1600,6 +1607,13 @@ export async function joinEventParticipants(req, res) {
 
     if (!event) {
       return sendResponse(res, false, null, "No Such Event");
+    }
+
+    if (event.isCompleted) return sendResponse(res, false, null, "You Cannot Join A Complete Event");
+
+    const now = moment();
+    if (event.finalRegistrationDate && now.isAfter(moment(event.finalRegistrationDate))) {
+      return sendResponse(res, false, null, "Registration For this Event is Closed.");
     }
 
     const isEventHead = await prisma.event.findUnique({
@@ -1659,6 +1673,8 @@ export async function setEventOrganiserApprovalStatus(req, res) {
       return sendResponse(res, false, null, "No Such Event");
     }
 
+    if (event.isCompleted) return sendResponse(res, false, null, "You Cannot Modify A Complete Event");
+
     if (event.eventHeadId !== teacherId) {
       return sendResponse(res, false, null, "You are not the head of this event.");
     }
@@ -1710,7 +1726,8 @@ export async function deleteEventParticipants(req, res) {
       return sendResponse(res, false, null, "You are not a participant for this event.");
     }
 
-    console.log({ e: existingParticipant.event.eventHeadId, t: teacherId });
+    if (existingParticipant.event.isCompleted)
+      return sendResponse(res, false, null, "You Cannot Modify A Complete Event");
 
     if (existingParticipant.event.eventHeadId !== teacherId && existingParticipant.teacherId !== teacherId) {
       return sendResponse(res, false, null, "You Do Not Have Access To Remove Someone Else From this Event");
@@ -1719,6 +1736,42 @@ export async function deleteEventParticipants(req, res) {
     await prisma.eventParticipant.delete({
       where: {
         id: existingParticipant.id,
+      },
+    });
+
+    return sendResponse(res, true, null, "Success");
+  } catch (error) {
+    console.log({ error });
+    logger.consoleErrorLog(req.originalUrl, "Error in getAllEvents", error);
+    return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
+  }
+}
+
+export async function markEventComplete(req, res) {
+  try {
+    const { id: teacherId } = req.app.settings.userInfo;
+    const { eventId } = req.params;
+
+    const event = await prisma.event.findUnique({
+      where: {
+        id: parseInt(eventId),
+      },
+    });
+
+    if (!event) {
+      return sendResponse(res, false, null, "No Such Event");
+    }
+
+    if (event.eventHeadId !== teacherId) {
+      return sendResponse(res, false, null, "You are not the head of this event.");
+    }
+
+    await prisma.event.update({
+      data: {
+        isCompleted: true,
+      },
+      where: {
+        id: parseInt(eventId),
       },
     });
 
