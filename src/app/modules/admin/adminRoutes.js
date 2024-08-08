@@ -10,6 +10,7 @@ router.use(adminMiddleware);
 
 // Admin Detials
 router.route("/details").get(adminController.getAdminDetails);
+//
 
 // Courses
 router.route("/courses").get(adminController.getAllCourses);
