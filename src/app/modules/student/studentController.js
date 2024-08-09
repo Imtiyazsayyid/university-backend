@@ -522,6 +522,24 @@ export async function getSingleEvent(req, res) {
     if (!eventId) return sendResponse(res, true, null, "Send Valid Event ID");
 
     const event = await prisma.event.findUnique({
+      include: {
+        eventOrganisers: {
+          include: {
+            teacher: true,
+          },
+        },
+        eventHead: {
+          include: {
+            role: true,
+          },
+        },
+        eventParticipants: {
+          include: {
+            teacher: true,
+            student: true,
+          },
+        },
+      },
       where: {
         approvalStatus: "approved",
         eventFor: {
@@ -591,6 +609,48 @@ export async function joinEventParticipants(req, res) {
       data: {
         eventId: parseInt(eventId),
         studentId,
+      },
+    });
+
+    return sendResponse(res, true, null, "Success");
+  } catch (error) {
+    console.log({ error });
+    logger.consoleErrorLog(req.originalUrl, "Error in getAllEvents", error);
+    return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
+  }
+}
+
+export async function leaveEvent(req, res) {
+  try {
+    const { id: studentId } = req.app.settings.userInfo;
+    const eventId = getIntOrNull(req.params.eventId);
+
+    const existingParticipant = await prisma.eventParticipant.findFirst({
+      include: {
+        event: true,
+      },
+      where: {
+        eventId,
+        studentId,
+      },
+    });
+
+    console.log({ existingParticipant });
+
+    if (!existingParticipant) {
+      return sendResponse(res, false, null, "You are not a participant for this event.");
+    }
+
+    if (existingParticipant.event.isCompleted)
+      return sendResponse(res, false, null, "You Cannot Leave A Completed Event");
+
+    if (existingParticipant.studentId !== studentId) {
+      return sendResponse(res, false, null, "You Do Not Have Access To Remove Someone Else From this Event");
+    }
+
+    await prisma.eventParticipant.delete({
+      where: {
+        id: existingParticipant.id,
       },
     });
 

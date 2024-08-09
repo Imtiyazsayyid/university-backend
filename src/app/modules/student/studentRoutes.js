@@ -32,5 +32,6 @@ router.route("/assignment").post(studentController.submitAssignment);
 router.route("/events").get(studentController.getAllEvents);
 router.route("/event/:eventId").get(studentController.getSingleEvent);
 router.route("/join-event-participants").post(studentController.joinEventParticipants);
+router.route("/leave-event/:eventId").delete(studentController.leaveEvent);
 
 export default router;
