@@ -28,6 +28,4 @@ router.route("/assignments").get(studentController.getAllAssignments);
 router.route("/assignment/:assignmentId").get(studentController.getSingleAssignment);
 router.route("/assignment").post(studentController.submitAssignment);
 
-// This is to test staging
-
 export default router;
