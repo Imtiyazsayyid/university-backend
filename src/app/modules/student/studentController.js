@@ -474,3 +474,130 @@ export async function submitAssignment(req, res) {
     return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
   }
 }
+
+// Events
+export async function getAllEvents(req, res) {
+  try {
+    const { id: studentId } = req.app.settings.userInfo;
+
+    const where = {
+      approvalStatus: "approved",
+      eventFor: {
+        in: ["all", "students"],
+      },
+    };
+
+    const events = await prisma.event.findMany({
+      include: {
+        eventParticipants: {
+          include: {
+            student: true,
+          },
+        },
+        eventHead: {
+          include: {
+            role: true,
+          },
+        },
+      },
+      where,
+    });
+
+    const eventCount = await prisma.event.count({ where });
+
+    return sendResponse(res, true, { events, eventCount }, "Success");
+  } catch (error) {
+    console.log({ error });
+    logger.consoleErrorLog(req.originalUrl, "Error in getStudentDetails", error);
+    return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
+  }
+}
+
+export async function getSingleEvent(req, res) {
+  try {
+    const { id: studentId } = req.app.settings.userInfo;
+
+    const eventId = getIntOrNull(req.params.eventId);
+
+    if (!eventId) return sendResponse(res, true, null, "Send Valid Event ID");
+
+    const event = await prisma.event.findUnique({
+      where: {
+        approvalStatus: "approved",
+        eventFor: {
+          in: ["all", "students"],
+        },
+        id: eventId,
+      },
+    });
+
+    return sendResponse(res, true, event, "Success");
+  } catch (error) {
+    logger.consoleErrorLog(req.originalUrl, "Error in getStudentDetails", error);
+    return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
+  }
+}
+
+export async function joinEventParticipants(req, res) {
+  try {
+    const { id: studentId } = req.app.settings.userInfo;
+    const { eventId } = req.body;
+
+    if (!eventId) {
+      return sendResponse(res, false, null, "Send All Details");
+    }
+
+    const event = await prisma.event.findUnique({
+      where: {
+        id: parseInt(eventId),
+        approvalStatus: "approved",
+      },
+    });
+
+    if (!event) {
+      return sendResponse(res, false, null, "No Such Event");
+    }
+
+    if (event.isCompleted) return sendResponse(res, false, null, "You Cannot Join A Complete Event");
+
+    const now = moment();
+    if (event.finalRegistrationDate && now.isAfter(moment(event.finalRegistrationDate))) {
+      return sendResponse(res, false, null, "Registration For this Event is Closed.");
+    }
+
+    // const isEventHead = await prisma.event.findUnique({
+    //   where: {
+    //     id: parseInt(eventId),
+    //     eventHeadId: teacherId,
+    //   },
+    // });
+
+    // if (isEventHead) {
+    //   return sendResponse(res, false, null, "You are already the head of this event.");
+    // }
+
+    const existingParticipant = await prisma.eventParticipant.findFirst({
+      where: {
+        eventId: parseInt(eventId),
+        studentId,
+      },
+    });
+
+    if (existingParticipant) {
+      return sendResponse(res, false, null, "You are already a participant for this event.");
+    }
+
+    await prisma.eventParticipant.create({
+      data: {
+        eventId: parseInt(eventId),
+        studentId,
+      },
+    });
+
+    return sendResponse(res, true, null, "Success");
+  } catch (error) {
+    console.log({ error });
+    logger.consoleErrorLog(req.originalUrl, "Error in getAllEvents", error);
+    return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
+  }
+}

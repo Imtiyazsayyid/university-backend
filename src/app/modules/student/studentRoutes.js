@@ -28,4 +28,9 @@ router.route("/assignments").get(studentController.getAllAssignments);
 router.route("/assignment/:assignmentId").get(studentController.getSingleAssignment);
 router.route("/assignment").post(studentController.submitAssignment);
 
+// Events
+router.route("/events").get(studentController.getAllEvents);
+router.route("/event/:eventId").get(studentController.getSingleEvent);
+router.route("/join-event-participants").post(studentController.joinEventParticipants);
+
 export default router;
