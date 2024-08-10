@@ -6,6 +6,8 @@ import { sendResponse } from "../../../@core/services/ResponseService";
 import { v4 as uuidv4 } from "uuid";
 import moment from "moment";
 import { MYSQL_MOMENT_DATETIME_FORMAT } from "@/@core/helpers/constant";
+import getPrismaPagination from "@/app/helpers/prismaPaginationHelper";
+import { likeIfValue } from "@/app/helpers/prismaHelpers";
 
 // Admin Details
 export async function getStudentDetails(req, res) {
@@ -477,8 +479,11 @@ export async function submitAssignment(req, res) {
 
 // Events
 export async function getAllEvents(req, res) {
+  let { searchText, currentPage, itemsPerPage } = req.query;
+
   try {
-    const { id: studentId } = req.app.settings.userInfo;
+    const options = {};
+    likeIfValue(options, ["name"], searchText);
 
     const where = {
       approvalStatus: "approved",
@@ -488,6 +493,7 @@ export async function getAllEvents(req, res) {
     };
 
     const events = await prisma.event.findMany({
+      ...getPrismaPagination(currentPage, itemsPerPage),
       include: {
         eventParticipants: {
           include: {
@@ -500,7 +506,13 @@ export async function getAllEvents(req, res) {
           },
         },
       },
-      where,
+      where: {
+        ...options.where,
+        ...where,
+      },
+      orderBy: {
+        created_at: "desc",
+      },
     });
 
     const eventCount = await prisma.event.count({ where });
@@ -634,8 +646,6 @@ export async function leaveEvent(req, res) {
         studentId,
       },
     });
-
-    console.log({ existingParticipant });
 
     if (!existingParticipant) {
       return sendResponse(res, false, null, "You are not a participant for this event.");
