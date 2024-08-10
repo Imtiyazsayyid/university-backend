@@ -923,6 +923,38 @@ export async function saveTeacher(req, res) {
   }
 }
 
+// Teacher Roles 
+export async function getAllTeacherRoles(req, res) {
+  try {
+    let { searchText, currentPage, itemsPerPage } = req.query;
+
+    let where = {};
+
+    if (searchText) {
+      where = {
+        ...where,
+        name: {
+          contains: searchText,
+        },
+      };
+    }
+
+    const teacherRoles = await prisma.teacherRole.findMany({
+      where,
+      ...getPrismaPagination(currentPage, itemsPerPage),
+    });
+
+    const teacherRoleCount = await prisma.teacherRole.count({
+      where,
+    });
+
+    return sendResponse(res, true, { teacherRoles, teacherRoleCount }, "Success");
+  } catch (error) {
+    logger.consoleErrorLog(req.originalUrl, "Error in getAllTeacherRoles", error);
+    return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
+  }
+}
+
 // Subject Teachers
 export async function getAllTeacherDivisions(req, res) {
   try {

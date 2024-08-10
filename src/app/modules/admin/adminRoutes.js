@@ -97,4 +97,8 @@ router.route("/student-document/:id").get(adminController.getSingleStudentDocume
 router.route("/student-document").post(adminController.saveStudentDocument);
 router.route("/student-document/:id").delete(adminController.deleteStudentDocument);
 
+// Subject Types
+router.route("/subject-type").post(adminController.saveSubjectType);
+router.route("/subject-type/:id").delete(adminController.deleteSubjectType);
+
 export default router;

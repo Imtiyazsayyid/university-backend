@@ -57,6 +57,9 @@ router.route("/teachers").get(teacherController.getAllTeachers);
 router.route("/teacher/:id").get(teacherController.getSingleTeacher);
 router.route("/teacher").post(teacherController.saveTeacher);
 
+// Teacher Roles
+router.route("/teacher-roles").get(teacherController.getAllTeacherRoles);
+
 // Division Subject Teachers
 router.route("/teacher-divisions").get(teacherController.getAllTeacherDivisions);
 router.route("/teacher-subjects-by-division").get(teacherController.getTeacherSubjectsByDivision);

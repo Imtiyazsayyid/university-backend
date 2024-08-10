@@ -15,6 +15,7 @@ import {
   teacherRoleSchema,
   studentDocumentSchema,
   unitQuizSchema,
+  subjectTypeSchema,
 } from "../validationSchema";
 import getPrismaPagination from "../../helpers/prismaPaginationHelper";
 import { getIntOrNull } from "../../../@core/helpers/commonHelpers";
@@ -437,7 +438,7 @@ export async function deleteSubject(req, res) {
 
 // Subject Types
 export async function getAllSubjectTypes(req, res) {
-  try {
+  try{
     let { currentPage, itemsPerPage } = req.query;
 
     const subjectTypes = await prisma.subjectType.findMany({
@@ -447,8 +448,70 @@ export async function getAllSubjectTypes(req, res) {
     const subjectTypeCount = await prisma.subjectType.count();
 
     return sendResponse(res, true, { subjectTypes, subjectTypeCount }, "Success");
-  } catch (error) {
+  } catch(error) {
     logger.consoleErrorLog(req.originalUrl, "Error in getAllSubjectTypes", error);
+    return sendResponse(res, true, null, "Error", statusType.DB_ERROR);
+  }
+}
+
+export async function saveSubjectType(req, res) {
+  try{
+    let { id, name, status } = req.body;
+
+    const subjectTypeData = {
+      name,
+      status,
+    }
+
+    const validation = subjectTypeSchema.safeParse(subjectTypeData);
+
+    if(!validation.success) {
+      return sendResponse(res, false, null, "Please Provide All Details.");
+    }
+
+    if(id){
+      const updatedSubjectType = await prisma.subjectType.update({
+        data: subjectTypeData,
+        where: {
+          id,
+        },
+      })
+    } else {
+      const newSubjectType = await prisma.subjectType.create({
+        data: subjectTypeData,
+      });
+    }
+
+    return sendResponse(res, true, null, "SubjectType Saved.");
+  } catch(error) {
+    logger.consoleErrorLog(req.originalUrl, "Error in saveSubjectType", error);
+    return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
+  }
+}
+
+export async function deleteSubjectType(req, res) {
+  try {
+    let { id } = req.params;
+
+    if (!id) return sendResponse(res, true, null, "Send A Valid ID");
+
+    const checkSubjectType = await prisma.subjectType.findUnique({
+      where: {
+        id: parseInt(id),
+      },
+    });
+
+    if (!checkSubjectType) return sendResponse(res, true, null, "SubjectType Does Not Exists.");
+
+    const deletedSubjectType = await prisma.subjectType.delete({
+      where: {
+        id: parseInt(id),
+      },
+    });
+
+    return sendResponse(res, true, deletedSubjectType, "Success");
+  } catch (error) {
+    logger.consoleErrorLog(req.originalUrl, "Error in deletedSubjectType", error);
     return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
   }
 }

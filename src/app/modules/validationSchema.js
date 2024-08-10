@@ -187,6 +187,13 @@ const studentDocumentSchema = z.object({
     .max(55, "Student Document Name is too long"),
 });
 
+const subjectTypeSchema = z.object({
+  name: z
+    .string({ required_error: "Subject Type Name is required" })
+    .min(1, "Subject Type Name is too short")
+    .max(55, "Subject Type Name is too long"),
+});
+
 export {
   courseSchema,
   semesterSchema,
@@ -200,4 +207,5 @@ export {
   teacherRoleSchema,
   studentDocumentSchema,
   unitQuizSchema,
+  subjectTypeSchema,
 };
