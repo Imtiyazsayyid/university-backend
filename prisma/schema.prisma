@@ -50,6 +50,7 @@ model Course {
   bacthes   Batch[]
   students  Student[]
   documents CourseStudentDocuments[]
+  events    Event[]
 
   status     Boolean  @default(true)
   created_at DateTime @default(now())
@@ -133,15 +134,15 @@ model SubjectType {
 }
 
 model Batch {
-  id   Int @id @default(autoincrement())
-  year Int
-
+  id       Int    @id @default(autoincrement())
+  year     Int
   courseId Int
   course   Course @relation(fields: [courseId], references: [id])
 
   accessibleSemesters BatchSemesterMap[]
   divisions           Division[]
   students            Student[]
+  events              Event[]
 
   status     Boolean  @default(true)
   created_at DateTime @default(now())
@@ -481,11 +482,16 @@ model Event {
   eventFor    EventFor @default(all)
   venue       String?  @db.Text
 
+  courseId Int?
+  batchId  Int?
+
   finalRegistrationDate DateTime?
   isCompleted           Boolean        @default(false)
   approvalStatus        ApprovalStatus @default(pending)
 
   eventHead         Teacher            @relation(fields: [eventHeadId], references: [id])
+  course            Course?            @relation(fields: [courseId], references: [id])
+  batch             Batch?             @relation(fields: [batchId], references: [id])
   eventOrganisers   EventOrganiser[]
   eventParticipants EventParticipant[]
 
