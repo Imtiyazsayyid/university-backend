@@ -923,7 +923,7 @@ export async function saveTeacher(req, res) {
   }
 }
 
-// Teacher Roles 
+// Teacher Roles
 export async function getAllTeacherRoles(req, res) {
   try {
     let { searchText, currentPage, itemsPerPage } = req.query;
@@ -1474,7 +1474,8 @@ export async function getSingleEvent(req, res) {
 export async function saveEvent(req, res) {
   try {
     const { id: teacherId } = req.app.settings.userInfo;
-    const { name, description, datetime, eventId, venue, eventFor, batchId, courseId, finalRegistrationDate } = req.body;
+    const { name, description, datetime, eventId, venue, eventFor, batchId, courseId, finalRegistrationDate } =
+      req.body;
 
     const eventData = {
       name,
@@ -1504,6 +1505,18 @@ export async function saveEvent(req, res) {
       if (!currentEvent) return sendResponse(res, false, null, "You Do Not Have Access To Modify This Event");
 
       if (currentEvent.isCompleted) return sendResponse(res, false, null, "A Complete Event Can No Longer Be Modified");
+
+      await prisma.eventParticipant.deleteMany({
+        where: {
+          eventId: parseInt(eventId),
+        },
+      });
+
+      await prisma.eventOrganiser.deleteMany({
+        where: {
+          eventId: parseInt(eventId),
+        },
+      });
 
       await prisma.event.update({
         data: eventData,

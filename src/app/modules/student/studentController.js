@@ -582,6 +582,13 @@ export async function submitAssignment(req, res) {
 // Events
 export async function getAllEvents(req, res) {
   let { searchText, currentPage, itemsPerPage } = req.query;
+  const { id: studentId } = req.app.settings.userInfo;
+
+  const student = await prisma.student.findUnique({
+    where: {
+      id: studentId,
+    },
+  });
 
   try {
     const options = {};
@@ -592,6 +599,22 @@ export async function getAllEvents(req, res) {
       eventFor: {
         in: ["all", "students"],
       },
+      OR: [
+        {
+          batchId: student.batchId,
+        },
+        {
+          batchId: null,
+        },
+      ],
+      OR: [
+        {
+          courseId: student.courseId,
+        },
+        {
+          courseId: null,
+        },
+      ],
     };
 
     const events = await prisma.event.findMany({

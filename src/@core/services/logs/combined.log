@@ -983,3 +983,11 @@
 {"error":{"clientVersion":"5.10.2","name":"PrismaClientValidationError"},"level":"error","message":"Error in getStudentDetails","route":"/api/student/assignments?currentPage=1&itemsPerPage=7&search=&status=closed","timestamp":"2024-08-11T08:16:27.735Z"}
 {"error":{"clientVersion":"5.10.2","name":"PrismaClientValidationError"},"level":"error","message":"Error in getStudentDetails","route":"/api/student/assignments?currentPage=1&itemsPerPage=7&search=&status=pending","timestamp":"2024-08-11T08:16:53.633Z"}
 {"error":{"clientVersion":"5.10.2","name":"PrismaClientValidationError"},"level":"error","message":"Error in getStudentDetails","route":"/api/student/assignments?currentPage=1&itemsPerPage=7&search=&status=pending","timestamp":"2024-08-11T08:17:30.181Z"}
+{"error":{"expiredAt":"2024-08-10T17:18:35.000Z","message":"jwt expired","name":"TokenExpiredError"},"level":"error","message":"Error in jwtAccessTokenVerify","route":"core","timestamp":"2024-08-11T09:21:46.296Z"}
+{"error":{"expiredAt":"2024-08-10T17:18:35.000Z","message":"jwt expired","name":"TokenExpiredError"},"level":"error","message":"Error in jwtAccessTokenVerify","route":"core","timestamp":"2024-08-11T09:21:46.324Z"}
+{"level":"info","message":"No authorization Token Provided","route":"/api/student/events?currentPage=1&itemsPerPage=5","timestamp":"2024-08-11T10:32:05.370Z"}
+{"level":"info","message":"No authorization Token Provided","route":"/api/student/details","timestamp":"2024-08-11T10:32:05.374Z"}
+{"level":"info","message":"No authorization Token Provided","route":"/api/student/events?currentPage=1&itemsPerPage=5","timestamp":"2024-08-11T10:32:05.376Z"}
+{"level":"info","message":"No authorization Token Provided","route":"/api/student/details","timestamp":"2024-08-11T10:32:05.376Z"}
+{"level":"info","message":"No authorization Token Provided","route":"/api/student/details","timestamp":"2024-08-11T10:32:05.377Z"}
+{"level":"info","message":"No authorization Token Provided","route":"/api/student/details","timestamp":"2024-08-11T10:32:05.378Z"}
