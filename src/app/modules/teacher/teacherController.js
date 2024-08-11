@@ -1466,7 +1466,7 @@ export async function getSingleEvent(req, res) {
 
     return sendResponse(res, true, event, "Success");
   } catch (error) {
-    logger.consoleErrorLog(req.originalUrl, "Error in getAllEvents", error);
+    logger.consoleErrorLog(req.originalUrl, "Error in getSingleEvent", error);
     return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
   }
 }
@@ -1474,7 +1474,7 @@ export async function getSingleEvent(req, res) {
 export async function saveEvent(req, res) {
   try {
     const { id: teacherId } = req.app.settings.userInfo;
-    const { name, description, datetime, eventId, venue, eventFor, finalRegistrationDate } = req.body;
+    const { name, description, datetime, eventId, venue, eventFor, batchId, courseId, finalRegistrationDate } = req.body;
 
     const eventData = {
       name,
@@ -1482,6 +1482,8 @@ export async function saveEvent(req, res) {
       datetime,
       venue,
       eventFor,
+      batchId,
+      courseId,
       eventHeadId: teacherId,
       finalRegistrationDate,
       approvalStatus: "pending",
@@ -1514,7 +1516,7 @@ export async function saveEvent(req, res) {
     return sendResponse(res, true, null, "Success");
   } catch (error) {
     console.log({ error });
-    logger.consoleErrorLog(req.originalUrl, "Error in getAllEvents", error);
+    logger.consoleErrorLog(req.originalUrl, "Error in saveEvents", error);
     return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
   }
 }
@@ -1556,7 +1558,7 @@ export async function deleteEvent(req, res) {
     return sendResponse(res, true, null, "Success");
   } catch (error) {
     console.log({ error });
-    logger.consoleErrorLog(req.originalUrl, "Error in getAllEvents", error);
+    logger.consoleErrorLog(req.originalUrl, "Error in deleteEvents", error);
     return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
   }
 }
