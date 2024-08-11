@@ -296,7 +296,7 @@ export async function getAllQuizResponses(req, res) {
 export async function getAllAssignments(req, res) {
   try {
     const { id: studentId } = req.app.settings.userInfo;
-    const { search, subjectId, status } = req.query;
+    const { search, currentPage, itemsPerPage, subjectId, status } = req.query;
 
     const student = await prisma.student.findUnique({
       select: {
@@ -365,6 +365,7 @@ export async function getAllAssignments(req, res) {
     }
 
     const assignments = await prisma.assignment.findMany({
+      ...getPrismaPagination(currentPage, itemsPerPage),
       include: {
         teacher: {
           include: {
@@ -581,7 +582,7 @@ export async function submitAssignment(req, res) {
 
 // Events
 export async function getAllEvents(req, res) {
-  let { searchText, currentPage, itemsPerPage } = req.query;
+  let { search, status, registrationStatus, currentPage, itemsPerPage } = req.query;
   const { id: studentId } = req.app.settings.userInfo;
 
   const student = await prisma.student.findUnique({
@@ -592,30 +593,91 @@ export async function getAllEvents(req, res) {
 
   try {
     const options = {};
-    likeIfValue(options, ["name"], searchText);
+    likeIfValue(options, ["name", "venue"], search);
 
-    const where = {
+    let where = {
       approvalStatus: "approved",
       eventFor: {
         in: ["all", "students"],
       },
-      OR: [
+      AND: [
         {
-          batchId: student.batchId,
+          OR: [
+            {
+              batchId: student.batchId,
+            },
+            {
+              batchId: null,
+            },
+          ],
         },
         {
-          batchId: null,
-        },
-      ],
-      OR: [
-        {
-          courseId: student.courseId,
-        },
-        {
-          courseId: null,
+          OR: [
+            {
+              courseId: student.courseId,
+            },
+            {
+              courseId: null,
+            },
+          ],
         },
       ],
     };
+
+    const now = new Date();
+
+    if (registrationStatus) {
+      if (registrationStatus === "registered") {
+        where = {
+          ...where,
+          eventParticipants: {
+            some: {
+              studentId,
+            },
+          },
+          isCompleted: false,
+        };
+      }
+
+      if (registrationStatus === "unregistered") {
+        where = {
+          ...where,
+          eventParticipants: {
+            none: {
+              studentId,
+            },
+          },
+          isCompleted: false,
+          datetime: {
+            gte: now,
+          },
+        };
+      }
+    }
+
+    if (status) {
+      if (status === "upcoming") {
+        where = {
+          ...where,
+          datetime: {
+            gt: now,
+          },
+        };
+      } else if (status === "ongoing") {
+        where = {
+          ...where,
+          datetime: {
+            lte: now,
+          },
+          isCompleted: false,
+        };
+      } else if (status === "complete") {
+        where = {
+          ...where,
+          isCompleted: true,
+        };
+      }
+    }
 
     const events = await prisma.event.findMany({
       ...getPrismaPagination(currentPage, itemsPerPage),

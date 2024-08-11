@@ -836,3 +836,18 @@
 {"error":{"clientVersion":"5.10.2","name":"PrismaClientValidationError"},"level":"error","message":"Error in getStudentDetails","route":"/api/student/assignments?currentPage=1&itemsPerPage=7&search=&status=pending","timestamp":"2024-08-11T08:17:30.181Z"}
 {"error":{"expiredAt":"2024-08-10T17:18:35.000Z","message":"jwt expired","name":"TokenExpiredError"},"level":"error","message":"Error in jwtAccessTokenVerify","route":"core","timestamp":"2024-08-11T09:21:46.296Z"}
 {"error":{"expiredAt":"2024-08-10T17:18:35.000Z","message":"jwt expired","name":"TokenExpiredError"},"level":"error","message":"Error in jwtAccessTokenVerify","route":"core","timestamp":"2024-08-11T09:21:46.324Z"}
+{"error":{},"level":"error","message":"Error in getStudentDetails","route":"/api/student/events?currentPage=1&itemsPerPage=5","timestamp":"2024-08-11T10:52:44.450Z"}
+{"error":{},"level":"error","message":"Error in getStudentDetails","route":"/api/student/events?currentPage=1&itemsPerPage=5","timestamp":"2024-08-11T10:52:44.468Z"}
+{"error":{},"level":"error","message":"Error in getStudentDetails","route":"/api/student/events?currentPage=1&itemsPerPage=5","timestamp":"2024-08-11T10:53:48.179Z"}
+{"error":{},"level":"error","message":"Error in getStudentDetails","route":"/api/student/events?currentPage=1&itemsPerPage=5","timestamp":"2024-08-11T10:53:48.196Z"}
+{"error":{},"level":"error","message":"Error in getStudentDetails","route":"/api/student/events?currentPage=1&itemsPerPage=5","timestamp":"2024-08-11T10:53:51.329Z"}
+{"error":{},"level":"error","message":"Error in getStudentDetails","route":"/api/student/events?currentPage=1&itemsPerPage=5","timestamp":"2024-08-11T10:53:51.347Z"}
+{"error":{},"level":"error","message":"Error in getStudentDetails","route":"/api/student/events?currentPage=1&itemsPerPage=5","timestamp":"2024-08-11T10:53:53.282Z"}
+{"error":{},"level":"error","message":"Error in getStudentDetails","route":"/api/student/events?currentPage=1&itemsPerPage=5","timestamp":"2024-08-11T10:53:53.298Z"}
+{"error":{},"level":"error","message":"Error in getStudentDetails","route":"/api/student/events?currentPage=1&itemsPerPage=5","timestamp":"2024-08-11T10:55:16.578Z"}
+{"error":{},"level":"error","message":"Error in getStudentDetails","route":"/api/student/events?currentPage=1&itemsPerPage=5","timestamp":"2024-08-11T10:55:16.617Z"}
+{"error":{},"level":"error","message":"Error in getStudentDetails","route":"/api/student/events?currentPage=1&itemsPerPage=5&search=","timestamp":"2024-08-11T11:03:53.074Z"}
+{"error":{},"level":"error","message":"Error in getStudentDetails","route":"/api/student/events?currentPage=1&itemsPerPage=5&search=","timestamp":"2024-08-11T11:03:53.092Z"}
+{"error":{},"level":"error","message":"Error in getStudentDetails","route":"/api/student/events?currentPage=1&itemsPerPage=5&search=","timestamp":"2024-08-11T11:03:59.398Z"}
+{"error":{},"level":"error","message":"Error in getStudentDetails","route":"/api/student/events?currentPage=1&itemsPerPage=5&search=","timestamp":"2024-08-11T11:03:59.414Z"}
+{"error":{},"level":"error","message":"Error in getStudentDetails","route":"/api/student/events?currentPage=1&itemsPerPage=5&search=&status=upcoming","timestamp":"2024-08-11T11:25:31.758Z"}
