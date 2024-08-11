@@ -298,8 +298,6 @@ export async function getAllAssignments(req, res) {
     const { id: studentId } = req.app.settings.userInfo;
     const { search, subjectId, status } = req.query;
 
-    console.log({ status });
-
     const student = await prisma.student.findUnique({
       select: {
         divisionId: true,
@@ -397,7 +395,6 @@ export async function getAllAssignments(req, res) {
 
     return sendResponse(res, true, { assignments, assignmentCount }, "Success");
   } catch (error) {
-    console.error(error);
     logger.consoleErrorLog(req.originalUrl, "Error in getStudentDetails", error);
     return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
   }
