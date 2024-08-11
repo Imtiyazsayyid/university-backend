@@ -16,6 +16,7 @@ router.route("/batch").get(studentController.getStudentBatch);
 
 // Subject
 router.route("/subject/:subjectId").get(studentController.getSingleSubject);
+router.route("/accessible-subjects").get(studentController.getAccessibleSubjects);
 
 // Unit Materials
 router.route("/unit/:unitId").get(studentController.getSingleUnit);

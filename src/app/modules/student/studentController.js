@@ -110,6 +110,49 @@ export async function getSingleSubject(req, res) {
   }
 }
 
+export const getAccessibleSubjects = async (req, res) => {
+  try {
+    const { id } = req.app.settings.userInfo;
+
+    const student = await prisma.student.findUnique({
+      include: {
+        batch: {
+          include: {
+            accessibleSemesters: {
+              include: {
+                semester: {
+                  include: {
+                    subjects: true,
+                  },
+                },
+              },
+              orderBy: {
+                semester: {
+                  semNumber: "desc",
+                },
+              },
+            },
+          },
+        },
+      },
+      where: {
+        id,
+      },
+    });
+
+    let subjects = [];
+
+    for (let accessibleSemester of student.batch.accessibleSemesters) {
+      accessibleSemester.semester.subjects.forEach((s) => subjects.push(s));
+    }
+
+    return sendResponse(res, true, subjects, "success");
+  } catch (error) {
+    console.error("Error in getAccessibleSubjects", error);
+    return sendResponse(res, false, null, "Error In Getting Accessible Subjects", statusType.DB_ERROR);
+  }
+};
+
 // Unit Material
 export async function getSingleUnit(req, res) {
   try {
@@ -253,6 +296,9 @@ export async function getAllQuizResponses(req, res) {
 export async function getAllAssignments(req, res) {
   try {
     const { id: studentId } = req.app.settings.userInfo;
+    const { search, subjectId, status } = req.query;
+
+    console.log({ status });
 
     const student = await prisma.student.findUnique({
       select: {
@@ -262,6 +308,63 @@ export async function getAllAssignments(req, res) {
         id: studentId,
       },
     });
+
+    let where = {};
+
+    if (search) {
+      where = {
+        ...where,
+        name: {
+          contains: search,
+        },
+      };
+    }
+
+    if (getIntOrNull(subjectId)) {
+      where = {
+        ...where,
+        subjectId: parseInt(subjectId),
+      };
+    }
+
+    if (status) {
+      const now = new Date();
+
+      if (status === "pending") {
+        where = {
+          ...where,
+          submittedAssignments: {
+            none: {
+              studentId,
+            },
+          },
+          dueDate: {
+            gt: now,
+          },
+        };
+      } else if (status === "closed") {
+        where = {
+          ...where,
+          submittedAssignments: {
+            none: {
+              studentId,
+            },
+          },
+          dueDate: {
+            lte: now,
+          },
+        };
+      } else if (status === "complete") {
+        where = {
+          ...where,
+          submittedAssignments: {
+            some: {
+              studentId,
+            },
+          },
+        };
+      }
+    }
 
     const assignments = await prisma.assignment.findMany({
       include: {
@@ -278,6 +381,7 @@ export async function getAllAssignments(req, res) {
         },
       },
       where: {
+        ...where,
         divisionId: student.divisionId,
       },
       orderBy: {
@@ -293,6 +397,7 @@ export async function getAllAssignments(req, res) {
 
     return sendResponse(res, true, { assignments, assignmentCount }, "Success");
   } catch (error) {
+    console.error(error);
     logger.consoleErrorLog(req.originalUrl, "Error in getStudentDetails", error);
     return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
   }
