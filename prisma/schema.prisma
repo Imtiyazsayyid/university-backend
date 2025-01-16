@@ -159,6 +159,7 @@ model Division {
   subjectTeachers DivisionSubjectTeacher[]
   students        Student[]
   assignments     Assignment[]
+  timeTable       TimeTable[]
 
   status     Boolean  @default(true)
   created_at DateTime @default(now())
@@ -527,6 +528,27 @@ model EventParticipant {
 
   teacherId Int?
   teacher   Teacher? @relation(fields: [teacherId], references: [id])
+
+  status     Boolean  @default(true)
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+}
+
+model TimeTable {
+  id Int @id @default(autoincrement())
+
+  divisionId Int
+  startTime  String
+  endTime    String
+  monday     Int?
+  tuesday    Int?
+  wednesday  Int?
+  thursday   Int?
+  friday     Int?
+  saturday   Int?
+  sunday     Int?
+
+  division   Division @relation(fields: [divisionId], references: [id])
 
   status     Boolean  @default(true)
   created_at DateTime @default(now())

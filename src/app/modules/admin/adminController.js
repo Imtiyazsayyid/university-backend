@@ -436,9 +436,42 @@ export async function deleteSubject(req, res) {
   }
 }
 
+export async function getCurrentSubjectsForBatch(req, res) {
+  try {
+    const batchId = getIntOrNull(req.params.batchId);
+
+    if (!batchId) return sendResponse(res, true, null, "Invalid Batch Id");
+
+    const batch = await prisma.batchSemesterMap.findFirst({
+      include: {
+        semester: {
+          include: {
+            subjects: true,
+          },
+        },
+      },
+      where: {
+        batchId,
+      },
+      orderBy: {
+        semester: {
+          semNumber: "desc",
+        },
+      },
+    });
+
+    const subjects = batch.semester.subjects;
+
+    return sendResponse(res, true, subjects, "Success");
+  } catch (error) {
+    logger.consoleErrorLog(req.originalUrl, "Error in getAllSemesters", error);
+    return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
+  }
+}
+
 // Subject Types
 export async function getAllSubjectTypes(req, res) {
-  try{
+  try {
     let { currentPage, itemsPerPage } = req.query;
 
     const subjectTypes = await prisma.subjectType.findMany({
@@ -448,34 +481,34 @@ export async function getAllSubjectTypes(req, res) {
     const subjectTypeCount = await prisma.subjectType.count();
 
     return sendResponse(res, true, { subjectTypes, subjectTypeCount }, "Success");
-  } catch(error) {
+  } catch (error) {
     logger.consoleErrorLog(req.originalUrl, "Error in getAllSubjectTypes", error);
     return sendResponse(res, true, null, "Error", statusType.DB_ERROR);
   }
 }
 
 export async function saveSubjectType(req, res) {
-  try{
+  try {
     let { id, name, status } = req.body;
 
     const subjectTypeData = {
       name,
       status,
-    }
+    };
 
     const validation = subjectTypeSchema.safeParse(subjectTypeData);
 
-    if(!validation.success) {
+    if (!validation.success) {
       return sendResponse(res, false, null, "Please Provide All Details.");
     }
 
-    if(id){
+    if (id) {
       const updatedSubjectType = await prisma.subjectType.update({
         data: subjectTypeData,
         where: {
           id,
         },
-      })
+      });
     } else {
       const newSubjectType = await prisma.subjectType.create({
         data: subjectTypeData,
@@ -483,7 +516,7 @@ export async function saveSubjectType(req, res) {
     }
 
     return sendResponse(res, true, null, "SubjectType Saved.");
-  } catch(error) {
+  } catch (error) {
     logger.consoleErrorLog(req.originalUrl, "Error in saveSubjectType", error);
     return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
   }
@@ -1944,6 +1977,78 @@ export async function deleteStudentDocument(req, res) {
     return sendResponse(res, true, deletedStudentDocument, "Success");
   } catch (error) {
     logger.consoleErrorLog(req.originalUrl, "Error in deleteStudentDocument", error);
+    return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
+  }
+}
+
+// Time Table
+export async function saveTimeTable(req, res) {
+  try {
+    const timeTableEntries = req.body;
+
+    if (!Array.isArray(timeTableEntries)) {
+      return sendResponse(res, false, null, "Invalid data format. Expected an array of objects.");
+    }
+
+    for (const entry of timeTableEntries) {
+      const { divisionId, startTime, endTime } = entry;
+
+      if (!getIntOrNull(divisionId) || !startTime || !endTime) {
+        return sendResponse(res, false, null, "Missing required fields: Start Time & End Time.");
+      }
+    }
+
+    await prisma.timeTable.deleteMany({
+      where: {
+        divisionId: timeTableEntries[0].divisionId,
+      },
+    });
+
+    for (const entry of timeTableEntries) {
+      const { divisionId, startTime, endTime, monday, tuesday, wednesday, thursday, friday, saturday, sunday } = entry;
+
+      const timeTableData = {
+        divisionId: parseInt(divisionId),
+        startTime,
+        endTime,
+        monday: parseInt(monday),
+        tuesday: parseInt(tuesday),
+        wednesday: parseInt(wednesday),
+        thursday: parseInt(thursday),
+        friday: parseInt(friday),
+        saturday: parseInt(saturday),
+        sunday: parseInt(sunday),
+      };
+
+      await prisma.timeTable.create({
+        data: timeTableData,
+      });
+    }
+
+    return sendResponse(res, true, null, "Time Table Saved.");
+  } catch (error) {
+    logger.consoleErrorLog(req.originalUrl, "Error in saveTimeTable", error);
+    return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
+  }
+}
+
+export async function getTimeTable(req, res) {
+  try {
+    const { divisionId } = req.params;
+
+    if (!getIntOrNull(divisionId)) {
+      return sendResponse(res, false, null, "Invalid Division ID");
+    }
+
+    const timeTableEntries = await prisma.timeTable.findMany({
+      where: {
+        divisionId: parseInt(divisionId),
+      },
+    });
+
+    return sendResponse(res, true, timeTableEntries, "Success");
+  } catch (error) {
+    logger.consoleErrorLog(req.originalUrl, "Error in getTimeTable", error);
     return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
   }
 }
