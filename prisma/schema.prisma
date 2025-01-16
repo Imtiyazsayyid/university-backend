@@ -160,6 +160,7 @@ model Division {
   students        Student[]
   assignments     Assignment[]
   timeTable       TimeTable[]
+  dailyTimeTable  DailyTimeTable[]
 
   status     Boolean  @default(true)
   created_at DateTime @default(now())
@@ -269,6 +270,7 @@ model Student {
   submittedAssignments      AssignmentsSubmitted[]
   assignmentUploads         AssignmentUploads[]
   eventWhereParticipants    EventParticipant[]
+  attendance                StudentAttendance[]
 
   status     Boolean  @default(true)
   created_at DateTime @default(now())
@@ -548,7 +550,36 @@ model TimeTable {
   saturday   Int?
   sunday     Int?
 
-  division   Division @relation(fields: [divisionId], references: [id])
+  division Division @relation(fields: [divisionId], references: [id])
+
+  status     Boolean  @default(true)
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+}
+
+model DailyTimeTable {
+  id Int @id @default(autoincrement())
+
+  todaysDate DateTime
+  divisionId Int
+  subjectId  Int
+
+  division          Division            @relation(fields: [divisionId], references: [id])
+  studentAttendance StudentAttendance[]
+
+  status     Boolean  @default(true)
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+}
+
+model StudentAttendance {
+  id Int @id @default(autoincrement())
+
+  dailyTimeTableId Int
+  studentId        Int
+
+  dailyTimeTable DailyTimeTable @relation(fields: [dailyTimeTableId], references: [id])
+  student        Student        @relation(fields: [studentId], references: [id])
 
   status     Boolean  @default(true)
   created_at DateTime @default(now())
