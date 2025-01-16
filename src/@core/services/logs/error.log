@@ -863,3 +863,5 @@
 {"error":{"expiredAt":"2024-08-11T06:15:50.000Z","message":"jwt expired","name":"TokenExpiredError"},"level":"error","message":"Error in jwtAccessTokenVerify","route":"core","timestamp":"2025-01-12T07:18:30.662Z"}
 {"error":{"expiredAt":"2024-08-11T06:15:50.000Z","message":"jwt expired","name":"TokenExpiredError"},"level":"error","message":"Error in jwtAccessTokenVerify","route":"core","timestamp":"2025-01-12T07:18:30.667Z"}
 {"error":{"expiredAt":"2024-08-11T06:15:50.000Z","message":"jwt expired","name":"TokenExpiredError"},"level":"error","message":"Error in jwtAccessTokenVerify","route":"core","timestamp":"2025-01-12T07:18:30.671Z"}
+{"error":{},"level":"error","message":"Error in getTimeTable","route":"/api/webhook/daily-time-table","timestamp":"2025-01-16T07:25:46.094Z"}
+{"error":{},"level":"error","message":"Error in getTimeTable","route":"/api/webhook/daily-time-table","timestamp":"2025-01-16T07:25:59.446Z"}

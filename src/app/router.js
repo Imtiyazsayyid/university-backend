@@ -1,10 +1,12 @@
 import express from "express";
+import webhookRoutes from "./modules/webhooks/webhookRoutes";
 import adminRoutes from "./modules/admin/adminRoutes";
 import studentRoutes from "./modules/student/studentRoutes";
 import teacherRoutes from "./modules/teacher/teacherRoutes";
 
 const router = express.Router();
 
+router.use("/api/webhook", webhookRoutes);
 router.use("/api/admin", adminRoutes);
 router.use("/api/student", studentRoutes);
 router.use("/api/teacher", teacherRoutes);

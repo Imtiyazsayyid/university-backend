@@ -560,6 +560,8 @@ model TimeTable {
 model DailyTimeTable {
   id Int @id @default(autoincrement())
 
+  startTime  String
+  endTime    String
   todaysDate DateTime
   divisionId Int
   subjectId  Int

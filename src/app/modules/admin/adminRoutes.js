@@ -102,7 +102,6 @@ router.route("/student-document/:id").delete(adminController.deleteStudentDocume
 router.route("/subject-type").post(adminController.saveSubjectType);
 router.route("/subject-type/:id").delete(adminController.deleteSubjectType);
 
-//
 router.route("/time-table/:divisionId").get(adminController.getTimeTable);
 router.route("/time-table").post(adminController.saveTimeTable);
 
