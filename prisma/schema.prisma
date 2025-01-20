@@ -210,6 +210,10 @@ model Teacher {
   eventWhereOrganiser    EventOrganiser[]
   eventWhereParticipants EventParticipant[]
 
+  conversations Conversation[] @relation("TeacherConversations")
+  messages      Message[]
+  seenMessages  Message[]      @relation("TeacherSeenMessages")
+
   status     Boolean  @default(true)
   created_at DateTime @default(now())
   updated_at DateTime @default(now())
@@ -268,6 +272,10 @@ model Student {
   submittedAssignments      AssignmentsSubmitted[]
   assignmentUploads         AssignmentUploads[]
   eventWhereParticipants    EventParticipant[]
+
+  conversations Conversation[] @relation("StudentConversations")
+  messages      Message[]
+  seenMessages  Message[]      @relation("StudentSeenMessages")
 
   status     Boolean  @default(true)
   created_at DateTime @default(now())
@@ -549,4 +557,40 @@ enum EventFor {
   all
   students
   teachers
+}
+
+model Conversation {
+  id      Int      @id @default(autoincrement())
+  name    String?
+  isGroup Boolean?
+
+  created_at    DateTime @default(now())
+  updated_at    DateTime @default(now())
+  lastMessageAt DateTime @default(now())
+
+  messages Message[]
+  students Student[] @relation("StudentConversations")
+  teachers Teacher[] @relation("TeacherConversations")
+}
+
+model Message {
+  id    Int     @id @default(autoincrement())
+  body  String?
+  image String?
+  file  String? // URL or path to the file
+
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+
+  conversationId Int
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+
+  senderTeacherId Int?
+  sendTeacher     Teacher? @relation(fields: [senderTeacherId], references: [id])
+
+  senderStudentId Int?
+  sendStudent     Student? @relation(fields: [senderStudentId], references: [id])
+
+  seenByTeachers Teacher[] @relation("TeacherSeenMessages")
+  seenByStudents Student[] @relation("StudentSeenMessages")
 }

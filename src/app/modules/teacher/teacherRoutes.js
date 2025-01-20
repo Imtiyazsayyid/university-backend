@@ -88,4 +88,11 @@ router.route("/remove-event-participant/:eventParticipantId").delete(teacherCont
 router.route("/event-organisers-approval-status").post(teacherController.setEventOrganiserApprovalStatus);
 router.route("/mark-event-complete/:eventId").post(teacherController.markEventComplete);
 
+router.route("/chats").get(teacherController.getAllUsers); // teachers and students
+router.route("/conversations").post(teacherController.createConversation);
+router.route("/conversations/:conversationId").delete(teacherController.deleteConversation);
+router.route("/conversations/:conversationId/seen").patch(teacherController.updateLastSeenOfMessage);
+router.route("/conversations").get(teacherController.getConversations);
+router.route("/conversations/:conversationId").get(teacherController.getConversationById);
+router.route("/conversations/:conversationId").get(teacherController.getMessages);
 export default router;
