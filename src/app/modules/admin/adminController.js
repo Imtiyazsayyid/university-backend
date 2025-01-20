@@ -20,6 +20,7 @@ import {
 import getPrismaPagination from "../../helpers/prismaPaginationHelper";
 import { getIntOrNull } from "../../../@core/helpers/commonHelpers";
 import { likeIfValue, whereIfValue } from "../../helpers/prismaHelpers";
+import moment from "moment";
 
 // Admin Details
 export async function getAdminDetails(req, res) {
@@ -2048,6 +2049,99 @@ export async function getTimeTable(req, res) {
 
     return sendResponse(res, true, timeTableEntries, "Success");
   } catch (error) {
+    logger.consoleErrorLog(req.originalUrl, "Error in getTimeTable", error);
+    return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
+  }
+}
+
+// Daily Time Table
+
+export async function getDailyTimeTable(req, res) {
+  try {
+    const { divisionId } = req.params;
+    const date = req.query.date;
+
+    const startOfDay = moment(date).startOf("day");
+    const endOfDay = moment(date).endOf("day");
+
+    if (!getIntOrNull(divisionId)) {
+      return sendResponse(res, false, null, "Invalid Division ID");
+    }
+
+    const dailyTimeTable = await prisma.dailyTimeTable.findMany({
+      include: {
+        subject: true,
+      },
+      where: {
+        todaysDate: {
+          gt: startOfDay,
+          lt: endOfDay,
+        },
+      },
+    });
+
+    return sendResponse(res, true, dailyTimeTable, "Success");
+  } catch (error) {
+    logger.consoleErrorLog(req.originalUrl, "Error in getTimeTable", error);
+    return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
+  }
+}
+
+// Attendance
+
+export async function markAttendance(req, res) {
+  try {
+    const { val, dailyTimeTableId, studentId } = req.body;
+
+    if (val) {
+      // Remove Attendance if repeated
+      await prisma.studentAttendance.deleteMany({
+        where: {
+          dailyTimeTableId,
+          studentId,
+        },
+      });
+      // Mark Attendance if True
+      await prisma.studentAttendance.create({
+        data: {
+          dailyTimeTableId,
+          studentId,
+        },
+      });
+    } else {
+      // Remove Attendance if False
+      await prisma.studentAttendance.deleteMany({
+        where: {
+          dailyTimeTableId,
+          studentId,
+        },
+      });
+    }
+
+    return sendResponse(res, true, null, "Success");
+  } catch (error) {
+    logger.consoleErrorLog(req.originalUrl, "Error in getTimeTable", error);
+    return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
+  }
+}
+
+export async function getAttendance(req, res) {
+  try {
+    const { dailyTimeTableIds } = req.body;
+
+    console.log({ dailyTimeTableIds });
+
+    const attendance = await prisma.studentAttendance.findMany({
+      where: {
+        dailyTimeTableId: {
+          in: dailyTimeTableIds,
+        },
+      },
+    });
+
+    return sendResponse(res, true, attendance, "Success");
+  } catch (error) {
+    console.log({ error });
     logger.consoleErrorLog(req.originalUrl, "Error in getTimeTable", error);
     return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
   }

@@ -86,6 +86,7 @@ model Subject {
   units            Unit[]
   divisionTeachers DivisionSubjectTeacher[]
   assignments      Assignment[]
+  dailyTimeTable   DailyTimeTable[]
 
   status     Boolean  @default(true)
   created_at DateTime @default(now())
@@ -566,6 +567,7 @@ model DailyTimeTable {
   divisionId Int
   subjectId  Int
 
+  subject           Subject             @relation(fields: [subjectId], references: [id])
   division          Division            @relation(fields: [divisionId], references: [id])
   studentAttendance StudentAttendance[]
 

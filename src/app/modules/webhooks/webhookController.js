@@ -36,9 +36,9 @@ export async function createDailyTimeTable(req, res) {
       }
     }
 
-    // await prisma.dailyTimeTable.createMany({
-    //   data,
-    // });
+    await prisma.dailyTimeTable.createMany({
+      data,
+    });
 
     return sendResponse(res, true, data, "Success");
   } catch (error) {

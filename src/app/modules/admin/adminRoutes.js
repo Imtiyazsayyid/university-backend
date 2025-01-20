@@ -102,7 +102,15 @@ router.route("/student-document/:id").delete(adminController.deleteStudentDocume
 router.route("/subject-type").post(adminController.saveSubjectType);
 router.route("/subject-type/:id").delete(adminController.deleteSubjectType);
 
+// Time Table
 router.route("/time-table/:divisionId").get(adminController.getTimeTable);
 router.route("/time-table").post(adminController.saveTimeTable);
+
+// Time Table
+router.route("/daily-time-table/:divisionId").get(adminController.getDailyTimeTable);
+
+// Attendance
+router.route("/mark-attendance").post(adminController.markAttendance);
+router.route("/attendance").post(adminController.getAttendance);
 
 export default router;

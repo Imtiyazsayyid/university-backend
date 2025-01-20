@@ -865,3 +865,13 @@
 {"error":{"expiredAt":"2024-08-11T06:15:50.000Z","message":"jwt expired","name":"TokenExpiredError"},"level":"error","message":"Error in jwtAccessTokenVerify","route":"core","timestamp":"2025-01-12T07:18:30.671Z"}
 {"error":{},"level":"error","message":"Error in getTimeTable","route":"/api/webhook/daily-time-table","timestamp":"2025-01-16T07:25:46.094Z"}
 {"error":{},"level":"error","message":"Error in getTimeTable","route":"/api/webhook/daily-time-table","timestamp":"2025-01-16T07:25:59.446Z"}
+{"error":{"expiredAt":"2025-01-13T07:21:31.000Z","message":"jwt expired","name":"TokenExpiredError"},"level":"error","message":"Error in jwtAccessTokenVerify","route":"core","timestamp":"2025-01-19T09:50:15.401Z"}
+{"error":{"expiredAt":"2025-01-13T07:21:31.000Z","message":"jwt expired","name":"TokenExpiredError"},"level":"error","message":"Error in jwtAccessTokenVerify","route":"core","timestamp":"2025-01-19T09:50:15.406Z"}
+{"error":{"clientVersion":"5.10.2","name":"PrismaClientValidationError"},"level":"error","message":"Error in getTimeTable","route":"/api/webhook/daily-time-table","timestamp":"2025-01-19T09:51:06.705Z"}
+{"error":{},"level":"error","message":"Error in getTimeTable","route":"/api/admin/mark-attendance","timestamp":"2025-01-19T12:07:40.946Z"}
+{"error":{"clientVersion":"5.10.2","name":"PrismaClientUnknownRequestError"},"level":"error","message":"Error in getTimeTable","route":"/api/admin/attendance","timestamp":"2025-01-19T12:19:25.600Z"}
+{"error":{"clientVersion":"5.10.2","name":"PrismaClientUnknownRequestError"},"level":"error","message":"Error in getTimeTable","route":"/api/admin/attendance","timestamp":"2025-01-19T12:19:25.613Z"}
+{"error":{"clientVersion":"5.10.2","name":"PrismaClientUnknownRequestError"},"level":"error","message":"Error in getTimeTable","route":"/api/admin/attendance","timestamp":"2025-01-19T12:19:45.689Z"}
+{"error":{"clientVersion":"5.10.2","name":"PrismaClientUnknownRequestError"},"level":"error","message":"Error in getTimeTable","route":"/api/admin/attendance","timestamp":"2025-01-19T12:19:45.715Z"}
+{"error":{"clientVersion":"5.10.2","name":"PrismaClientUnknownRequestError"},"level":"error","message":"Error in getTimeTable","route":"/api/admin/attendance","timestamp":"2025-01-19T12:20:12.853Z"}
+{"error":{"clientVersion":"5.10.2","name":"PrismaClientUnknownRequestError"},"level":"error","message":"Error in getTimeTable","route":"/api/admin/attendance","timestamp":"2025-01-19T12:20:12.873Z"}
