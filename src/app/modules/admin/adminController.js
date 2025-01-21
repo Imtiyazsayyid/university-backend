@@ -2058,13 +2058,13 @@ export async function getTimeTable(req, res) {
 
 export async function getDailyTimeTable(req, res) {
   try {
-    const { divisionId } = req.params;
+    const divisionId = getIntOrNull(req.params.divisionId);
     const date = req.query.date;
 
     const startOfDay = moment(date).startOf("day");
     const endOfDay = moment(date).endOf("day");
 
-    if (!getIntOrNull(divisionId)) {
+    if (!divisionId) {
       return sendResponse(res, false, null, "Invalid Division ID");
     }
 
@@ -2077,6 +2077,7 @@ export async function getDailyTimeTable(req, res) {
           gt: startOfDay,
           lt: endOfDay,
         },
+        divisionId,
       },
     });
 
