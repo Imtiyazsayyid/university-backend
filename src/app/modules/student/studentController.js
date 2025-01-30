@@ -22,11 +22,7 @@ export async function getStudentDetails(req, res) {
 
     return sendResponse(res, true, student, "Success");
   } catch (error) {
-    logger.consoleErrorLog(
-      req.originalUrl,
-      "Error in getStudentDetails",
-      error
-    );
+    logger.consoleErrorLog(req.originalUrl, "Error in getStudentDetails", error);
     return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
   }
 }
@@ -62,11 +58,7 @@ export async function getStudentBatch(req, res) {
 
     return sendResponse(res, true, batch, "Success");
   } catch (error) {
-    logger.consoleErrorLog(
-      req.originalUrl,
-      "Error in getStudentDetails",
-      error
-    );
+    logger.consoleErrorLog(req.originalUrl, "Error in getStudentDetails", error);
     return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
   }
 }
@@ -77,14 +69,7 @@ export async function getSingleSubject(req, res) {
     const { subjectId } = req.params;
     const { id } = req.app.settings.userInfo;
 
-    if (!getIntOrNull(subjectId))
-      return sendResponse(
-        res,
-        false,
-        null,
-        "Send Valid Subject ID",
-        statusType.DB_ERROR
-      );
+    if (!getIntOrNull(subjectId)) return sendResponse(res, false, null, "Send Valid Subject ID", statusType.DB_ERROR);
 
     const division = await prisma.student.findUnique({
       select: {
@@ -120,11 +105,7 @@ export async function getSingleSubject(req, res) {
 
     return sendResponse(res, true, subject, "Success");
   } catch (error) {
-    logger.consoleErrorLog(
-      req.originalUrl,
-      "Error in getStudentDetails",
-      error
-    );
+    logger.consoleErrorLog(req.originalUrl, "Error in getStudentDetails", error);
     return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
   }
 }
@@ -168,13 +149,7 @@ export const getAccessibleSubjects = async (req, res) => {
     return sendResponse(res, true, subjects, "success");
   } catch (error) {
     console.error("Error in getAccessibleSubjects", error);
-    return sendResponse(
-      res,
-      false,
-      null,
-      "Error In Getting Accessible Subjects",
-      statusType.DB_ERROR
-    );
+    return sendResponse(res, false, null, "Error In Getting Accessible Subjects", statusType.DB_ERROR);
   }
 };
 
@@ -207,11 +182,7 @@ export async function getSingleUnit(req, res) {
 
     return sendResponse(res, true, unit, "Success");
   } catch (error) {
-    logger.consoleErrorLog(
-      req.originalUrl,
-      "Error in getStudentDetails",
-      error
-    );
+    logger.consoleErrorLog(req.originalUrl, "Error in getStudentDetails", error);
     return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
   }
 }
@@ -236,11 +207,7 @@ export async function getSingleUnitQuiz(req, res) {
 
     return sendResponse(res, true, quiz, "Success");
   } catch (error) {
-    logger.consoleErrorLog(
-      req.originalUrl,
-      "Error in getStudentDetails",
-      error
-    );
+    logger.consoleErrorLog(req.originalUrl, "Error in getStudentDetails", error);
     return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
   }
 }
@@ -266,11 +233,7 @@ export async function saveUnitQuiz(req, res) {
 
     return sendResponse(res, true, null, "Success");
   } catch (error) {
-    logger.consoleErrorLog(
-      req.originalUrl,
-      "Error in getStudentDetails",
-      error
-    );
+    logger.consoleErrorLog(req.originalUrl, "Error in getStudentDetails", error);
     return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
   }
 }
@@ -282,13 +245,7 @@ export async function getAllQuizResponses(req, res) {
     const { quizId } = req.query;
 
     if (!quizId) {
-      return sendResponse(
-        res,
-        false,
-        null,
-        "Send Quiz ID",
-        statusType.BAD_REQUEST
-      );
+      return sendResponse(res, false, null, "Send Quiz ID", statusType.BAD_REQUEST);
     }
 
     const responses = await prisma.unitQuizQuestionResponses.findMany({
@@ -330,11 +287,7 @@ export async function getAllQuizResponses(req, res) {
 
     return sendResponse(res, true, finalResponses, "Success");
   } catch (error) {
-    logger.consoleErrorLog(
-      req.originalUrl,
-      "Error in getStudentDetails",
-      error
-    );
+    logger.consoleErrorLog(req.originalUrl, "Error in getStudentDetails", error);
     return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
   }
 }
@@ -443,11 +396,7 @@ export async function getAllAssignments(req, res) {
 
     return sendResponse(res, true, { assignments, assignmentCount }, "Success");
   } catch (error) {
-    logger.consoleErrorLog(
-      req.originalUrl,
-      "Error in getStudentDetails",
-      error
-    );
+    logger.consoleErrorLog(req.originalUrl, "Error in getStudentDetails", error);
     return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
   }
 }
@@ -517,11 +466,7 @@ export async function getSingleAssignment(req, res) {
     return sendResponse(res, true, data, "Success");
   } catch (error) {
     console.log({ error });
-    logger.consoleErrorLog(
-      req.originalUrl,
-      "Error in getStudentDetails",
-      error
-    );
+    logger.consoleErrorLog(req.originalUrl, "Error in getStudentDetails", error);
     return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
   }
 }
@@ -529,8 +474,7 @@ export async function getSingleAssignment(req, res) {
 export async function submitAssignment(req, res) {
   try {
     const { id: studentId } = req.app.settings.userInfo;
-    const { assignmentId, assignmentAnswers, assignmentUploads, action } =
-      req.body;
+    const { assignmentId, assignmentAnswers, assignmentUploads, action } = req.body;
 
     if (!getIntOrNull(assignmentId)) {
       return sendResponse(res, true, null, "Please Send Assignment ID");
@@ -631,19 +575,14 @@ export async function submitAssignment(req, res) {
     return sendResponse(res, true, null, "Success");
   } catch (error) {
     console.log({ error });
-    logger.consoleErrorLog(
-      req.originalUrl,
-      "Error in getStudentDetails",
-      error
-    );
+    logger.consoleErrorLog(req.originalUrl, "Error in getStudentDetails", error);
     return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
   }
 }
 
 // Events
 export async function getAllEvents(req, res) {
-  let { search, status, registrationStatus, currentPage, itemsPerPage } =
-    req.query;
+  let { search, status, registrationStatus, currentPage, itemsPerPage } = req.query;
   const { id: studentId } = req.app.settings.userInfo;
 
   const student = await prisma.student.findUnique({
@@ -768,11 +707,7 @@ export async function getAllEvents(req, res) {
     return sendResponse(res, true, { events, eventCount }, "Success");
   } catch (error) {
     console.log({ error });
-    logger.consoleErrorLog(
-      req.originalUrl,
-      "Error in getStudentDetails",
-      error
-    );
+    logger.consoleErrorLog(req.originalUrl, "Error in getStudentDetails", error);
     return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
   }
 }
@@ -815,11 +750,7 @@ export async function getSingleEvent(req, res) {
 
     return sendResponse(res, true, event, "Success");
   } catch (error) {
-    logger.consoleErrorLog(
-      req.originalUrl,
-      "Error in getStudentDetails",
-      error
-    );
+    logger.consoleErrorLog(req.originalUrl, "Error in getStudentDetails", error);
     return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
   }
 }
@@ -844,20 +775,11 @@ export async function joinEventParticipants(req, res) {
       return sendResponse(res, false, null, "No Such Event");
     }
 
-    if (event.isCompleted)
-      return sendResponse(res, false, null, "You Cannot Join A Complete Event");
+    if (event.isCompleted) return sendResponse(res, false, null, "You Cannot Join A Complete Event");
 
     const now = moment();
-    if (
-      event.finalRegistrationDate &&
-      now.isAfter(moment(event.finalRegistrationDate))
-    ) {
-      return sendResponse(
-        res,
-        false,
-        null,
-        "Registration For this Event is Closed."
-      );
+    if (event.finalRegistrationDate && now.isAfter(moment(event.finalRegistrationDate))) {
+      return sendResponse(res, false, null, "Registration For this Event is Closed.");
     }
 
     // const isEventHead = await prisma.event.findUnique({
@@ -879,12 +801,7 @@ export async function joinEventParticipants(req, res) {
     });
 
     if (existingParticipant) {
-      return sendResponse(
-        res,
-        false,
-        null,
-        "You are already a participant for this event."
-      );
+      return sendResponse(res, false, null, "You are already a participant for this event.");
     }
 
     await prisma.eventParticipant.create({
@@ -918,29 +835,14 @@ export async function leaveEvent(req, res) {
     });
 
     if (!existingParticipant) {
-      return sendResponse(
-        res,
-        false,
-        null,
-        "You are not a participant for this event."
-      );
+      return sendResponse(res, false, null, "You are not a participant for this event.");
     }
 
     if (existingParticipant.event.isCompleted)
-      return sendResponse(
-        res,
-        false,
-        null,
-        "You Cannot Leave A Completed Event"
-      );
+      return sendResponse(res, false, null, "You Cannot Leave A Completed Event");
 
     if (existingParticipant.studentId !== studentId) {
-      return sendResponse(
-        res,
-        false,
-        null,
-        "You Do Not Have Access To Remove Someone Else From this Event"
-      );
+      return sendResponse(res, false, null, "You Do Not Have Access To Remove Someone Else From this Event");
     }
 
     await prisma.eventParticipant.delete({
@@ -969,11 +871,7 @@ export async function getStudentsList(req, res) {
 
     let { searchText } = req.query;
 
-    if (
-      searchText === currentUser.firstName ||
-      searchText === currentUser.lastName
-    )
-      return null;
+    if (searchText === currentUser.firstName || searchText === currentUser.lastName) return null;
     const options = {};
     if (searchText) {
       likeIfValue(options, ["firstName", "lastName"], searchText);
@@ -1107,11 +1005,7 @@ export async function createStudentConversation(req, res) {
 
     return sendResponse(res, true, newConversation, "Success");
   } catch (error) {
-    logger.consoleErrorLog(
-      req.originalUrl,
-      "Error in createStudentConversation",
-      error
-    );
+    logger.consoleErrorLog(req.originalUrl, "Error in createStudentConversation", error);
     return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
   }
 }
@@ -1157,17 +1051,11 @@ export async function getStudentConversations(req, res) {
     });
 
     // makes sure that only conversation with two users are retreived.
-    const properConversation = conversations.filter(
-      (conversation) => conversation.students.length > 1
-    );
+    const properConversation = conversations.filter((conversation) => conversation.students.length > 1);
 
     return sendResponse(res, true, properConversation, "Success");
   } catch (error) {
-    logger.consoleErrorLog(
-      req.originalUrl,
-      "Error in getStudentConversation",
-      error
-    );
+    logger.consoleErrorLog(req.originalUrl, "Error in getStudentConversation", error);
     return sendResponse(res, false, [], "Error", statusType.DB_ERROR);
   }
 }
@@ -1231,11 +1119,7 @@ export async function deleteStudentConversation(req, res) {
 
     return sendResponse(res, true, deletedConversation, "Success");
   } catch (error) {
-    logger.consoleErrorLog(
-      req.originalUrl,
-      "Error in deleteStudentConversation",
-      error
-    );
+    logger.consoleErrorLog(req.originalUrl, "Error in deleteStudentConversation", error);
     return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
   }
 }
@@ -1303,9 +1187,7 @@ export async function updateLastSeenOfStudentMessage(req, res) {
     //   messages: [updatedMessage],
     // });
 
-    const seenIds = Array.isArray(lastMessage.seen)
-      ? lastMessage.seen.map((student) => student.id)
-      : [];
+    const seenIds = Array.isArray(lastMessage.seen) ? lastMessage.seen.map((student) => student.id) : [];
 
     // If currentUser has already seen the message, return the conversation
     if (seenIds.indexOf(currentUser.id) !== -1) {
@@ -1321,11 +1203,7 @@ export async function updateLastSeenOfStudentMessage(req, res) {
     console.log("updatedMessage: ", updatedMessage);
     return sendResponse(res, true, updatedMessage, "Success");
   } catch (error) {
-    logger.consoleErrorLog(
-      req.originalUrl,
-      "Error in updateLastSeenOfStudentMessage",
-      error
-    );
+    logger.consoleErrorLog(req.originalUrl, "Error in updateLastSeenOfStudentMessage", error);
     return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
   }
 }
@@ -1369,11 +1247,7 @@ export async function getStudentConversationById(req, res) {
 
     return sendResponse(res, true, { conversation, messages }, "Success");
   } catch (error) {
-    logger.consoleErrorLog(
-      req.originalUrl,
-      "Error in getStudentConversationById",
-      error
-    );
+    logger.consoleErrorLog(req.originalUrl, "Error in getStudentConversationById", error);
     return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
   }
 }
@@ -1410,11 +1284,7 @@ export async function getStudentMessages(req, res) {
 
     return sendResponse(res, true, messages, "Success");
   } catch (error) {
-    logger.consoleErrorLog(
-      req.originalUrl,
-      "Error in getStudentMessages",
-      error
-    );
+    logger.consoleErrorLog(req.originalUrl, "Error in getStudentMessages", error);
     return sendResponse(res, false, [], "Error", statusType.DB_ERROR);
   }
 }
@@ -1504,27 +1374,22 @@ export async function createStudentMessage(req, res) {
 
     // following is the Pusher things
 
-    await pusherServer.trigger(conversationId, "student:message:new", newMessage);
+    // await pusherServer.trigger(conversationId, "student:message:new", newMessage);
 
     // take out last message
-    const lastMessage =
-      updatedConversation.messages[updatedConversation.messages.length - 1];
+    const lastMessage = updatedConversation.messages[updatedConversation.messages.length - 1];
 
     // send message seen to all the users of that chat
     updatedConversation.students.map((student) => {
-      pusherServer.trigger(student.email, "student:conversation:update", {
-        id: conversationId,
-        messages: [lastMessage],
-      });
+      // pusherServer.trigger(student.email, "student:conversation:update", {
+      //   id: conversationId,
+      //   messages: [lastMessage],
+      // });
     });
 
     return sendResponse(res, true, newMessage, "Success");
   } catch (error) {
-    logger.consoleErrorLog(
-      req.originalUrl,
-      "Error in createStudentMessage",
-      error
-    );
+    logger.consoleErrorLog(req.originalUrl, "Error in createStudentMessage", error);
     return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
   }
 }
