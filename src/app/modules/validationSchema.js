@@ -72,7 +72,9 @@ const unitMaterialSchema = z.object({
     .min(3, "Unit Material Name is too short")
     .max(100, "Unit Material Name is too long"),
 
-  link: z.string({ required_error: "File is required" }).min(3, "File is required"),
+  link: z
+    .string({ required_error: "File is required" })
+    .min(3, "File is required"),
 
   unitId: z.number({
     required_error: "Unit is required",
@@ -129,9 +131,11 @@ const teacherSchema = z.object({
     .string({ required_error: "Password is required" })
     .min(3, "Password is too short")
     .max(45, "Password is too long"),
-  gender: z.string({ required_error: "Gender is required" }).refine((data) => allowedGenders.includes(data), {
-    message: "Invalid gender",
-  }),
+  gender: z
+    .string({ required_error: "Gender is required" })
+    .refine((data) => allowedGenders.includes(data), {
+      message: "Invalid gender",
+    }),
   roleId: z.number({
     required_error: "Role is required",
     invalid_type_error: "Role is required",
@@ -156,9 +160,11 @@ const studentSchema = z.object({
     .string({ required_error: "Roll Number is required" })
     .min(3, "Password is too short")
     .max(15, "Password is too long"),
-  gender: z.string({ required_error: "Gender is required" }).refine((data) => allowedGenders.includes(data), {
-    message: "Invalid gender",
-  }),
+  gender: z
+    .string({ required_error: "Gender is required" })
+    .refine((data) => allowedGenders.includes(data), {
+      message: "Invalid gender",
+    }),
   courseId: z.number({
     required_error: "Course is required",
     invalid_type_error: "Course is required",
@@ -194,6 +200,29 @@ const subjectTypeSchema = z.object({
     .max(55, "Subject Type Name is too long"),
 });
 
+const teacherConversationSchema = z.object({
+  name: z.string().nullable().optional(), // Name is optional and can be nullable
+  isGroup: z.boolean().optional(), // isGroup is optional
+  created_at: z.date().optional().default(new Date()), // Defaults to `now()`
+  updated_at: z.date().optional().default(new Date()), // Defaults to `now()`
+  lastMessageAt: z.date().optional().default(new Date()), // Defaults to `now()`
+});
+
+const teacherMessageSchema = z.object({
+  body: z.string().nullable().optional(), // Body is optional and can be nullable
+  image: z.string().url().nullable().optional(), // Image is optional, must be a valid URL
+  file: z.string().url().nullable().optional(), // File is optional, must be a valid URL
+
+  conversationId: z
+    .number()
+    .int()
+    .min(1, "conversationId must be a positive integer"),
+  senderId: z.number().int().min(1, "senderId must be a positive integer"),
+
+  created_at: z.date().optional().default(new Date()), // Defaults to `now()`
+  updated_at: z.date().optional().default(new Date()), // Defaults to `now()`
+});
+
 export {
   courseSchema,
   semesterSchema,
@@ -208,4 +237,6 @@ export {
   studentDocumentSchema,
   unitQuizSchema,
   subjectTypeSchema,
+  teacherConversationSchema,
+  teacherMessageSchema,
 };

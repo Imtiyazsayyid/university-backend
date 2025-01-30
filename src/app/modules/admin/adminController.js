@@ -20,6 +20,8 @@ import {
 import getPrismaPagination from "../../helpers/prismaPaginationHelper";
 import { getIntOrNull } from "../../../@core/helpers/commonHelpers";
 import { likeIfValue, whereIfValue } from "../../helpers/prismaHelpers";
+import moment from "moment";
+import { format } from "winston";
 
 // Admin Details
 export async function getAdminDetails(req, res) {
@@ -188,7 +190,8 @@ export async function deleteCourse(req, res) {
       },
     });
 
-    if (!checkCourse) return sendResponse(res, true, null, "Course Does Not Exists.");
+    if (!checkCourse)
+      return sendResponse(res, true, null, "Course Does Not Exists.");
 
     const deletedCourse = await prisma.course.delete({
       where: {
@@ -247,7 +250,11 @@ export async function getSingleSemester(req, res) {
 
     return sendResponse(res, true, semester, "Success");
   } catch (error) {
-    logger.consoleErrorLog(req.originalUrl, "Error in getSingleSemester", error);
+    logger.consoleErrorLog(
+      req.originalUrl,
+      "Error in getSingleSemester",
+      error
+    );
     return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
   }
 }
@@ -300,7 +307,8 @@ export async function deleteSemester(req, res) {
       },
     });
 
-    if (!checkSemester) return sendResponse(res, true, null, "Semester Does Not Exists.");
+    if (!checkSemester)
+      return sendResponse(res, true, null, "Semester Does Not Exists.");
 
     const deletedSemester = await prisma.semester.delete({
       where: {
@@ -318,7 +326,8 @@ export async function deleteSemester(req, res) {
 // Subjects
 export async function getAllSubjects(req, res) {
   try {
-    let { currentPage, itemsPerPage, semesterId, searchText, subjectTypeId } = req.query;
+    let { currentPage, itemsPerPage, semesterId, searchText, subjectTypeId } =
+      req.query;
 
     if (!semesterId) return sendResponse(res, true, null, "Send Semester ID");
 
@@ -364,14 +373,19 @@ export async function getSingleSubject(req, res) {
 
     return sendResponse(res, true, subject, "Success");
   } catch (error) {
-    logger.consoleErrorLog(req.originalUrl, "Error in getSingleSemester", error);
+    logger.consoleErrorLog(
+      req.originalUrl,
+      "Error in getSingleSemester",
+      error
+    );
     return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
   }
 }
 
 export async function saveSubject(req, res) {
   try {
-    const { id, name, abbr, code, subjectTypeId, credits, semesterId, status } = req.body;
+    const { id, name, abbr, code, subjectTypeId, credits, semesterId, status } =
+      req.body;
 
     const subjectData = {
       name,
@@ -421,7 +435,8 @@ export async function deleteSubject(req, res) {
       },
     });
 
-    if (!checkSubject) return sendResponse(res, true, null, "Semester Does Not Exists.");
+    if (!checkSubject)
+      return sendResponse(res, true, null, "Semester Does Not Exists.");
 
     const deletedSubject = await prisma.subject.delete({
       where: {
@@ -436,9 +451,42 @@ export async function deleteSubject(req, res) {
   }
 }
 
+export async function getCurrentSubjectsForBatch(req, res) {
+  try {
+    const batchId = getIntOrNull(req.params.batchId);
+
+    if (!batchId) return sendResponse(res, true, null, "Invalid Batch Id");
+
+    const batch = await prisma.batchSemesterMap.findFirst({
+      include: {
+        semester: {
+          include: {
+            subjects: true,
+          },
+        },
+      },
+      where: {
+        batchId,
+      },
+      orderBy: {
+        semester: {
+          semNumber: "desc",
+        },
+      },
+    });
+
+    const subjects = batch.semester.subjects;
+
+    return sendResponse(res, true, subjects, "Success");
+  } catch (error) {
+    logger.consoleErrorLog(req.originalUrl, "Error in getAllSemesters", error);
+    return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
+  }
+}
+
 // Subject Types
 export async function getAllSubjectTypes(req, res) {
-  try{
+  try {
     let { currentPage, itemsPerPage } = req.query;
 
     const subjectTypes = await prisma.subjectType.findMany({
@@ -447,35 +495,44 @@ export async function getAllSubjectTypes(req, res) {
 
     const subjectTypeCount = await prisma.subjectType.count();
 
-    return sendResponse(res, true, { subjectTypes, subjectTypeCount }, "Success");
-  } catch(error) {
-    logger.consoleErrorLog(req.originalUrl, "Error in getAllSubjectTypes", error);
+    return sendResponse(
+      res,
+      true,
+      { subjectTypes, subjectTypeCount },
+      "Success"
+    );
+  } catch (error) {
+    logger.consoleErrorLog(
+      req.originalUrl,
+      "Error in getAllSubjectTypes",
+      error
+    );
     return sendResponse(res, true, null, "Error", statusType.DB_ERROR);
   }
 }
 
 export async function saveSubjectType(req, res) {
-  try{
+  try {
     let { id, name, status } = req.body;
 
     const subjectTypeData = {
       name,
       status,
-    }
+    };
 
     const validation = subjectTypeSchema.safeParse(subjectTypeData);
 
-    if(!validation.success) {
+    if (!validation.success) {
       return sendResponse(res, false, null, "Please Provide All Details.");
     }
 
-    if(id){
+    if (id) {
       const updatedSubjectType = await prisma.subjectType.update({
         data: subjectTypeData,
         where: {
           id,
         },
-      })
+      });
     } else {
       const newSubjectType = await prisma.subjectType.create({
         data: subjectTypeData,
@@ -483,7 +540,7 @@ export async function saveSubjectType(req, res) {
     }
 
     return sendResponse(res, true, null, "SubjectType Saved.");
-  } catch(error) {
+  } catch (error) {
     logger.consoleErrorLog(req.originalUrl, "Error in saveSubjectType", error);
     return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
   }
@@ -501,7 +558,8 @@ export async function deleteSubjectType(req, res) {
       },
     });
 
-    if (!checkSubjectType) return sendResponse(res, true, null, "SubjectType Does Not Exists.");
+    if (!checkSubjectType)
+      return sendResponse(res, true, null, "SubjectType Does Not Exists.");
 
     const deletedSubjectType = await prisma.subjectType.delete({
       where: {
@@ -511,7 +569,11 @@ export async function deleteSubjectType(req, res) {
 
     return sendResponse(res, true, deletedSubjectType, "Success");
   } catch (error) {
-    logger.consoleErrorLog(req.originalUrl, "Error in deletedSubjectType", error);
+    logger.consoleErrorLog(
+      req.originalUrl,
+      "Error in deletedSubjectType",
+      error
+    );
     return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
   }
 }
@@ -624,7 +686,8 @@ export async function deleteUnit(req, res) {
       },
     });
 
-    if (!checkUnit) return sendResponse(res, true, null, "Unit Does Not Exists.");
+    if (!checkUnit)
+      return sendResponse(res, true, null, "Unit Does Not Exists.");
 
     const deletedUnit = await prisma.unit.delete({
       where: {
@@ -671,9 +734,18 @@ export async function getAllUnitMaterial(req, res) {
       },
     });
 
-    return sendResponse(res, true, { unitMaterials, unitMaterialsCount }, "Success");
+    return sendResponse(
+      res,
+      true,
+      { unitMaterials, unitMaterialsCount },
+      "Success"
+    );
   } catch (error) {
-    logger.consoleErrorLog(req.originalUrl, "Error in getAllUnitMaterials", error);
+    logger.consoleErrorLog(
+      req.originalUrl,
+      "Error in getAllUnitMaterials",
+      error
+    );
     return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
   }
 }
@@ -692,7 +764,11 @@ export async function getSingleUnitMaterial(req, res) {
 
     return sendResponse(res, true, unit, "Success");
   } catch (error) {
-    logger.consoleErrorLog(req.originalUrl, "Error in getSingleUnitMaterial", error);
+    logger.consoleErrorLog(
+      req.originalUrl,
+      "Error in getSingleUnitMaterial",
+      error
+    );
     return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
   }
 }
@@ -749,7 +825,8 @@ export async function deleteUnitMaterial(req, res) {
       },
     });
 
-    if (!checkUnitMaterial) return sendResponse(res, true, null, "Unit Material Does Not Exists.");
+    if (!checkUnitMaterial)
+      return sendResponse(res, true, null, "Unit Material Does Not Exists.");
 
     const deletedUnitMaterial = await prisma.unitMaterial.delete({
       where: {
@@ -798,7 +875,11 @@ export async function getAllUnitQuizes(req, res) {
 
     return sendResponse(res, true, { unitQuizes, unitQuizesCount }, "Success");
   } catch (error) {
-    logger.consoleErrorLog(req.originalUrl, "Error in getAllUnitMaterials", error);
+    logger.consoleErrorLog(
+      req.originalUrl,
+      "Error in getAllUnitMaterials",
+      error
+    );
     return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
   }
 }
@@ -827,7 +908,11 @@ export async function getSingleUnitQuiz(req, res) {
 
     return sendResponse(res, true, unit, "Success");
   } catch (error) {
-    logger.consoleErrorLog(req.originalUrl, "Error in getSingleunitQuiz", error);
+    logger.consoleErrorLog(
+      req.originalUrl,
+      "Error in getSingleunitQuiz",
+      error
+    );
     return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
   }
 }
@@ -934,7 +1019,8 @@ export async function deleteUnitQuiz(req, res) {
       },
     });
 
-    if (!checkUnitQuiz) return sendResponse(res, true, null, "Unit Quiz Does Not Exists.");
+    if (!checkUnitQuiz)
+      return sendResponse(res, true, null, "Unit Quiz Does Not Exists.");
 
     await prisma.unitQuizQuestionOption.deleteMany({
       where: {
@@ -1124,7 +1210,8 @@ export async function deleteBatch(req, res) {
       },
     });
 
-    if (!checkBatch) return sendResponse(res, true, null, "Batch Does Not Exists.");
+    if (!checkBatch)
+      return sendResponse(res, true, null, "Batch Does Not Exists.");
 
     await prisma.batchSemesterMap.deleteMany({
       where: {
@@ -1187,7 +1274,11 @@ export async function getSingleDivision(req, res) {
 
     return sendResponse(res, true, division, "Success");
   } catch (error) {
-    logger.consoleErrorLog(req.originalUrl, "Error in getSingleDivision", error);
+    logger.consoleErrorLog(
+      req.originalUrl,
+      "Error in getSingleDivision",
+      error
+    );
     return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
   }
 }
@@ -1243,7 +1334,8 @@ export async function deleteDivision(req, res) {
       },
     });
 
-    if (!checkDivision) return sendResponse(res, true, null, "Division Does Not Exists.");
+    if (!checkDivision)
+      return sendResponse(res, true, null, "Division Does Not Exists.");
 
     const deletedDivision = await prisma.division.delete({
       where: {
@@ -1386,7 +1478,8 @@ export async function deleteTeacher(req, res) {
       },
     });
 
-    if (!checkTeacher) return sendResponse(res, true, null, "Teacher Does Not Exists.");
+    if (!checkTeacher)
+      return sendResponse(res, true, null, "Teacher Does Not Exists.");
 
     const deletedTeacher = await prisma.teacher.delete({
       where: {
@@ -1406,21 +1499,27 @@ export async function getAllDivisionSubjectTeachers(req, res) {
   try {
     let { divisionId } = req.query;
 
-    if (!divisionId) return sendResponse(res, true, null, "Send A Valid Division ID");
+    if (!divisionId)
+      return sendResponse(res, true, null, "Send A Valid Division ID");
 
-    const divisionSubjectTeachers = await prisma.divisionSubjectTeacher.findMany({
-      include: {
-        subject: true,
-      },
-      where: {
-        divisionId: parseInt(divisionId),
-        status: true,
-      },
-    });
+    const divisionSubjectTeachers =
+      await prisma.divisionSubjectTeacher.findMany({
+        include: {
+          subject: true,
+        },
+        where: {
+          divisionId: parseInt(divisionId),
+          status: true,
+        },
+      });
 
     return sendResponse(res, true, divisionSubjectTeachers, "Success");
   } catch (error) {
-    logger.consoleErrorLog(req.originalUrl, "Error in getSingleDivision", error);
+    logger.consoleErrorLog(
+      req.originalUrl,
+      "Error in getSingleDivision",
+      error
+    );
     return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
   }
 }
@@ -1461,10 +1560,21 @@ export async function saveDivisionSubjectTeacher(req, res) {
 // Students
 export async function getAllStudents(req, res) {
   try {
-    let { searchText, courseId, batchId, divisionId, currentPage, itemsPerPage } = req.query;
+    let {
+      searchText,
+      courseId,
+      batchId,
+      divisionId,
+      currentPage,
+      itemsPerPage,
+    } = req.query;
 
     const options = {};
-    likeIfValue(options, ["firstName", "lastName", "rollNumber", "email"], searchText);
+    likeIfValue(
+      options,
+      ["firstName", "lastName", "rollNumber", "email"],
+      searchText
+    );
     whereIfValue(options, "courseId", courseId, getIntOrNull);
     whereIfValue(options, "batchId", batchId, getIntOrNull);
     whereIfValue(options, "divisionId", divisionId, getIntOrNull);
@@ -1586,7 +1696,10 @@ export async function saveStudent(req, res) {
       },
     });
 
-    if (req.body.uploadedStudentDocuments && req.body.uploadedStudentDocuments.length) {
+    if (
+      req.body.uploadedStudentDocuments &&
+      req.body.uploadedStudentDocuments.length
+    ) {
       let usd = req.body.uploadedStudentDocuments;
 
       await prisma.uploadedStudentDocument.createMany({
@@ -1619,7 +1732,8 @@ export async function deleteStudent(req, res) {
       },
     });
 
-    if (!checkStudent) return sendResponse(res, true, null, "Student Does Not Exists.");
+    if (!checkStudent)
+      return sendResponse(res, true, null, "Student Does Not Exists.");
 
     const deletedStudent = await prisma.student.delete({
       where: {
@@ -1743,9 +1857,18 @@ export async function getAllTeacherRoles(req, res) {
       where,
     });
 
-    return sendResponse(res, true, { teacherRoles, teacherRoleCount }, "Success");
+    return sendResponse(
+      res,
+      true,
+      { teacherRoles, teacherRoleCount },
+      "Success"
+    );
   } catch (error) {
-    logger.consoleErrorLog(req.originalUrl, "Error in getAllTeacherRoles", error);
+    logger.consoleErrorLog(
+      req.originalUrl,
+      "Error in getAllTeacherRoles",
+      error
+    );
     return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
   }
 }
@@ -1764,7 +1887,11 @@ export async function getSingleTeacherRole(req, res) {
 
     return sendResponse(res, true, teacherRole, "Success");
   } catch (error) {
-    logger.consoleErrorLog(req.originalUrl, "Error in getSingleTeacherRole", error);
+    logger.consoleErrorLog(
+      req.originalUrl,
+      "Error in getSingleTeacherRole",
+      error
+    );
     return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
   }
 }
@@ -1815,7 +1942,8 @@ export async function deleteTeacherRole(req, res) {
       },
     });
 
-    if (!checkTeacherRole) return sendResponse(res, true, null, "TeacherRole Does Not Exists.");
+    if (!checkTeacherRole)
+      return sendResponse(res, true, null, "TeacherRole Does Not Exists.");
 
     const deletedTeacherRole = await prisma.teacherRole.delete({
       where: {
@@ -1825,7 +1953,11 @@ export async function deleteTeacherRole(req, res) {
 
     return sendResponse(res, true, deletedTeacherRole, "Success");
   } catch (error) {
-    logger.consoleErrorLog(req.originalUrl, "Error in deleteTeacherRole", error);
+    logger.consoleErrorLog(
+      req.originalUrl,
+      "Error in deleteTeacherRole",
+      error
+    );
     return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
   }
 }
@@ -1861,9 +1993,18 @@ export async function getAllStudentDocuments(req, res) {
       where,
     });
 
-    return sendResponse(res, true, { studentDocuments, studentDocumentCount }, "Success");
+    return sendResponse(
+      res,
+      true,
+      { studentDocuments, studentDocumentCount },
+      "Success"
+    );
   } catch (error) {
-    logger.consoleErrorLog(req.originalUrl, "Error in getAllStudentDocuments", error);
+    logger.consoleErrorLog(
+      req.originalUrl,
+      "Error in getAllStudentDocuments",
+      error
+    );
     return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
   }
 }
@@ -1882,7 +2023,11 @@ export async function getSingleStudentDocument(req, res) {
 
     return sendResponse(res, true, studentDocument, "Success");
   } catch (error) {
-    logger.consoleErrorLog(req.originalUrl, "Error in getSingleStudentDocument", error);
+    logger.consoleErrorLog(
+      req.originalUrl,
+      "Error in getSingleStudentDocument",
+      error
+    );
     return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
   }
 }
@@ -1916,7 +2061,11 @@ export async function saveStudentDocument(req, res) {
 
     return sendResponse(res, true, null, "StudentDocument Saved.");
   } catch (error) {
-    logger.consoleErrorLog(req.originalUrl, "Error in saveStudentDocument", error);
+    logger.consoleErrorLog(
+      req.originalUrl,
+      "Error in saveStudentDocument",
+      error
+    );
     return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
   }
 }
@@ -1933,7 +2082,8 @@ export async function deleteStudentDocument(req, res) {
       },
     });
 
-    if (!checkStudentDocument) return sendResponse(res, true, null, "StudentDocument Does Not Exists.");
+    if (!checkStudentDocument)
+      return sendResponse(res, true, null, "StudentDocument Does Not Exists.");
 
     const deletedStudentDocument = await prisma.studentDocument.delete({
       where: {
@@ -1943,7 +2093,342 @@ export async function deleteStudentDocument(req, res) {
 
     return sendResponse(res, true, deletedStudentDocument, "Success");
   } catch (error) {
-    logger.consoleErrorLog(req.originalUrl, "Error in deleteStudentDocument", error);
+    logger.consoleErrorLog(
+      req.originalUrl,
+      "Error in deleteStudentDocument",
+      error
+    );
+    return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
+  }
+}
+
+// Time Table
+export async function saveTimeTable(req, res) {
+  try {
+    const timeTableEntries = req.body;
+
+    if (!Array.isArray(timeTableEntries)) {
+      return sendResponse(
+        res,
+        false,
+        null,
+        "Invalid data format. Expected an array of objects."
+      );
+    }
+
+    for (const entry of timeTableEntries) {
+      const { divisionId, startTime, endTime } = entry;
+
+      if (!getIntOrNull(divisionId) || !startTime || !endTime) {
+        return sendResponse(
+          res,
+          false,
+          null,
+          "Missing required fields: Start Time & End Time."
+        );
+      }
+    }
+
+    await prisma.timeTable.deleteMany({
+      where: {
+        divisionId: timeTableEntries[0].divisionId,
+      },
+    });
+
+    for (const entry of timeTableEntries) {
+      const {
+        divisionId,
+        startTime,
+        endTime,
+        monday,
+        tuesday,
+        wednesday,
+        thursday,
+        friday,
+        saturday,
+        sunday,
+      } = entry;
+
+      const timeTableData = {
+        divisionId: parseInt(divisionId),
+        startTime,
+        endTime,
+        monday: parseInt(monday),
+        tuesday: parseInt(tuesday),
+        wednesday: parseInt(wednesday),
+        thursday: parseInt(thursday),
+        friday: parseInt(friday),
+        saturday: parseInt(saturday),
+        sunday: parseInt(sunday),
+      };
+
+      await prisma.timeTable.create({
+        data: timeTableData,
+      });
+    }
+
+    return sendResponse(res, true, null, "Time Table Saved.");
+  } catch (error) {
+    logger.consoleErrorLog(req.originalUrl, "Error in saveTimeTable", error);
+    return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
+  }
+}
+
+export async function getTimeTable(req, res) {
+  try {
+    const { divisionId } = req.params;
+
+    if (!getIntOrNull(divisionId)) {
+      return sendResponse(res, false, null, "Invalid Division ID");
+    }
+
+    const timeTableEntries = await prisma.timeTable.findMany({
+      where: {
+        divisionId: parseInt(divisionId),
+      },
+    });
+
+    return sendResponse(res, true, timeTableEntries, "Success");
+  } catch (error) {
+    logger.consoleErrorLog(req.originalUrl, "Error in getTimeTable", error);
+    return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
+  }
+}
+
+// Daily Time Table
+
+export async function getDailyTimeTable(req, res) {
+  try {
+    const { divisionId } = req.params;
+    const date = req.query.date;
+
+    const startOfDay = moment(date).startOf("day");
+    const endOfDay = moment(date).endOf("day");
+
+    if (!getIntOrNull(divisionId)) {
+      return sendResponse(res, false, null, "Invalid Division ID");
+    }
+
+    const dailyTimeTable = await prisma.dailyTimeTable.findMany({
+      include: {
+        subject: true,
+      },
+      where: {
+        todaysDate: {
+          gt: startOfDay,
+          lt: endOfDay,
+        },
+      },
+    });
+
+    return sendResponse(res, true, dailyTimeTable, "Success");
+  } catch (error) {
+    logger.consoleErrorLog(req.originalUrl, "Error in getTimeTable", error);
+    return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
+  }
+}
+
+// Attendance
+
+export async function markAttendance(req, res) {
+  try {
+    const { val, dailyTimeTableId, studentId } = req.body;
+
+    if (val) {
+      // Remove Attendance if repeated
+      await prisma.studentAttendance.deleteMany({
+        where: {
+          dailyTimeTableId,
+          studentId,
+        },
+      });
+      // Mark Attendance if True
+      await prisma.studentAttendance.create({
+        data: {
+          dailyTimeTableId,
+          studentId,
+        },
+      });
+    } else {
+      // Remove Attendance if False
+      await prisma.studentAttendance.deleteMany({
+        where: {
+          dailyTimeTableId,
+          studentId,
+        },
+      });
+    }
+
+    return sendResponse(res, true, null, "Success");
+  } catch (error) {
+    logger.consoleErrorLog(req.originalUrl, "Error in getTimeTable", error);
+    return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
+  }
+}
+
+export async function getAttendance(req, res) {
+  try {
+    const { dailyTimeTableIds } = req.body;
+
+    console.log({ dailyTimeTableIds });
+
+    const attendance = await prisma.studentAttendance.findMany({
+      where: {
+        dailyTimeTableId: {
+          in: dailyTimeTableIds,
+        },
+      },
+    });
+
+    return sendResponse(res, true, attendance, "Success");
+  } catch (error) {
+    console.log({ error });
+    logger.consoleErrorLog(req.originalUrl, "Error in getTimeTable", error);
+    return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
+  }
+}
+
+
+// Dashboard
+
+export async function getCourses(req, res) {
+  try {
+    const teacherCount = await prisma.teacher.count();
+    const studentCount = await prisma.student.count();
+
+    return sendResponse(res, true, { teacherCount, studentCount }, "Success");
+  } catch (error) {
+    logger.consoleErrorLog(
+      req.originalUrl,
+      "Error in getAnalyticalData",
+      error
+    );
+    return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
+  }
+}
+
+export async function getAnalyticalData(req, res) {
+  try {
+    const teacherCount = await prisma.teacher.count();
+    const studentCount = await prisma.student.count();
+    const coursesWithEnrollment = await prisma.course.findMany({
+      select: {
+        name: true,
+        _count: {
+          select: {
+            students: true,
+          },
+        },
+      },
+    });
+    const allCourses = await prisma.course.findMany();
+
+    const studentsWithDocuments = await prisma.student.findMany({
+      include: {
+        course: {
+          include: {
+            documents: {
+              include: {
+                document: true,
+              },
+            },
+          },
+        },
+        uploadedStudentDocuments: true, // This will give us the uploaded documents
+      },
+    });
+
+    const studentData = studentsWithDocuments.map((student) => {
+      const totalDocuments = student.course.documents.length;
+      const uploadedDocuments = student.uploadedStudentDocuments.length;
+      const pendingDocuments = totalDocuments - uploadedDocuments;
+
+      return {
+        rollno: student.rollNumber,
+        documentUpload: uploadedDocuments,
+        documentPending: pendingDocuments,
+      };
+    });
+
+    const formattedData = coursesWithEnrollment.map((course) => ({
+      course: course.name,
+      students: course._count.students,
+    }));
+
+    const abbreviateCourseName = (courseName) => {
+      return courseName
+        .replace("Bachelor of Science in", "BSc")
+        .replace("Bachelor of Science", "BSc")
+        .replace("Bachelor of", "BSc")
+        .replace("Information Technology", "IT")
+        .replace("Data Science", "DS")
+        .replace("Management Studies", "MS")
+        .replace("Computer Science", "CS")
+        .replace("Electronics", "Elect")
+        .replace("Biotechnology", "BioTech")
+        .replace("Business Administration", "BA")
+        .replace("Hotel Management", "HM")
+        .replace("Architecture", "Arch")
+        .replace("Engineering", "Eng")
+        .replace("Engineering", "Econ")
+        .replace("Mathematics", "Math")
+
+        .replace("Master of Science in", "MSc")
+        .replace("Master of Science", "Msc");
+    };
+
+    const formattedCoursesWithEnrollment = formattedData.map((course) => ({
+      course: abbreviateCourseName(course.course),
+      students: course.students,
+    }));
+
+    return sendResponse(
+      res,
+      true,
+      {
+        teacherCount,
+        studentCount,
+        formattedCoursesWithEnrollment,
+        allCourses,
+        studentData
+      },
+      "Success"
+    );
+  } catch (error) {
+    logger.consoleErrorLog(
+      req.originalUrl,
+      "Error in getAnalyticalData",
+      error
+    );
+    return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
+  }
+}
+
+export async function getStudentGenderCount(req, res) {
+  try {
+    const boys = await prisma.student.count({
+      where: {
+        gender: {
+          equals: "male",
+        },
+      },
+    });
+
+    const girls = await prisma.student.count({
+      where: {
+        gender: {
+          equals: "female",
+        },
+      },
+    });
+
+    return sendResponse(res, true, { boys, girls }, "Success");
+  } catch (error) {
+    logger.consoleErrorLog(
+      req.originalUrl,
+      "Error in getStudentGenderCount",
+      error
+    );
     return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
   }
 }

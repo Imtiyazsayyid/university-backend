@@ -22,7 +22,11 @@ export async function getStudentDetails(req, res) {
 
     return sendResponse(res, true, student, "Success");
   } catch (error) {
-    logger.consoleErrorLog(req.originalUrl, "Error in getStudentDetails", error);
+    logger.consoleErrorLog(
+      req.originalUrl,
+      "Error in getStudentDetails",
+      error
+    );
     return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
   }
 }
@@ -58,7 +62,11 @@ export async function getStudentBatch(req, res) {
 
     return sendResponse(res, true, batch, "Success");
   } catch (error) {
-    logger.consoleErrorLog(req.originalUrl, "Error in getStudentDetails", error);
+    logger.consoleErrorLog(
+      req.originalUrl,
+      "Error in getStudentDetails",
+      error
+    );
     return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
   }
 }
@@ -69,7 +77,14 @@ export async function getSingleSubject(req, res) {
     const { subjectId } = req.params;
     const { id } = req.app.settings.userInfo;
 
-    if (!getIntOrNull(subjectId)) return sendResponse(res, false, null, "Send Valid Subject ID", statusType.DB_ERROR);
+    if (!getIntOrNull(subjectId))
+      return sendResponse(
+        res,
+        false,
+        null,
+        "Send Valid Subject ID",
+        statusType.DB_ERROR
+      );
 
     const division = await prisma.student.findUnique({
       select: {
@@ -105,7 +120,11 @@ export async function getSingleSubject(req, res) {
 
     return sendResponse(res, true, subject, "Success");
   } catch (error) {
-    logger.consoleErrorLog(req.originalUrl, "Error in getStudentDetails", error);
+    logger.consoleErrorLog(
+      req.originalUrl,
+      "Error in getStudentDetails",
+      error
+    );
     return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
   }
 }
@@ -149,7 +168,13 @@ export const getAccessibleSubjects = async (req, res) => {
     return sendResponse(res, true, subjects, "success");
   } catch (error) {
     console.error("Error in getAccessibleSubjects", error);
-    return sendResponse(res, false, null, "Error In Getting Accessible Subjects", statusType.DB_ERROR);
+    return sendResponse(
+      res,
+      false,
+      null,
+      "Error In Getting Accessible Subjects",
+      statusType.DB_ERROR
+    );
   }
 };
 
@@ -182,7 +207,11 @@ export async function getSingleUnit(req, res) {
 
     return sendResponse(res, true, unit, "Success");
   } catch (error) {
-    logger.consoleErrorLog(req.originalUrl, "Error in getStudentDetails", error);
+    logger.consoleErrorLog(
+      req.originalUrl,
+      "Error in getStudentDetails",
+      error
+    );
     return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
   }
 }
@@ -207,7 +236,11 @@ export async function getSingleUnitQuiz(req, res) {
 
     return sendResponse(res, true, quiz, "Success");
   } catch (error) {
-    logger.consoleErrorLog(req.originalUrl, "Error in getStudentDetails", error);
+    logger.consoleErrorLog(
+      req.originalUrl,
+      "Error in getStudentDetails",
+      error
+    );
     return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
   }
 }
@@ -233,7 +266,11 @@ export async function saveUnitQuiz(req, res) {
 
     return sendResponse(res, true, null, "Success");
   } catch (error) {
-    logger.consoleErrorLog(req.originalUrl, "Error in getStudentDetails", error);
+    logger.consoleErrorLog(
+      req.originalUrl,
+      "Error in getStudentDetails",
+      error
+    );
     return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
   }
 }
@@ -245,7 +282,13 @@ export async function getAllQuizResponses(req, res) {
     const { quizId } = req.query;
 
     if (!quizId) {
-      return sendResponse(res, false, null, "Send Quiz ID", statusType.BAD_REQUEST);
+      return sendResponse(
+        res,
+        false,
+        null,
+        "Send Quiz ID",
+        statusType.BAD_REQUEST
+      );
     }
 
     const responses = await prisma.unitQuizQuestionResponses.findMany({
@@ -287,7 +330,11 @@ export async function getAllQuizResponses(req, res) {
 
     return sendResponse(res, true, finalResponses, "Success");
   } catch (error) {
-    logger.consoleErrorLog(req.originalUrl, "Error in getStudentDetails", error);
+    logger.consoleErrorLog(
+      req.originalUrl,
+      "Error in getStudentDetails",
+      error
+    );
     return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
   }
 }
@@ -396,7 +443,11 @@ export async function getAllAssignments(req, res) {
 
     return sendResponse(res, true, { assignments, assignmentCount }, "Success");
   } catch (error) {
-    logger.consoleErrorLog(req.originalUrl, "Error in getStudentDetails", error);
+    logger.consoleErrorLog(
+      req.originalUrl,
+      "Error in getStudentDetails",
+      error
+    );
     return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
   }
 }
@@ -466,7 +517,11 @@ export async function getSingleAssignment(req, res) {
     return sendResponse(res, true, data, "Success");
   } catch (error) {
     console.log({ error });
-    logger.consoleErrorLog(req.originalUrl, "Error in getStudentDetails", error);
+    logger.consoleErrorLog(
+      req.originalUrl,
+      "Error in getStudentDetails",
+      error
+    );
     return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
   }
 }
@@ -474,7 +529,8 @@ export async function getSingleAssignment(req, res) {
 export async function submitAssignment(req, res) {
   try {
     const { id: studentId } = req.app.settings.userInfo;
-    const { assignmentId, assignmentAnswers, assignmentUploads, action } = req.body;
+    const { assignmentId, assignmentAnswers, assignmentUploads, action } =
+      req.body;
 
     if (!getIntOrNull(assignmentId)) {
       return sendResponse(res, true, null, "Please Send Assignment ID");
@@ -575,14 +631,19 @@ export async function submitAssignment(req, res) {
     return sendResponse(res, true, null, "Success");
   } catch (error) {
     console.log({ error });
-    logger.consoleErrorLog(req.originalUrl, "Error in getStudentDetails", error);
+    logger.consoleErrorLog(
+      req.originalUrl,
+      "Error in getStudentDetails",
+      error
+    );
     return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
   }
 }
 
 // Events
 export async function getAllEvents(req, res) {
-  let { search, status, registrationStatus, currentPage, itemsPerPage } = req.query;
+  let { search, status, registrationStatus, currentPage, itemsPerPage } =
+    req.query;
   const { id: studentId } = req.app.settings.userInfo;
 
   const student = await prisma.student.findUnique({
@@ -707,7 +768,11 @@ export async function getAllEvents(req, res) {
     return sendResponse(res, true, { events, eventCount }, "Success");
   } catch (error) {
     console.log({ error });
-    logger.consoleErrorLog(req.originalUrl, "Error in getStudentDetails", error);
+    logger.consoleErrorLog(
+      req.originalUrl,
+      "Error in getStudentDetails",
+      error
+    );
     return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
   }
 }
@@ -750,7 +815,11 @@ export async function getSingleEvent(req, res) {
 
     return sendResponse(res, true, event, "Success");
   } catch (error) {
-    logger.consoleErrorLog(req.originalUrl, "Error in getStudentDetails", error);
+    logger.consoleErrorLog(
+      req.originalUrl,
+      "Error in getStudentDetails",
+      error
+    );
     return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
   }
 }
@@ -775,11 +844,20 @@ export async function joinEventParticipants(req, res) {
       return sendResponse(res, false, null, "No Such Event");
     }
 
-    if (event.isCompleted) return sendResponse(res, false, null, "You Cannot Join A Complete Event");
+    if (event.isCompleted)
+      return sendResponse(res, false, null, "You Cannot Join A Complete Event");
 
     const now = moment();
-    if (event.finalRegistrationDate && now.isAfter(moment(event.finalRegistrationDate))) {
-      return sendResponse(res, false, null, "Registration For this Event is Closed.");
+    if (
+      event.finalRegistrationDate &&
+      now.isAfter(moment(event.finalRegistrationDate))
+    ) {
+      return sendResponse(
+        res,
+        false,
+        null,
+        "Registration For this Event is Closed."
+      );
     }
 
     // const isEventHead = await prisma.event.findUnique({
@@ -801,7 +879,12 @@ export async function joinEventParticipants(req, res) {
     });
 
     if (existingParticipant) {
-      return sendResponse(res, false, null, "You are already a participant for this event.");
+      return sendResponse(
+        res,
+        false,
+        null,
+        "You are already a participant for this event."
+      );
     }
 
     await prisma.eventParticipant.create({
@@ -835,14 +918,29 @@ export async function leaveEvent(req, res) {
     });
 
     if (!existingParticipant) {
-      return sendResponse(res, false, null, "You are not a participant for this event.");
+      return sendResponse(
+        res,
+        false,
+        null,
+        "You are not a participant for this event."
+      );
     }
 
     if (existingParticipant.event.isCompleted)
-      return sendResponse(res, false, null, "You Cannot Leave A Completed Event");
+      return sendResponse(
+        res,
+        false,
+        null,
+        "You Cannot Leave A Completed Event"
+      );
 
     if (existingParticipant.studentId !== studentId) {
-      return sendResponse(res, false, null, "You Do Not Have Access To Remove Someone Else From this Event");
+      return sendResponse(
+        res,
+        false,
+        null,
+        "You Do Not Have Access To Remove Someone Else From this Event"
+      );
     }
 
     await prisma.eventParticipant.delete({
@@ -855,6 +953,578 @@ export async function leaveEvent(req, res) {
   } catch (error) {
     console.log({ error });
     logger.consoleErrorLog(req.originalUrl, "Error in getAllEvents", error);
+    return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
+  }
+}
+
+// Chatting functionality
+export async function getStudentsList(req, res) {
+  try {
+    const { id: studentId } = req.app.settings.userInfo;
+    const currentUser = await prisma.student.findUnique({
+      where: {
+        id: studentId,
+      },
+    });
+
+    let { searchText } = req.query;
+
+    if (
+      searchText === currentUser.firstName ||
+      searchText === currentUser.lastName
+    )
+      return null;
+    const options = {};
+    if (searchText) {
+      likeIfValue(options, ["firstName", "lastName"], searchText);
+    }
+
+    // Check if the user is logged in
+    if (!currentUser.email) {
+      return sendResponse(res, false, [], statusType.UNAUTHORIZED);
+    }
+
+    // Fetch all teachers except the logged-in user
+    const students = await prisma.student.findMany({
+      where: {
+        email: {
+          not: currentUser.email,
+        },
+      },
+      orderBy: {
+        created_at: "desc",
+      },
+      ...options,
+    });
+
+    console.log("Students list: ", students);
+    return sendResponse(res, true, students, "Success");
+  } catch (error) {
+    logger.consoleErrorLog(req.originalUrl, "Error in getStudentsList", error);
+    return sendResponse(res, false, [], "Error", statusType.DB_ERROR);
+  }
+}
+
+export async function createStudentConversation(req, res) {
+  try {
+    const { id: studentId } = req.app.settings.userInfo;
+    const currentUser = await prisma.student.findUnique({
+      where: {
+        id: studentId,
+      },
+    });
+
+    const { userId, isGroup, members, name } = await req.body;
+
+    if (!currentUser?.id || !currentUser?.email) {
+      console.log("inside the currentUser check");
+      return sendResponse(res, false, null, "ERROR", statusType.UNAUTHORIZED);
+    }
+
+    if (isGroup && (!members || members.length < 2 || !name)) {
+      console.log("inside the members check");
+      return sendResponse(res, false, null, "ERROR", statusType.BAD_REQUEST);
+    }
+
+    // creating a group chat
+    if (isGroup) {
+      const newConversation = await prisma.studentConversation.create({
+        data: {
+          isGroup,
+          name,
+          students: {
+            // this connects the users with that conversation
+            connect: [
+              ...members.map((member) => ({
+                // : { value: string }
+                id: member.value,
+              })),
+              {
+                id: currentUser.id,
+              },
+            ],
+          },
+        },
+        include: {
+          students: true,
+        },
+      });
+
+      // sending new conversation to all users of that conversation - Pusher
+      // newConversation.students.forEach((student) => {
+      //   if (student.email) {
+      //     pusherServer.trigger(student.email, "student:conversation:new", newConversation);
+      //   }
+      // });
+
+      return sendResponse(res, true, newConversation, "Success");
+    }
+
+    // creating single chats (NOTE: have to check for existing conversation)
+    const existingConversations = await prisma.studentConversation.findMany({
+      where: {
+        students: {
+          every: {
+            id: {
+              in: [currentUser.id, userId],
+            },
+          },
+        },
+      },
+    });
+
+    const singleConversation = existingConversations[0];
+
+    if (singleConversation) {
+      return sendResponse(res, true, singleConversation, "Success");
+    }
+
+    // conservation doesn't already exists
+    const newConversation = await prisma.studentConversation.create({
+      data: {
+        students: {
+          connect: [
+            {
+              id: currentUser.id,
+            },
+            {
+              id: userId,
+            },
+          ],
+        },
+      },
+      include: {
+        students: true,
+      },
+    });
+
+    // sending new conversation to all users of that conversation - Pusher
+    // newConversation.students.forEach((student) => {
+    //   if (student.email) {
+    //     pusherServer.trigger(student.email, "student:conversation:new", newConversation);
+    //   }
+    // });
+
+    return sendResponse(res, true, newConversation, "Success");
+  } catch (error) {
+    logger.consoleErrorLog(
+      req.originalUrl,
+      "Error in createStudentConversation",
+      error
+    );
+    return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
+  }
+}
+
+export async function getStudentConversations(req, res) {
+  try {
+    const { id: studentId } = req.app.settings.userInfo;
+    const currentUser = await prisma.student.findUnique({
+      where: {
+        id: studentId,
+      },
+    });
+
+    const { searchText } = req.query;
+    const options = {};
+    likeIfValue(options, ["name"], searchText);
+
+    if (!currentUser?.email) {
+      return sendResponse(res, false, [], "ERROR", statusType.UNAUTHORIZED);
+    }
+
+    const conversations = await prisma.studentConversation.findMany({
+      orderBy: {
+        lastMessageAt: "desc",
+      },
+      where: {
+        students: {
+          some: {
+            id: currentUser.id, // Filter where currentUser is part of the users
+          },
+        },
+      },
+      include: {
+        students: true,
+        messages: {
+          include: {
+            sender: true,
+            seen: true, // array of people who has seen the messages
+          },
+        },
+      },
+      ...options,
+    });
+
+    // makes sure that only conversation with two users are retreived.
+    const properConversation = conversations.filter(
+      (conversation) => conversation.students.length > 1
+    );
+
+    return sendResponse(res, true, properConversation, "Success");
+  } catch (error) {
+    logger.consoleErrorLog(
+      req.originalUrl,
+      "Error in getStudentConversation",
+      error
+    );
+    return sendResponse(res, false, [], "Error", statusType.DB_ERROR);
+  }
+}
+
+export async function deleteStudentConversation(req, res) {
+  try {
+    const { id: studentId } = req.app.settings.userInfo;
+    const currentUser = await prisma.student.findUnique({
+      where: {
+        id: studentId,
+      },
+    });
+
+    const conversationId = parseInt(req.params.conversationId);
+
+    if (!currentUser?.email || !currentUser?.id) {
+      return sendResponse(res, false, null, "ERROR", statusType.UNAUTHORIZED);
+    }
+
+    /*
+
+      Note: we can't include users in delete operations, hence we have to find the existing conversation with included users, using which we will remove the conversation from their sidebar
+
+    */
+
+    // find existing conversation
+    const existingConversation = await prisma.studentConversation.findUnique({
+      where: {
+        id: conversationId,
+      },
+      include: {
+        students: true,
+      },
+    });
+
+    if (!existingConversation) {
+      return sendResponse(res, false, null, "ERROR", statusType.NOT_FOUND);
+    }
+
+    const deletedConversation = await prisma.studentConversation.deleteMany({
+      where: {
+        id: conversationId,
+        students: {
+          some: {
+            id: currentUser.id, // Ensures that the current user is part of the conversation
+          },
+        },
+      },
+    });
+
+    // Pusher
+    // existingConversation.students.forEach((student) => {
+    //   if (student.email) {
+    //     pusherServer.trigger(
+    //       student.email,
+    //       "student:conversation:remove",
+    //       existingConversation
+    //     );
+    //   }
+    // });
+
+    return sendResponse(res, true, deletedConversation, "Success");
+  } catch (error) {
+    logger.consoleErrorLog(
+      req.originalUrl,
+      "Error in deleteStudentConversation",
+      error
+    );
+    return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
+  }
+}
+
+export async function updateLastSeenOfStudentMessage(req, res) {
+  try {
+    const { id: studentId } = req.app.settings.userInfo;
+    const currentUser = await prisma.student.findUnique({
+      where: {
+        id: studentId,
+      },
+    });
+    const conversationId = parseInt(req.params.conversationId);
+
+    if (!currentUser?.email || !currentUser.id) {
+      return sendResponse(res, false, null, "ERROR", statusType.UNAUTHORIZED);
+    }
+
+    // finding the existing conversation with the given id
+    const conversation = await prisma.studentConversation.findUnique({
+      where: {
+        id: conversationId,
+      },
+      include: {
+        students: true,
+        messages: {
+          include: {
+            seen: true,
+          },
+        },
+      },
+    });
+
+    if (!conversation) {
+      return sendResponse(res, false, null, "ERROR", statusType.BAD_REQUEST);
+    }
+
+    // finding the last message
+    const lastMessage = conversation.messages[conversation.messages.length - 1];
+
+    if (!lastMessage) {
+      return sendResponse(res, true, conversation, "Success");
+    }
+
+    // updating the seen of last message
+    const updatedMessage = await prisma.studentMessage.update({
+      where: {
+        id: lastMessage.id,
+      },
+      data: {
+        seen: {
+          connect: {
+            id: currentUser.id,
+          },
+        },
+      },
+      include: {
+        seen: true,
+        sender: true,
+      },
+    });
+
+    // await pusherServer.trigger(currentUser.email, "student:conversation:update", {
+    //   id: conversationId,
+    //   messages: [updatedMessage],
+    // });
+
+    const seenIds = Array.isArray(lastMessage.seen)
+      ? lastMessage.seen.map((student) => student.id)
+      : [];
+
+    // If currentUser has already seen the message, return the conversation
+    if (seenIds.indexOf(currentUser.id) !== -1) {
+      return sendResponse(res, true, conversation, "Success");
+    }
+
+    // we can alert every user that we have seen that message
+    // await pusherServer.trigger(
+    //   conversationId,
+    //   "student:message:update",
+    //   updatedMessage
+    // );
+    console.log("updatedMessage: ", updatedMessage);
+    return sendResponse(res, true, updatedMessage, "Success");
+  } catch (error) {
+    logger.consoleErrorLog(
+      req.originalUrl,
+      "Error in updateLastSeenOfStudentMessage",
+      error
+    );
+    return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
+  }
+}
+
+export async function getStudentConversationById(req, res) {
+  try {
+    const { id: studentId } = req.app.settings.userInfo;
+    const currentUser = await prisma.student.findUnique({
+      where: {
+        id: studentId,
+      },
+    });
+    const conversationId = parseInt(req.params.conversationId);
+
+    if (!currentUser?.email) {
+      return sendResponse(res, false, null, statusType.UNAUTHORIZED);
+    }
+
+    const conversation = await prisma.studentConversation.findUnique({
+      where: {
+        id: conversationId,
+      },
+      include: {
+        students: true,
+      },
+    });
+
+    // fetch the messages as well
+    const messages = await prisma.studentMessage.findMany({
+      where: {
+        conversationId,
+      },
+      include: {
+        seen: true,
+        sender: true,
+      },
+      orderBy: {
+        created_at: "asc",
+      },
+    });
+
+    return sendResponse(res, true, { conversation, messages }, "Success");
+  } catch (error) {
+    logger.consoleErrorLog(
+      req.originalUrl,
+      "Error in getStudentConversationById",
+      error
+    );
+    return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
+  }
+}
+
+export async function getStudentMessages(req, res) {
+  try {
+    const { id: studentId } = req.app.settings.userInfo;
+    const currentUser = await prisma.student.findUnique({
+      where: {
+        id: studentId,
+      },
+    });
+
+    const conversationId = parseInt(req.params.conversationId);
+
+    if (!currentUser?.email) {
+      return sendResponse(res, false, [], statusType.UNAUTHORIZED);
+    }
+
+    const messages = await prisma.studentMessage.findMany({
+      where: {
+        conversationId,
+      },
+      include: {
+        seen: true,
+        sender: true,
+      },
+      orderBy: {
+        created_at: "asc",
+      },
+    });
+
+    console.log("Messages: ", messages);
+
+    return sendResponse(res, true, messages, "Success");
+  } catch (error) {
+    logger.consoleErrorLog(
+      req.originalUrl,
+      "Error in getStudentMessages",
+      error
+    );
+    return sendResponse(res, false, [], "Error", statusType.DB_ERROR);
+  }
+}
+
+export async function createStudentMessage(req, res) {
+  try {
+    const { id: studentId } = req.app.settings.userInfo;
+    const currentUser = await prisma.student.findUnique({
+      where: {
+        id: studentId,
+      },
+    });
+
+    const { message, image, file } = req.body;
+    const conversationId = parseInt(req.params.conversationId);
+
+    // const messageData = {
+    //   body: message || null,
+    //   image: image || null,
+    //   file: file || null,
+    //   conversationId: parseInt(conversationId),
+    //   senderId: currentUser.id,
+    //   created_at: new Date(),
+    //   updated_at: new Date(),
+    // };
+
+    // const validation = teacherMessageSchema.safeParse(messageData);
+
+    // if (!validation.success) {
+    //   console.error("Validation Errors:", validation.error.errors);
+    //   return sendResponse(res, false, null, "Please Provide All Details");
+    // }
+
+    if (!currentUser?.email) {
+      return sendResponse(res, false, null, statusType.UNAUTHORIZED);
+    }
+
+    const newMessage = await prisma.studentMessage.create({
+      data: {
+        body: message,
+        image,
+        file,
+        conversation: {
+          connect: {
+            id: conversationId,
+          },
+        },
+        sender: {
+          connect: {
+            id: currentUser.id,
+          },
+        },
+        seen: {
+          connect: {
+            id: currentUser.id, // we are sending it so push the id as seen directly
+          },
+        },
+      },
+      include: {
+        seen: true,
+        sender: true,
+      },
+    });
+
+    // now updating the conversation with the new message
+    const updatedConversation = await prisma.studentConversation.update({
+      where: {
+        id: conversationId,
+      },
+      data: {
+        lastMessageAt: new Date(),
+        messages: {
+          connect: {
+            id: newMessage.id,
+          },
+        },
+      },
+      include: {
+        students: true,
+        messages: {
+          include: {
+            seen: true,
+          },
+        },
+      },
+    });
+
+    // following is the Pusher things
+
+    await pusherServer.trigger(conversationId, "student:message:new", newMessage);
+
+    // take out last message
+    const lastMessage =
+      updatedConversation.messages[updatedConversation.messages.length - 1];
+
+    // send message seen to all the users of that chat
+    updatedConversation.students.map((student) => {
+      pusherServer.trigger(student.email, "student:conversation:update", {
+        id: conversationId,
+        messages: [lastMessage],
+      });
+    });
+
+    return sendResponse(res, true, newMessage, "Success");
+  } catch (error) {
+    logger.consoleErrorLog(
+      req.originalUrl,
+      "Error in createStudentMessage",
+      error
+    );
     return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
   }
 }

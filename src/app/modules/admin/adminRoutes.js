@@ -28,6 +28,7 @@ router.route("/subjects").get(adminController.getAllSubjects);
 router.route("/subject/:id").get(adminController.getSingleSubject);
 router.route("/subject").post(adminController.saveSubject);
 router.route("/subject/:id").delete(adminController.deleteSubject);
+router.route("/current-subjects/:batchId").get(adminController.getCurrentSubjectsForBatch);
 
 // Subject Types
 router.route("/subject-types").get(adminController.getAllSubjectTypes);
@@ -100,5 +101,21 @@ router.route("/student-document/:id").delete(adminController.deleteStudentDocume
 // Subject Types
 router.route("/subject-type").post(adminController.saveSubjectType);
 router.route("/subject-type/:id").delete(adminController.deleteSubjectType);
+
+// Time Table
+router.route("/time-table/:divisionId").get(adminController.getTimeTable);
+router.route("/time-table").post(adminController.saveTimeTable);
+
+// Time Table
+router.route("/daily-time-table/:divisionId").get(adminController.getDailyTimeTable);
+
+// Attendance
+router.route("/mark-attendance").post(adminController.markAttendance);
+router.route("/attendance").post(adminController.getAttendance);
+
+// Dashboard
+router.route("/admin-dashboard/analyticalData").get(adminController.getAnalyticalData);
+router.route("/students/gender").get(adminController.getStudentGenderCount);
+
 
 export default router;

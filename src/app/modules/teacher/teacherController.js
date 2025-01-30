@@ -15,6 +15,7 @@ import {
   teacherRoleSchema,
   studentDocumentSchema,
   unitQuizSchema,
+  teacherMessageSchema,
 } from "../validationSchema";
 import getPrismaPagination from "../../helpers/prismaPaginationHelper";
 import {
@@ -24,6 +25,7 @@ import {
 } from "../../../@core/helpers/commonHelpers";
 import { likeIfValue, whereIfValue } from "../../helpers/prismaHelpers";
 import moment from "moment";
+import { pusherServer } from "@/pusher";
 
 // Teacher Details
 export async function getTeacherDetails(req, res) {
@@ -2039,78 +2041,8 @@ export async function markEventComplete(req, res) {
   }
 }
 
-// for chatting functionality
-// export async function getAllUsers(req, res) {
-//   try {
-//     let { searchText, courseId, batchId, divisionId, currentPage, itemsPerPage } = req.query;
-
-//     const options = {};
-//     likeIfValue(options, ["firstName", "lastName", "rollNumber", "email"], searchText);
-//     whereIfValue(options, "courseId", courseId, getIntOrNull);
-//     whereIfValue(options, "batchId", batchId, getIntOrNull);
-//     whereIfValue(options, "divisionId", divisionId, getIntOrNull);
-
-//     // Fetch students
-//     const students = await prisma.student.findMany({
-//       where: options,
-//       ...getPrismaPagination(currentPage, itemsPerPage),
-//       include: {
-//         batch: {
-//           include: {
-//             course: true,
-//           },
-//         },
-//         division: true,
-//       },
-//       orderBy: {
-//         rollNumber: "asc",
-//       },
-//     });
-
-//     const studentCount = await prisma.student.count({ where: options });
-
-//     // Fetch teachers
-//     const teachers = await prisma.teacher.findMany({
-//       where: {
-//         OR: [
-//           { firstName: { contains: searchText, mode: "insensitive" } },
-//           { lastName: { contains: searchText, mode: "insensitive" } },
-//           { email: { contains: searchText, mode: "insensitive" } },
-//         ],
-//       },
-//       ...getPrismaPagination(currentPage, itemsPerPage),
-//       orderBy: {
-//         firstName: "asc",
-//       },
-//     });
-
-//     const teacherCount = await prisma.teacher.count({
-//       where: {
-//         OR: [
-//           { firstName: { contains: searchText, mode: "insensitive" } },
-//           { lastName: { contains: searchText, mode: "insensitive" } },
-//           { email: { contains: searchText, mode: "insensitive" } },
-//         ],
-//       },
-//     });
-
-//     // Merge students and teachers, adding a type field for differentiation
-//     const users = [
-//       ...students.map((student) => ({ ...student, type: "student" })),
-//       ...teachers.map((teacher) => ({ ...teacher, type: "teacher" })),
-//     ];
-
-//     const totalCount = studentCount + teacherCount;
-
-//     return sendResponse(res, true, { users, totalCount }, "Success");
-//   } catch (error) {
-//     logger.consoleErrorLog(req.originalUrl, "Error in getAllUsers", error);
-//     return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
-//   }
-// }
-
 // For chatting functionality
-export async function getAllUsers(req, res) {
+export async function getTeachersList(req, res) {
   try {
     const { id: teacherId } = req.app.settings.userInfo;
     const currentUser = await prisma.teacher.findUnique({
@@ -2118,62 +2050,45 @@ export async function getAllUsers(req, res) {
         id: teacherId,
       },
     });
+
+    let { searchText } = req.query;
+
+    if (
+      searchText === currentUser.firstName ||
+      searchText === currentUser.lastName
+    )
+      return null;
+    const options = {};
+    if (searchText) {
+      likeIfValue(options, ["firstName", "lastName"], searchText);
+    }
 
     // Check if the user is logged in
     if (!currentUser.email) {
       return sendResponse(res, false, [], statusType.UNAUTHORIZED);
     }
 
-    // Fetch all students except the logged-in user
-    const students = await prisma.student.findMany({
-      where: {
-        email: {
-          not: currentUser.email, // Exclude the logged-in user's email
-        },
-      },
-      include: {
-        batch: {
-          include: {
-            course: true,
-          },
-        },
-        division: true,
-      },
-      orderBy: {
-        created_at: "desc",
-      },
-    });
-
     // Fetch all teachers except the logged-in user
     const teachers = await prisma.teacher.findMany({
       where: {
         email: {
-          not: currentUser.email, // Exclude the logged-in user's email
+          not: currentUser.email,
         },
       },
       orderBy: {
         created_at: "desc",
       },
+      ...options,
     });
 
-    // Merge students and teachers, adding a type field for differentiation
-    const users = [
-      ...students.map((student) => ({ ...student, type: "student" })),
-      ...teachers.map((teacher) => ({ ...teacher, type: "teacher" })),
-    ];
-
-    // Sort users by creation date (descending)
-    users.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
-
-    console.log("backend: Users: ", users);
-    return sendResponse(res, true, users, "Success");
+    return sendResponse(res, true, teachers, "Success");
   } catch (error) {
-    logger.consoleErrorLog(req.originalUrl, "Error in getAllUsers", error);
+    logger.consoleErrorLog(req.originalUrl, "Error in getTeachersList", error);
     return sendResponse(res, false, [], "Error", statusType.DB_ERROR);
   }
 }
 
-export async function createConversation(req, res) {
+export async function createTeacherConversation(req, res) {
   try {
     const { id: teacherId } = req.app.settings.userInfo;
     const currentUser = await prisma.teacher.findUnique({
@@ -2181,40 +2096,32 @@ export async function createConversation(req, res) {
         id: teacherId,
       },
     });
-    const { userId, isGroup, members, name } = await req.json();
-    console.log("userId", userId);
+
+    const { userId, isGroup, members, name } = await req.body;
 
     if (!currentUser?.id || !currentUser?.email) {
+      console.log("inside the currentUser check");
       return sendResponse(res, false, null, "ERROR", statusType.UNAUTHORIZED);
     }
 
     if (isGroup && (!members || members.length < 2 || !name)) {
+      console.log("inside the members check");
       return sendResponse(res, false, null, "ERROR", statusType.BAD_REQUEST);
     }
 
     // creating a group chat
     if (isGroup) {
-      const newConversation = await prisma.conversation.create({
+      const newConversation = await prisma.teacherConversation.create({
         data: {
           isGroup,
           name,
-          students: {
+          teachers: {
             // this connects the users with that conversation
             connect: [
-              // : { value: string }
-              ...members
-                .filter((member) => member.type == "student")
-                .map((student) => ({ id: student.value })),
-              {
-                id: currentUser.id,
-              },
-            ],
-          },
-          teachers: {
-            connect: [
-              ...members
-                .filter((member) => member.type === "teacher")
-                .map((teacher) => ({ id: teacher.value })),
+              ...members.map((member) => ({
+                // : { value: string }
+                id: member.value,
+              })),
               {
                 id: currentUser.id,
               },
@@ -2222,15 +2129,14 @@ export async function createConversation(req, res) {
           },
         },
         include: {
-          students: true,
           teachers: true,
         },
       });
 
-      // sending new conversation to all users of that conversation -
-      // newConversation.users.forEach((user) => {
-      //   if (user.email) {
-      //     pusherServer.trigger(user.email, "conversation:new", newConversation);
+      // sending new conversation to all users of that conversation - Pusher
+      // newConversation.teachers.forEach((teacher) => {
+      //   if (teacher.email) {
+      //     pusherServer.trigger(teacher.email, "teacher:conversation:new", newConversation);
       //   }
       // });
 
@@ -2238,60 +2144,31 @@ export async function createConversation(req, res) {
     }
 
     // creating single chats (NOTE: have to check for existing conversation)
-    const existingConversationsWithStudents =
-      await prisma.conversation.findMany({
-        where: {
-          students: {
-            every: {
-              id: {
-                in: [currentUser.id, studentId],
-              },
+    const existingConversations = await prisma.teacherConversation.findMany({
+      where: {
+        teachers: {
+          every: {
+            id: {
+              in: [currentUser.id, userId],
             },
           },
         },
-      });
+      },
+    });
 
-    const existingConversationsWithTeachers =
-      await prisma.conversation.findMany({
-        where: {
-          teacher: {
-            every: {
-              id: {
-                in: [currentUser.id, teacherId],
-              },
-            },
-          },
-        },
-      });
-
-    const allConversations = [
-      ...existingConversationsWithStudents,
-      ...existingConversationsWithTeachers,
-    ];
-
-    const singleConversation = allConversations[0];
+    const singleConversation = existingConversations[0];
 
     if (singleConversation) {
-      return sendResponse(res, true, newConversation, "Success");
+      return sendResponse(res, true, singleConversation, "Success");
     }
 
-    // consersation doesn't already exists
-    const newConversation = await prisma.conversation.create({
+    // conservation doesn't already exists
+    const newConversation = await prisma.teacherConversation.create({
       data: {
-        students: {
-          connect: [
-            {
-              ...(!currentUser.role ? { id: currentUser.id } : undefined),
-            },
-            {
-              id: userId,
-            },
-          ],
-        },
         teachers: {
           connect: [
             {
-              ...(!currentUser.role ? undefined : { id: currentUser.id }),
+              id: currentUser.id,
             },
             {
               id: userId,
@@ -2300,15 +2177,14 @@ export async function createConversation(req, res) {
         },
       },
       include: {
-        students: true,
         teachers: true,
       },
     });
 
-    // sending new conversation to all users of that conversation -
-    // newConversation.users.forEach((user) => {
-    //   if (user.email) {
-    //     pusherServer.trigger(user.email, "conversation:new", newConversation);
+    // sending new conversation to all users of that conversation - Pusher
+    // newConversation.teachers.forEach((teacher) => {
+    //   if (teacher.email) {
+    //     pusherServer.trigger(teacher.email, "teacher:conversation:new", newConversation);
     //   }
     // });
 
@@ -2316,14 +2192,70 @@ export async function createConversation(req, res) {
   } catch (error) {
     logger.consoleErrorLog(
       req.originalUrl,
-      "Error in createConversation",
+      "Error in createTeacherConversation",
       error
     );
     return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
   }
 }
 
-export async function deleteConversation(req, res) {
+// conversationList
+export async function getTeacherConversations(req, res) {
+  try {
+    const { id: teacherId } = req.app.settings.userInfo;
+    const currentUser = await prisma.teacher.findUnique({
+      where: {
+        id: teacherId,
+      },
+    });
+    const { searchText } = req.query;
+    const options = {};
+    likeIfValue(options, ["name"], searchText);
+
+    if (!currentUser?.email) {
+      return sendResponse(res, false, [], "ERROR", statusType.UNAUTHORIZED);
+    }
+
+    const conversations = await prisma.teacherConversation.findMany({
+      orderBy: {
+        lastMessageAt: "desc",
+      },
+      where: {
+        teachers: {
+          some: {
+            id: currentUser.id, // Filter where currentUser is part of the users
+          },
+        },
+      },
+      include: {
+        teachers: true,
+        messages: {
+          include: {
+            sender: true,
+            seen: true, // array of people who has seen the messages
+          },
+        },
+      },
+      ...options,
+    });
+
+    // makes sure that only conversation with two users are retreived.
+    const properConversation = conversations.filter(
+      (conversation) => conversation.teachers.length > 1
+    );
+
+    return sendResponse(res, true, properConversation, "Success");
+  } catch (error) {
+    logger.consoleErrorLog(
+      req.originalUrl,
+      "Error in getTeacherConversations",
+      error
+    );
+    return sendResponse(res, false, [], "Error", statusType.DB_ERROR);
+  }
+}
+
+export async function deleteTeacherConversation(req, res) {
   try {
     const { id: teacherId } = req.app.settings.userInfo;
     const currentUser = await prisma.teacher.findUnique({
@@ -2332,7 +2264,7 @@ export async function deleteConversation(req, res) {
       },
     });
 
-    const { conversationId } = req.params;
+    const conversationId = parseInt(req.params.conversationId);
 
     if (!currentUser?.email || !currentUser?.id) {
       return sendResponse(res, false, null, "ERROR", statusType.UNAUTHORIZED);
@@ -2345,12 +2277,11 @@ export async function deleteConversation(req, res) {
     */
 
     // find existing conversation
-    const existingConversation = await prisma.conversation.findUnique({
+    const existingConversation = await prisma.teacherConversation.findUnique({
       where: {
         id: conversationId,
       },
       include: {
-        students: true,
         teachers: true,
       },
     });
@@ -2359,27 +2290,24 @@ export async function deleteConversation(req, res) {
       return sendResponse(res, false, null, "ERROR", statusType.NOT_FOUND);
     }
 
-    const deletedConversation = await prisma.conversation.deleteMany({
+    const deletedConversation = await prisma.teacherConversation.deleteMany({
       where: {
         id: conversationId,
-        students: {
-          some: {
-            ...(!currentUser.role ? { id: currentUser.id } : undefined), // Ensures that the current user is part of the conversation
-          },
-        },
         teachers: {
           some: {
-            ...(!currentUser.role ? undefined : { id: currentUser.id }),
+            id: currentUser.id, // Ensures that the current user is part of the conversation
           },
         },
       },
     });
 
-    // existingConversation.users.forEach((user) => {
-    //   if (user.email) {
+    // Pusher
+
+    // existingConversation.teachers.forEach((teacher) => {
+    //   if (teacher.email) {
     //     pusherServer.trigger(
-    //       user.email,
-    //       "conversation:remove",
+    //       teacher.email,
+    //       "teacher:conversation:remove",
     //       existingConversation
     //     );
     //   }
@@ -2389,14 +2317,14 @@ export async function deleteConversation(req, res) {
   } catch (error) {
     logger.consoleErrorLog(
       req.originalUrl,
-      "Error in deleteConversation",
+      "Error in deleteTeacherConversation",
       error
     );
     return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
   }
 }
 
-export async function updateLastSeenOfMessage(req, res) {
+export async function updateLastSeenOfTeacherMessage(req, res) {
   try {
     const { id: teacherId } = req.app.settings.userInfo;
     const currentUser = await prisma.teacher.findUnique({
@@ -2404,24 +2332,22 @@ export async function updateLastSeenOfMessage(req, res) {
         id: teacherId,
       },
     });
-    const { conversationId } = req.params;
+    const conversationId = parseInt(req.params.conversationId);
 
     if (!currentUser?.email || !currentUser.id) {
       return sendResponse(res, false, null, "ERROR", statusType.UNAUTHORIZED);
     }
 
     // finding the existing conversation with the given id
-    const conversation = await prisma.conversation.findUnique({
+    const conversation = await prisma.teacherConversation.findUnique({
       where: {
         id: conversationId,
       },
       include: {
-        students: true,
         teachers: true,
         messages: {
           include: {
-            seenByStudents: true,
-            seenByTeachers: true,
+            seen: true,
           },
         },
       },
@@ -2439,69 +2365,103 @@ export async function updateLastSeenOfMessage(req, res) {
     }
 
     // updating the seen of last message
-    const updatedMessage = await prisma.message.update({
+    const updatedMessage = await prisma.teacherMessage.update({
       where: {
         id: lastMessage.id,
       },
       data: {
-        ...(!currentUser.role
-          ? {
-              seenByStudents: {
-                connect: {
-                  id: currentUser.id,
-                },
-              },
-            }
-          : {
-              seenByTeachers: {
-                connect: {
-                  id: currentUser.id,
-                },
-              },
-            }),
+        seen: {
+          connect: {
+            id: currentUser.id,
+          },
+        },
       },
       include: {
-        seenByStudents: true,
-        seenByTeachers: true,
-        sendTeacher: true,
-        sendStudent: true,
+        seen: true,
+        sender: true,
       },
     });
 
-    // await pusherServer.trigger(currentUser.email, "conversation:update", {
+    // await pusherServer.trigger(currentUser.email, "teacher:conversation:update", {
     //   id: conversationId,
     //   messages: [updatedMessage],
     // });
 
-    const seenIds = !currentUser.role
-      ? lastMessage.seenByStudents.map((student) => student.id)
-      : lastMessage.seenByTeachers.map((teacher) => teacher.id);
+    const seenIds = Array.isArray(lastMessage.seen)
+      ? lastMessage.seen.map((teacher) => teacher.id)
+      : [];
 
     // If currentUser has already seen the message, return the conversation
-    if (seenIds.includes(currentUser.id)) {
+    if (seenIds.indexOf(currentUser.id) !== -1) {
       return sendResponse(res, true, conversation, "Success");
     }
 
     // we can alert every user that we have seen that message
     // await pusherServer.trigger(
-    //   conversationId!,
-    //   "message:update",
+    //   conversationId,
+    //   "teacher:message:update",
     //   updatedMessage
     // );
-
+    console.log("updatedMessage: ", updatedMessage);
     return sendResponse(res, true, updatedMessage, "Success");
   } catch (error) {
     logger.consoleErrorLog(
       req.originalUrl,
-      "Error in UpdateLastSeenOfMessage",
+      "Error in UpdateLastSeenOfTeacherMessage",
       error
     );
     return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
   }
 }
 
-// conversationList
-export async function getConversations(req, res) {
+export async function getTeacherConversationById(req, res) {
+  try {
+    const { id: teacherId } = req.app.settings.userInfo;
+    const currentUser = await prisma.teacher.findUnique({
+      where: {
+        id: teacherId,
+      },
+    });
+    const conversationId = parseInt(req.params.conversationId);
+
+    if (!currentUser?.email) {
+      return sendResponse(res, false, null, statusType.UNAUTHORIZED);
+    }
+
+    const conversation = await prisma.teacherConversation.findUnique({
+      where: {
+        id: conversationId,
+      },
+      include: {
+        teachers: true,
+      },
+    });
+
+    const messages = await prisma.teacherMessage.findMany({
+      where: {
+        conversationId,
+      },
+      include: {
+        seen: true,
+        sender: true,
+      },
+      orderBy: {
+        created_at: "asc",
+      },
+    });
+
+    return sendResponse(res, true, { conversation, messages }, "Success");
+  } catch (error) {
+    logger.consoleErrorLog(
+      req.originalUrl,
+      "Error in getTeacherConversationById",
+      error
+    );
+    return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
+  }
+}
+
+export async function getTeacherMessages(req, res) {
   try {
     const { id: teacherId } = req.app.settings.userInfo;
     const currentUser = await prisma.teacher.findUnique({
@@ -2510,129 +2470,142 @@ export async function getConversations(req, res) {
       },
     });
 
+    const conversationId = parseInt(req.params.conversationId);
+
     if (!currentUser?.email) {
-      return sendResponse(res, false, [], "ERROR", statusType.UNAUTHORIZED);
+      return sendResponse(res, false, [], statusType.UNAUTHORIZED);
     }
 
-    const conversations = await prisma.conversation.findMany({
-      orderBy: {
-        lastMessageAt: "desc",
-      },
+    const messages = await prisma.teacherMessage.findMany({
       where: {
-        OR: [
-          {
-            teachers: {
-              some: {
-                id: currentUser.id, // currentUser is a teacher in the conversation
-              },
-            },
-          },
-          {
-            students: {
-              some: {
-                id: currentUser.id, // currentUser is a student in the conversation
-              },
-            },
-          },
-        ],
+        conversationId,
       },
       include: {
-        students: true,
+        seen: true,
+        sender: true,
+      },
+      orderBy: {
+        created_at: "asc",
+      },
+    });
+
+    console.log("Messages: ", messages);
+
+    return sendResponse(res, true, messages, "Success");
+  } catch (error) {
+    logger.consoleErrorLog(
+      req.originalUrl,
+      "Error in getTeacherMessages",
+      error
+    );
+    return sendResponse(res, false, [], "Error", statusType.DB_ERROR);
+  }
+}
+
+export async function createTeacherMessage(req, res) {
+  try {
+    const { id: teacherId } = req.app.settings.userInfo;
+    const currentUser = await prisma.teacher.findUnique({
+      where: {
+        id: teacherId,
+      },
+    });
+
+    const { message, image, file } = req.body;
+    const conversationId = parseInt(req.params.conversationId);
+
+    // const messageData = {
+    //   body: message || null,
+    //   image: image || null,
+    //   file: file || null,
+    //   conversationId: parseInt(conversationId),
+    //   senderId: currentUser.id,
+    //   created_at: new Date(),
+    //   updated_at: new Date(),
+    // };
+
+    // const validation = teacherMessageSchema.safeParse(messageData);
+
+    // if (!validation.success) {
+    //   console.error("Validation Errors:", validation.error.errors);
+    //   return sendResponse(res, false, null, "Please Provide All Details");
+    // }
+
+    if (!currentUser?.email) {
+      return sendResponse(res, false, null, statusType.UNAUTHORIZED);
+    }
+
+    const newMessage = await prisma.teacherMessage.create({
+      data: {
+        body: message,
+        image,
+        file,
+        conversation: {
+          connect: {
+            id: conversationId,
+          },
+        },
+        sender: {
+          connect: {
+            id: currentUser.id,
+          },
+        },
+        seen: {
+          connect: {
+            id: currentUser.id, // we are sending it so push the id as seen directly
+          },
+        },
+      },
+      include: {
+        seen: true,
+        sender: true,
+      },
+    });
+
+    // now updating the conversation with the new message
+    const updatedConversation = await prisma.teacherConversation.update({
+      where: {
+        id: conversationId,
+      },
+      data: {
+        lastMessageAt: new Date(),
+        messages: {
+          connect: {
+            id: newMessage.id,
+          },
+        },
+      },
+      include: {
         teachers: true,
         messages: {
           include: {
-            sendStudent: true,
-            sendTeacher: true,
-            seenByStudents: true, // array of people who has seen the messages
-            seenByTeachers: true,
+            seen: true,
           },
         },
       },
     });
 
-    // makes sure that only conversation with two users are retreived.
-    const properConversation = conversations.filter(
-      (conversation) => conversation.users.length > 1
-    );
+    // following is the Pusher things
 
-    return sendResponse(res, true, properConversation, "Success");
-  } catch (error) {
-    logger.consoleErrorLog(req.originalUrl, "Error in getConversations", error);
-    return sendResponse(res, false, [], "Error", statusType.DB_ERROR);
-  }
-}
+    // await pusherServer.trigger(conversationId, "teacher:message:new", newMessage);
 
-export async function getConversationById(req, res) {
-  try {
-    const { id: teacherId } = req.app.settings.userInfo;
-    const currentUser = await prisma.teacher.findUnique({
-      where: {
-        id: teacherId,
-      },
-    });
+    // // take out last message
+    // const lastMessage =
+    //   updatedConversation.messages[updatedConversation.messages.length - 1];
 
-    const { conversationId } = req.params;
+    // // send message seen to all the users of that chat
+    // updatedConversation.teachers.map((teacher) => {
+    //   pusherServer.trigger(teacher.email, "teacher:conversation:update", {
+    //     id: conversationId,
+    //     messages: [lastMessage],
+    //   });
+    // });
 
-    if (!currentUser?.email) {
-      return sendResponse(res, false, null, statusType.UNAUTHORIZED);
-    }
-
-    const conversation = await prisma.conversation.findUnique({
-      where: {
-        id: conversationId,
-      },
-      include: {
-        students: true,
-        teachers: true,
-      },
-    });
-
-    return sendResponse(res, true, conversation, "Success");
+    return sendResponse(res, true, newMessage, "Success");
   } catch (error) {
     logger.consoleErrorLog(
       req.originalUrl,
-      "Error in getConversationById",
-      error
-    );
-    return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
-  }
-}
-
-
-export async function getMessages (req, res) {
-  try {
-    const { id: teacherId } = req.app.settings.userInfo;
-    const currentUser = await prisma.teacher.findUnique({
-      where: {
-        id: teacherId,
-      },
-    });
-
-    const {conversationId} = res.params;
-
-    if (!currentUser?.email) {
-      return sendResponse(res, false, null, statusType.UNAUTHORIZED);
-    }
-
-    const messages = await prisma.message.findMany({
-      where: {
-        conversationId
-      },
-      include: {
-        sendTeacher: true,
-        sendStudent: true,
-      },
-      orderBy: {
-        created_at: "asc",
-      }
-    })
-
-    return sendResponse(res, true, messages, "Success");
-
-  } catch(error) {
-    logger.consoleErrorLog(
-      req.originalUrl,
-      "Error in getMessages",
+      "Error in createTeacherMessage",
       error
     );
     return sendResponse(res, false, null, "Error", statusType.DB_ERROR);

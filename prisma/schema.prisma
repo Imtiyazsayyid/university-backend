@@ -86,6 +86,7 @@ model Subject {
   units            Unit[]
   divisionTeachers DivisionSubjectTeacher[]
   assignments      Assignment[]
+  dailyTimeTable   DailyTimeTable[]
 
   status     Boolean  @default(true)
   created_at DateTime @default(now())
@@ -159,6 +160,8 @@ model Division {
   subjectTeachers DivisionSubjectTeacher[]
   students        Student[]
   assignments     Assignment[]
+  timeTable       TimeTable[]
+  dailyTimeTable  DailyTimeTable[]
 
   status     Boolean  @default(true)
   created_at DateTime @default(now())
@@ -210,9 +213,9 @@ model Teacher {
   eventWhereOrganiser    EventOrganiser[]
   eventWhereParticipants EventParticipant[]
 
-  conversations Conversation[] @relation("TeacherConversations")
-  messages      Message[]
-  seenMessages  Message[]      @relation("TeacherSeenMessages")
+  conversations TeacherConversation[]
+  messages      TeacherMessage[]
+  seenMessages  TeacherMessage[]      @relation("TeacherSeenMessages")
 
   status     Boolean  @default(true)
   created_at DateTime @default(now())
@@ -272,10 +275,11 @@ model Student {
   submittedAssignments      AssignmentsSubmitted[]
   assignmentUploads         AssignmentUploads[]
   eventWhereParticipants    EventParticipant[]
+  attendance                StudentAttendance[]
 
-  conversations Conversation[] @relation("StudentConversations")
-  messages      Message[]
-  seenMessages  Message[]      @relation("StudentSeenMessages")
+  conversations StudentConversation[]
+  messages      StudentMessage[]
+  seenMessages  StudentMessage[]      @relation("StudentSeenMessages")
 
   status     Boolean  @default(true)
   created_at DateTime @default(now())
@@ -541,6 +545,59 @@ model EventParticipant {
   updated_at DateTime @default(now())
 }
 
+model TimeTable {
+  id Int @id @default(autoincrement())
+
+  divisionId Int
+  startTime  String
+  endTime    String
+  monday     Int?
+  tuesday    Int?
+  wednesday  Int?
+  thursday   Int?
+  friday     Int?
+  saturday   Int?
+  sunday     Int?
+
+  division Division @relation(fields: [divisionId], references: [id])
+
+  status     Boolean  @default(true)
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+}
+
+model DailyTimeTable {
+  id Int @id @default(autoincrement())
+
+  startTime  String
+  endTime    String
+  todaysDate DateTime
+  divisionId Int
+  subjectId  Int
+
+  subject           Subject             @relation(fields: [subjectId], references: [id])
+  division          Division            @relation(fields: [divisionId], references: [id])
+  studentAttendance StudentAttendance[]
+
+  status     Boolean  @default(true)
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+}
+
+model StudentAttendance {
+  id Int @id @default(autoincrement())
+
+  dailyTimeTableId Int
+  studentId        Int
+
+  dailyTimeTable DailyTimeTable @relation(fields: [dailyTimeTableId], references: [id])
+  student        Student        @relation(fields: [studentId], references: [id])
+
+  status     Boolean  @default(true)
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+}
+
 enum Gender {
   male
   female
@@ -559,7 +616,7 @@ enum EventFor {
   teachers
 }
 
-model Conversation {
+model TeacherConversation {
   id      Int      @id @default(autoincrement())
   name    String?
   isGroup Boolean?
@@ -568,29 +625,53 @@ model Conversation {
   updated_at    DateTime @default(now())
   lastMessageAt DateTime @default(now())
 
-  messages Message[]
-  students Student[] @relation("StudentConversations")
-  teachers Teacher[] @relation("TeacherConversations")
+  messages TeacherMessage[]
+  teachers Teacher[]
 }
 
-model Message {
+model TeacherMessage {
   id    Int     @id @default(autoincrement())
   body  String?
   image String?
   file  String? // URL or path to the file
 
-  created_at DateTime @default(now())
-  updated_at DateTime @default(now())
+  seen       Teacher[] @relation("TeacherSeenMessages")
+  created_at DateTime  @default(now())
+  updated_at DateTime  @default(now())
 
   conversationId Int
-  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  conversation   TeacherConversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
 
-  senderTeacherId Int?
-  sendTeacher     Teacher? @relation(fields: [senderTeacherId], references: [id])
+  senderId Int
+  sender   Teacher @relation(fields: [senderId], references: [id])
+}
 
-  senderStudentId Int?
-  sendStudent     Student? @relation(fields: [senderStudentId], references: [id])
+model StudentConversation {
+  id      Int      @id @default(autoincrement())
+  name    String?
+  isGroup Boolean?
 
-  seenByTeachers Teacher[] @relation("TeacherSeenMessages")
-  seenByStudents Student[] @relation("StudentSeenMessages")
+  created_at    DateTime @default(now())
+  updated_at    DateTime @default(now())
+  lastMessageAt DateTime @default(now())
+
+  messages StudentMessage[]
+  students Student[]
+}
+
+model StudentMessage {
+  id    Int     @id @default(autoincrement())
+  body  String?
+  image String?
+  file  String? // URL or path to the file
+
+  seen       Student[] @relation("StudentSeenMessages")
+  created_at DateTime  @default(now())
+  updated_at DateTime  @default(now())
+
+  conversationId Int
+  conversation   StudentConversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+
+  senderId Int
+  sender   Student @relation(fields: [senderId], references: [id])
 }
