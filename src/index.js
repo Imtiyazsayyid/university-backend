@@ -5,7 +5,6 @@ import app from "./app";
 const server = http.createServer(app);
 // const Pusher = require("pusher");
 
-// console.log("Pushr: ", Pusher);
 // const pusher = new Pusher({
 //   appId: process.env.PUSHER_APP_ID,
 //   key: process.env.NEXT_PUBLIC_PUSHER_APP_KEY,

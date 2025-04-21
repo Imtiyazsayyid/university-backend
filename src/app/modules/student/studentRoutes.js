@@ -41,6 +41,7 @@ router.route("/conversations").post(studentController.createStudentConversation)
 router.route("/conversations/:conversationId").delete(studentController.deleteStudentConversation);
 router.route("/conversations/:conversationId/seen").patch(studentController.updateLastSeenOfStudentMessage);
 router.route("/conversations").get(studentController.getStudentConversations);
+router.route("/conversations/:conversationId/messages").get(studentController.getNewStudentMessage);
 router.route("/conversations/:conversationId/messages").get(studentController.getStudentMessages);
 router.route("/conversations/:conversationId").get(studentController.getStudentConversationById);
 router.route("/conversations/:conversationId/message").post(studentController.createStudentMessage);
