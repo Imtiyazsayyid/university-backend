@@ -18,9 +18,14 @@ import {
   teacherMessageSchema,
 } from "../validationSchema";
 import getPrismaPagination from "../../helpers/prismaPaginationHelper";
-import { getIntOrNull, getObjOrNull, getStringOrNull } from "../../../@core/helpers/commonHelpers";
+import {
+  getIntOrNull,
+  getObjOrNull,
+  getStringOrNull,
+} from "../../../@core/helpers/commonHelpers";
 import { likeIfValue, whereIfValue } from "../../helpers/prismaHelpers";
 import moment from "moment";
+import { measureMemory } from "vm";
 // import { pusherServer } from "@/pusher";
 
 // Teacher Details
@@ -36,7 +41,11 @@ export async function getTeacherDetails(req, res) {
 
     return sendResponse(res, true, teacher, "Success");
   } catch (error) {
-    logger.consoleErrorLog(req.originalUrl, "Error in getTeacherDetails", error);
+    logger.consoleErrorLog(
+      req.originalUrl,
+      "Error in getTeacherDetails",
+      error
+    );
     return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
   }
 }
@@ -146,7 +155,11 @@ export async function getSingleSemester(req, res) {
 
     return sendResponse(res, true, semester, "Success");
   } catch (error) {
-    logger.consoleErrorLog(req.originalUrl, "Error in getSingleSemester", error);
+    logger.consoleErrorLog(
+      req.originalUrl,
+      "Error in getSingleSemester",
+      error
+    );
     return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
   }
 }
@@ -154,7 +167,8 @@ export async function getSingleSemester(req, res) {
 // Subjects
 export async function getAllSubjects(req, res) {
   try {
-    let { currentPage, itemsPerPage, semesterId, searchText, subjectTypeId } = req.query;
+    let { currentPage, itemsPerPage, semesterId, searchText, subjectTypeId } =
+      req.query;
 
     if (!semesterId) return sendResponse(res, true, null, "Send Semester ID");
 
@@ -200,7 +214,11 @@ export async function getSingleSubject(req, res) {
 
     return sendResponse(res, true, subject, "Success");
   } catch (error) {
-    logger.consoleErrorLog(req.originalUrl, "Error in getSingleSemester", error);
+    logger.consoleErrorLog(
+      req.originalUrl,
+      "Error in getSingleSemester",
+      error
+    );
     return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
   }
 }
@@ -216,9 +234,18 @@ export async function getAllSubjectTypes(req, res) {
 
     const subjectTypeCount = await prisma.subjectType.count();
 
-    return sendResponse(res, true, { subjectTypes, subjectTypeCount }, "Success");
+    return sendResponse(
+      res,
+      true,
+      { subjectTypes, subjectTypeCount },
+      "Success"
+    );
   } catch (error) {
-    logger.consoleErrorLog(req.originalUrl, "Error in getAllSubjectTypes", error);
+    logger.consoleErrorLog(
+      req.originalUrl,
+      "Error in getAllSubjectTypes",
+      error
+    );
     return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
   }
 }
@@ -331,7 +358,8 @@ export async function deleteUnit(req, res) {
       },
     });
 
-    if (!checkUnit) return sendResponse(res, true, null, "Unit Does Not Exists.");
+    if (!checkUnit)
+      return sendResponse(res, true, null, "Unit Does Not Exists.");
 
     const deletedUnit = await prisma.unit.delete({
       where: {
@@ -378,9 +406,18 @@ export async function getAllUnitMaterial(req, res) {
       },
     });
 
-    return sendResponse(res, true, { unitMaterials, unitMaterialsCount }, "Success");
+    return sendResponse(
+      res,
+      true,
+      { unitMaterials, unitMaterialsCount },
+      "Success"
+    );
   } catch (error) {
-    logger.consoleErrorLog(req.originalUrl, "Error in getAllUnitMaterials", error);
+    logger.consoleErrorLog(
+      req.originalUrl,
+      "Error in getAllUnitMaterials",
+      error
+    );
     return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
   }
 }
@@ -399,7 +436,11 @@ export async function getSingleUnitMaterial(req, res) {
 
     return sendResponse(res, true, unit, "Success");
   } catch (error) {
-    logger.consoleErrorLog(req.originalUrl, "Error in getSingleUnitMaterial", error);
+    logger.consoleErrorLog(
+      req.originalUrl,
+      "Error in getSingleUnitMaterial",
+      error
+    );
     return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
   }
 }
@@ -456,7 +497,8 @@ export async function deleteUnitMaterial(req, res) {
       },
     });
 
-    if (!checkUnitMaterial) return sendResponse(res, true, null, "Unit Material Does Not Exists.");
+    if (!checkUnitMaterial)
+      return sendResponse(res, true, null, "Unit Material Does Not Exists.");
 
     const deletedUnitMaterial = await prisma.unitMaterial.delete({
       where: {
@@ -505,7 +547,11 @@ export async function getAllUnitQuizes(req, res) {
 
     return sendResponse(res, true, { unitQuizes, unitQuizesCount }, "Success");
   } catch (error) {
-    logger.consoleErrorLog(req.originalUrl, "Error in getAllUnitMaterials", error);
+    logger.consoleErrorLog(
+      req.originalUrl,
+      "Error in getAllUnitMaterials",
+      error
+    );
     return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
   }
 }
@@ -534,7 +580,11 @@ export async function getSingleUnitQuiz(req, res) {
 
     return sendResponse(res, true, unit, "Success");
   } catch (error) {
-    logger.consoleErrorLog(req.originalUrl, "Error in getSingleunitQuiz", error);
+    logger.consoleErrorLog(
+      req.originalUrl,
+      "Error in getSingleunitQuiz",
+      error
+    );
     return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
   }
 }
@@ -641,7 +691,8 @@ export async function deleteUnitQuiz(req, res) {
       },
     });
 
-    if (!checkUnitQuiz) return sendResponse(res, true, null, "Unit Quiz Does Not Exists.");
+    if (!checkUnitQuiz)
+      return sendResponse(res, true, null, "Unit Quiz Does Not Exists.");
 
     await prisma.unitQuizQuestionOption.deleteMany({
       where: {
@@ -804,7 +855,11 @@ export async function getSingleDivision(req, res) {
 
     return sendResponse(res, true, division, "Success");
   } catch (error) {
-    logger.consoleErrorLog(req.originalUrl, "Error in getSingleDivision", error);
+    logger.consoleErrorLog(
+      req.originalUrl,
+      "Error in getSingleDivision",
+      error
+    );
     return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
   }
 }
@@ -950,9 +1005,18 @@ export async function getAllTeacherRoles(req, res) {
       where,
     });
 
-    return sendResponse(res, true, { teacherRoles, teacherRoleCount }, "Success");
+    return sendResponse(
+      res,
+      true,
+      { teacherRoles, teacherRoleCount },
+      "Success"
+    );
   } catch (error) {
-    logger.consoleErrorLog(req.originalUrl, "Error in getAllTeacherRoles", error);
+    logger.consoleErrorLog(
+      req.originalUrl,
+      "Error in getAllTeacherRoles",
+      error
+    );
     return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
   }
 }
@@ -962,14 +1026,17 @@ export async function getAllTeacherDivisions(req, res) {
   try {
     let { id } = req.app.settings.userInfo;
 
-    const divisionSubjectTeachers = await prisma.divisionSubjectTeacher.findMany({
-      where: {
-        teacherId: id,
-        status: true,
-      },
-    });
+    const divisionSubjectTeachers =
+      await prisma.divisionSubjectTeacher.findMany({
+        where: {
+          teacherId: id,
+          status: true,
+        },
+      });
 
-    const teacherDivisionIds = [...new Set(divisionSubjectTeachers.map((dst) => dst.divisionId))];
+    const teacherDivisionIds = [
+      ...new Set(divisionSubjectTeachers.map((dst) => dst.divisionId)),
+    ];
 
     const divisions = await prisma.division.findMany({
       include: {
@@ -988,7 +1055,11 @@ export async function getAllTeacherDivisions(req, res) {
 
     return sendResponse(res, true, divisions, "Success");
   } catch (error) {
-    logger.consoleErrorLog(req.originalUrl, "Error in getAllTeacherDivisions", error);
+    logger.consoleErrorLog(
+      req.originalUrl,
+      "Error in getAllTeacherDivisions",
+      error
+    );
     return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
   }
 }
@@ -998,22 +1069,27 @@ export async function getTeacherSubjectsByDivision(req, res) {
     let { id } = req.app.settings.userInfo;
     let { divisionId } = req.query;
 
-    const subjectsByDivisionTeacher = await prisma.divisionSubjectTeacher.findMany({
-      include: {
-        subject: true,
-      },
-      where: {
-        divisionId: parseInt(divisionId),
-        teacherId: id,
-        status: true,
-      },
-    });
+    const subjectsByDivisionTeacher =
+      await prisma.divisionSubjectTeacher.findMany({
+        include: {
+          subject: true,
+        },
+        where: {
+          divisionId: parseInt(divisionId),
+          teacherId: id,
+          status: true,
+        },
+      });
 
     const subjects = subjectsByDivisionTeacher.map((s) => s.subject);
 
     return sendResponse(res, true, subjects, "Success");
   } catch (error) {
-    logger.consoleErrorLog(req.originalUrl, "Error in getAllTeacherDivisions", error);
+    logger.consoleErrorLog(
+      req.originalUrl,
+      "Error in getAllTeacherDivisions",
+      error
+    );
     return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
   }
 }
@@ -1021,10 +1097,21 @@ export async function getTeacherSubjectsByDivision(req, res) {
 // Students
 export async function getAllStudents(req, res) {
   try {
-    let { searchText, courseId, batchId, divisionId, currentPage, itemsPerPage } = req.query;
+    let {
+      searchText,
+      courseId,
+      batchId,
+      divisionId,
+      currentPage,
+      itemsPerPage,
+    } = req.query;
 
     const options = {};
-    likeIfValue(options, ["firstName", "lastName", "rollNumber", "email"], searchText);
+    likeIfValue(
+      options,
+      ["firstName", "lastName", "rollNumber", "email"],
+      searchText
+    );
     whereIfValue(options, "courseId", courseId, getIntOrNull);
     whereIfValue(options, "batchId", batchId, getIntOrNull);
     whereIfValue(options, "divisionId", divisionId, getIntOrNull);
@@ -1087,7 +1174,8 @@ export async function getSingleStudent(req, res) {
 export async function getAllAssignments(req, res) {
   try {
     const { id: teacherId } = req.app.settings.userInfo;
-    let { searchText, subjectId, divisionId, currentPage, itemsPerPage } = req.query;
+    let { searchText, subjectId, divisionId, currentPage, itemsPerPage } =
+      req.query;
 
     const options = {};
     likeIfValue(options, ["name"], searchText);
@@ -1118,7 +1206,11 @@ export async function getAllAssignments(req, res) {
 
     return sendResponse(res, true, { assignments, assignmentCount }, "Success");
   } catch (error) {
-    logger.consoleErrorLog(req.originalUrl, "Error in getAllAssignments", error);
+    logger.consoleErrorLog(
+      req.originalUrl,
+      "Error in getAllAssignments",
+      error
+    );
     return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
   }
 }
@@ -1151,14 +1243,27 @@ export async function getSingleAssignment(req, res) {
 
     return sendResponse(res, true, assignment, "Success");
   } catch (error) {
-    logger.consoleErrorLog(req.originalUrl, "Error in getAllAssignments", error);
+    logger.consoleErrorLog(
+      req.originalUrl,
+      "Error in getAllAssignments",
+      error
+    );
     return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
   }
 }
 
 export async function saveAssignment(req, res) {
   try {
-    const { id, name, description, divisionId, subjectId, dueDate, questions, material } = req.body;
+    const {
+      id,
+      name,
+      description,
+      divisionId,
+      subjectId,
+      dueDate,
+      questions,
+      material,
+    } = req.body;
     const { id: teacherId } = req.app.settings.userInfo;
 
     const assignmentData = {
@@ -1255,11 +1360,16 @@ export async function getStudentsByAssignment(req, res) {
       },
     });
 
-    if (!assignment) return sendResponse(res, true, null, "Failed To Find Assignment");
+    if (!assignment)
+      return sendResponse(res, true, null, "Failed To Find Assignment");
 
     let options = {};
 
-    likeIfValue(options, ["firstName", "lastName", "rollNumber", "email"], searchText);
+    likeIfValue(
+      options,
+      ["firstName", "lastName", "rollNumber", "email"],
+      searchText
+    );
     whereIfValue(options, "divisionId", assignment.divisionId, getIntOrNull);
 
     const students = await prisma.student.findMany({
@@ -1284,7 +1394,11 @@ export async function getStudentsByAssignment(req, res) {
     return sendResponse(res, true, { students, studentCount }, "Success");
   } catch (error) {
     console.log({ error });
-    logger.consoleErrorLog(req.originalUrl, "Error in getAllAssignments", error);
+    logger.consoleErrorLog(
+      req.originalUrl,
+      "Error in getAllAssignments",
+      error
+    );
     return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
   }
 }
@@ -1294,11 +1408,12 @@ export async function getSubmittedAssignment(req, res) {
     const { submittedAssignmentId } = req.params;
     const { id: teacherId } = req.app.settings.userInfo;
 
-    const checkAssignmentSubmitted = await prisma.assignmentsSubmitted.findUnique({
-      where: {
-        id: parseInt(submittedAssignmentId),
-      },
-    });
+    const checkAssignmentSubmitted =
+      await prisma.assignmentsSubmitted.findUnique({
+        where: {
+          id: parseInt(submittedAssignmentId),
+        },
+      });
 
     if (!checkAssignmentSubmitted) {
       return sendResponse(res, false, null, "Assignment Does Not Exists.");
@@ -1334,7 +1449,11 @@ export async function getSubmittedAssignment(req, res) {
     return sendResponse(res, true, submittedAssignment, "Success");
   } catch (error) {
     console.log({ error });
-    logger.consoleErrorLog(req.originalUrl, "Error in getAllAssignments", error);
+    logger.consoleErrorLog(
+      req.originalUrl,
+      "Error in getAllAssignments",
+      error
+    );
     return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
   }
 }
@@ -1343,7 +1462,8 @@ export async function getSubmittedAssignment(req, res) {
 export async function getAllEvents(req, res) {
   try {
     const { id: teacherId } = req.app.settings.userInfo;
-    let { searchText, currentPage, itemsPerPage, eventType, onlyRequested } = req.query;
+    let { searchText, currentPage, itemsPerPage, eventType, onlyRequested } =
+      req.query;
 
     const options = {};
     likeIfValue(options, ["name"], searchText);
@@ -1476,8 +1596,17 @@ export async function getSingleEvent(req, res) {
 export async function saveEvent(req, res) {
   try {
     const { id: teacherId } = req.app.settings.userInfo;
-    const { name, description, datetime, eventId, venue, eventFor, batchId, courseId, finalRegistrationDate } =
-      req.body;
+    const {
+      name,
+      description,
+      datetime,
+      eventId,
+      venue,
+      eventFor,
+      batchId,
+      courseId,
+      finalRegistrationDate,
+    } = req.body;
 
     const eventData = {
       name,
@@ -1504,9 +1633,21 @@ export async function saveEvent(req, res) {
         },
       });
 
-      if (!currentEvent) return sendResponse(res, false, null, "You Do Not Have Access To Modify This Event");
+      if (!currentEvent)
+        return sendResponse(
+          res,
+          false,
+          null,
+          "You Do Not Have Access To Modify This Event"
+        );
 
-      if (currentEvent.isCompleted) return sendResponse(res, false, null, "A Complete Event Can No Longer Be Modified");
+      if (currentEvent.isCompleted)
+        return sendResponse(
+          res,
+          false,
+          null,
+          "A Complete Event Can No Longer Be Modified"
+        );
 
       await prisma.eventParticipant.deleteMany({
         where: {
@@ -1598,7 +1739,8 @@ export async function joinEventOrganisers(req, res) {
       return sendResponse(res, false, null, "No Such Event");
     }
 
-    if (event.isCompleted) return sendResponse(res, false, null, "You Cannot Join A Complete Event");
+    if (event.isCompleted)
+      return sendResponse(res, false, null, "You Cannot Join A Complete Event");
 
     const isEventHead = await prisma.event.findUnique({
       where: {
@@ -1608,7 +1750,12 @@ export async function joinEventOrganisers(req, res) {
     });
 
     if (isEventHead) {
-      return sendResponse(res, false, null, "You are already the head of this event.");
+      return sendResponse(
+        res,
+        false,
+        null,
+        "You are already the head of this event."
+      );
     }
 
     const existingOrganiser = await prisma.eventOrganiser.findFirst({
@@ -1619,7 +1766,12 @@ export async function joinEventOrganisers(req, res) {
     });
 
     if (existingOrganiser) {
-      return sendResponse(res, false, null, "You are already an organiser for this event.");
+      return sendResponse(
+        res,
+        false,
+        null,
+        "You are already an organiser for this event."
+      );
     }
 
     await prisma.eventOrganiser.create({
@@ -1658,11 +1810,20 @@ export async function joinEventParticipants(req, res) {
       return sendResponse(res, false, null, "No Such Event");
     }
 
-    if (event.isCompleted) return sendResponse(res, false, null, "You Cannot Join A Complete Event");
+    if (event.isCompleted)
+      return sendResponse(res, false, null, "You Cannot Join A Complete Event");
 
     const now = moment();
-    if (event.finalRegistrationDate && now.isAfter(moment(event.finalRegistrationDate))) {
-      return sendResponse(res, false, null, "Registration For this Event is Closed.");
+    if (
+      event.finalRegistrationDate &&
+      now.isAfter(moment(event.finalRegistrationDate))
+    ) {
+      return sendResponse(
+        res,
+        false,
+        null,
+        "Registration For this Event is Closed."
+      );
     }
 
     const isEventHead = await prisma.event.findUnique({
@@ -1673,7 +1834,12 @@ export async function joinEventParticipants(req, res) {
     });
 
     if (isEventHead) {
-      return sendResponse(res, false, null, "You are already the head of this event.");
+      return sendResponse(
+        res,
+        false,
+        null,
+        "You are already the head of this event."
+      );
     }
 
     const existingParticipant = await prisma.eventParticipant.findFirst({
@@ -1684,7 +1850,12 @@ export async function joinEventParticipants(req, res) {
     });
 
     if (existingParticipant) {
-      return sendResponse(res, false, null, "You are already a participant for this event.");
+      return sendResponse(
+        res,
+        false,
+        null,
+        "You are already a participant for this event."
+      );
     }
 
     await prisma.eventParticipant.create({
@@ -1722,10 +1893,21 @@ export async function setEventOrganiserApprovalStatus(req, res) {
       return sendResponse(res, false, null, "No Such Event");
     }
 
-    if (event.isCompleted) return sendResponse(res, false, null, "You Cannot Modify A Complete Event");
+    if (event.isCompleted)
+      return sendResponse(
+        res,
+        false,
+        null,
+        "You Cannot Modify A Complete Event"
+      );
 
     if (event.eventHeadId !== teacherId) {
-      return sendResponse(res, false, null, "You are not the head of this event.");
+      return sendResponse(
+        res,
+        false,
+        null,
+        "You are not the head of this event."
+      );
     }
 
     const userIsOrganiser = await prisma.eventOrganiser.findFirst({
@@ -1736,7 +1918,12 @@ export async function setEventOrganiserApprovalStatus(req, res) {
     });
 
     if (!userIsOrganiser) {
-      return sendResponse(res, false, null, "This user has not request to be an organiser.");
+      return sendResponse(
+        res,
+        false,
+        null,
+        "This user has not request to be an organiser."
+      );
     }
 
     await prisma.eventOrganiser.updateMany({
@@ -1772,14 +1959,32 @@ export async function deleteEventParticipants(req, res) {
     });
 
     if (!existingParticipant) {
-      return sendResponse(res, false, null, "You are not a participant for this event.");
+      return sendResponse(
+        res,
+        false,
+        null,
+        "You are not a participant for this event."
+      );
     }
 
     if (existingParticipant.event.isCompleted)
-      return sendResponse(res, false, null, "You Cannot Modify A Complete Event");
+      return sendResponse(
+        res,
+        false,
+        null,
+        "You Cannot Modify A Complete Event"
+      );
 
-    if (existingParticipant.event.eventHeadId !== teacherId && existingParticipant.teacherId !== teacherId) {
-      return sendResponse(res, false, null, "You Do Not Have Access To Remove Someone Else From this Event");
+    if (
+      existingParticipant.event.eventHeadId !== teacherId &&
+      existingParticipant.teacherId !== teacherId
+    ) {
+      return sendResponse(
+        res,
+        false,
+        null,
+        "You Do Not Have Access To Remove Someone Else From this Event"
+      );
     }
 
     await prisma.eventParticipant.delete({
@@ -1812,7 +2017,12 @@ export async function markEventComplete(req, res) {
     }
 
     if (event.eventHeadId !== teacherId) {
-      return sendResponse(res, false, null, "You are not the head of this event.");
+      return sendResponse(
+        res,
+        false,
+        null,
+        "You are not the head of this event."
+      );
     }
 
     await prisma.event.update({
@@ -1844,7 +2054,11 @@ export async function getTeachersList(req, res) {
 
     let { searchText } = req.query;
 
-    if (searchText === currentUser.firstName || searchText === currentUser.lastName) return null;
+    if (
+      searchText === currentUser.firstName ||
+      searchText === currentUser.lastName
+    )
+      return null;
     const options = {};
     if (searchText) {
       likeIfValue(options, ["firstName", "lastName"], searchText);
@@ -1887,12 +2101,10 @@ export async function createTeacherConversation(req, res) {
     const { userId, isGroup, members, name } = await req.body;
 
     if (!currentUser?.id || !currentUser?.email) {
-      console.log("inside the currentUser check");
       return sendResponse(res, false, null, "ERROR", statusType.UNAUTHORIZED);
     }
 
     if (isGroup && (!members || members.length < 2 || !name)) {
-      console.log("inside the members check");
       return sendResponse(res, false, null, "ERROR", statusType.BAD_REQUEST);
     }
 
@@ -1977,7 +2189,11 @@ export async function createTeacherConversation(req, res) {
 
     return sendResponse(res, true, newConversation, "Success");
   } catch (error) {
-    logger.consoleErrorLog(req.originalUrl, "Error in createTeacherConversation", error);
+    logger.consoleErrorLog(
+      req.originalUrl,
+      "Error in createTeacherConversation",
+      error
+    );
     return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
   }
 }
@@ -2023,11 +2239,17 @@ export async function getTeacherConversations(req, res) {
     });
 
     // makes sure that only conversation with two users are retreived.
-    const properConversation = conversations.filter((conversation) => conversation.teachers.length > 1);
+    const properConversation = conversations.filter(
+      (conversation) => conversation.teachers.length > 1
+    );
 
     return sendResponse(res, true, properConversation, "Success");
   } catch (error) {
-    logger.consoleErrorLog(req.originalUrl, "Error in getTeacherConversations", error);
+    logger.consoleErrorLog(
+      req.originalUrl,
+      "Error in getTeacherConversations",
+      error
+    );
     return sendResponse(res, false, [], "Error", statusType.DB_ERROR);
   }
 }
@@ -2092,7 +2314,11 @@ export async function deleteTeacherConversation(req, res) {
 
     return sendResponse(res, true, deletedConversation, "Success");
   } catch (error) {
-    logger.consoleErrorLog(req.originalUrl, "Error in deleteTeacherConversation", error);
+    logger.consoleErrorLog(
+      req.originalUrl,
+      "Error in deleteTeacherConversation",
+      error
+    );
     return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
   }
 }
@@ -2160,7 +2386,9 @@ export async function updateLastSeenOfTeacherMessage(req, res) {
     //   messages: [updatedMessage],
     // });
 
-    const seenIds = Array.isArray(lastMessage.seen) ? lastMessage.seen.map((teacher) => teacher.id) : [];
+    const seenIds = Array.isArray(lastMessage.seen)
+      ? lastMessage.seen.map((teacher) => teacher.id)
+      : [];
 
     // If currentUser has already seen the message, return the conversation
     if (seenIds.indexOf(currentUser.id) !== -1) {
@@ -2173,10 +2401,13 @@ export async function updateLastSeenOfTeacherMessage(req, res) {
     //   "teacher:message:update",
     //   updatedMessage
     // );
-    console.log("updatedMessage: ", updatedMessage);
     return sendResponse(res, true, updatedMessage, "Success");
   } catch (error) {
-    logger.consoleErrorLog(req.originalUrl, "Error in UpdateLastSeenOfTeacherMessage", error);
+    logger.consoleErrorLog(
+      req.originalUrl,
+      "Error in UpdateLastSeenOfTeacherMessage",
+      error
+    );
     return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
   }
 }
@@ -2219,7 +2450,51 @@ export async function getTeacherConversationById(req, res) {
 
     return sendResponse(res, true, { conversation, messages }, "Success");
   } catch (error) {
-    logger.consoleErrorLog(req.originalUrl, "Error in getTeacherConversationById", error);
+    logger.consoleErrorLog(
+      req.originalUrl,
+      "Error in getTeacherConversationById",
+      error
+    );
+    return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
+  }
+}
+
+//  for polling
+export async function getNewTeacherMessages(req, res) {
+  try {
+    const { id: teacherId } = req.app.settings.userInfo;
+    const currentUser = await prisma.teacher.findUnique({
+      where: {
+        id: teacherId,
+      },
+    });
+
+    const conversationId = parseInt(req.params.conversationId);
+    const lastMessageId = parseInt(req.query.lastMessageId);
+
+    if (!currentUser?.email) {
+      return sendResponse(res, false, [], statusType.UNAUTHORIZED);
+    }
+
+    const messages = await prisma.teacherMessage.findMany({
+      where: {
+        conversationId,
+      },
+      include: {
+        seen: true,
+        sender: true,
+      },
+      orderBy: {
+        created_at: "asc",
+      },
+    });
+
+    // only getting the last message that has great id than the previous or null
+    const last_message = lastMessageId ? messages.find((msg) => msg.id > lastMessageId) :  messages[messages.length - 1] || null;
+
+    return sendResponse(res, true, last_message, "Success");
+  } catch (error) {
+    logger.consoleErrorLog(req.originalUrl, "Error in getNewMessages", error);
     return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
   }
 }
@@ -2252,11 +2527,13 @@ export async function getTeacherMessages(req, res) {
       },
     });
 
-    console.log("Messages: ", messages);
-
     return sendResponse(res, true, messages, "Success");
   } catch (error) {
-    logger.consoleErrorLog(req.originalUrl, "Error in getTeacherMessages", error);
+    logger.consoleErrorLog(
+      req.originalUrl,
+      "Error in getTeacherMessages",
+      error
+    );
     return sendResponse(res, false, [], "Error", statusType.DB_ERROR);
   }
 }
@@ -2362,7 +2639,11 @@ export async function createTeacherMessage(req, res) {
 
     return sendResponse(res, true, newMessage, "Success");
   } catch (error) {
-    logger.consoleErrorLog(req.originalUrl, "Error in createTeacherMessage", error);
+    logger.consoleErrorLog(
+      req.originalUrl,
+      "Error in createTeacherMessage",
+      error
+    );
     return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
   }
 }

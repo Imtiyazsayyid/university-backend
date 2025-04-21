@@ -94,6 +94,7 @@ router.route("/conversations").post(teacherController.createTeacherConversation)
 router.route("/conversations/:conversationId").delete(teacherController.deleteTeacherConversation);
 router.route("/conversations/:conversationId/seen").patch(teacherController.updateLastSeenOfTeacherMessage);
 router.route("/conversations").get(teacherController.getTeacherConversations);
+router.route('/conversations/:conversationId/messages').get(teacherController.getNewTeacherMessages);  // for polling
 router.route("/conversations/:conversationId/messages").get(teacherController.getTeacherMessages);
 router.route("/conversations/:conversationId").get(teacherController.getTeacherConversationById);
 router.route("/conversations/:conversationId/message").post(teacherController.createTeacherMessage);

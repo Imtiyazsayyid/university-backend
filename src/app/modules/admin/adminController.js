@@ -2271,8 +2271,6 @@ export async function getAttendance(req, res) {
   try {
     const { dailyTimeTableIds } = req.body;
 
-    console.log({ dailyTimeTableIds });
-
     const attendance = await prisma.studentAttendance.findMany({
       where: {
         dailyTimeTableId: {

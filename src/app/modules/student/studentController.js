@@ -895,7 +895,6 @@ export async function getStudentsList(req, res) {
       ...options,
     });
 
-    console.log("Students list: ", students);
     return sendResponse(res, true, students, "Success");
   } catch (error) {
     logger.consoleErrorLog(req.originalUrl, "Error in getStudentsList", error);
@@ -915,12 +914,10 @@ export async function createStudentConversation(req, res) {
     const { userId, isGroup, members, name } = await req.body;
 
     if (!currentUser?.id || !currentUser?.email) {
-      console.log("inside the currentUser check");
       return sendResponse(res, false, null, "ERROR", statusType.UNAUTHORIZED);
     }
 
     if (isGroup && (!members || members.length < 2 || !name)) {
-      console.log("inside the members check");
       return sendResponse(res, false, null, "ERROR", statusType.BAD_REQUEST);
     }
 
@@ -1200,7 +1197,6 @@ export async function updateLastSeenOfStudentMessage(req, res) {
     //   "student:message:update",
     //   updatedMessage
     // );
-    console.log("updatedMessage: ", updatedMessage);
     return sendResponse(res, true, updatedMessage, "Success");
   } catch (error) {
     logger.consoleErrorLog(req.originalUrl, "Error in updateLastSeenOfStudentMessage", error);
@@ -1252,6 +1248,46 @@ export async function getStudentConversationById(req, res) {
   }
 }
 
+//  for polling
+export async function getNewStudentMessage(req, res) {
+  try {
+    const { id: studentId } = req.app.settings.userInfo;
+    const currentUser = await prisma.student.findUnique({
+      where: {
+        id: studentId,
+      },
+    });
+
+    const conversationId = parseInt(req.params.conversationId);
+    const lastMessageId = parseInt(req.query.lastMessageId);
+
+    if (!currentUser?.email) {
+      return sendResponse(res, false, [], statusType.UNAUTHORIZED);
+    }
+
+    const messages = await prisma.studentMessage.findMany({
+      where: {
+        conversationId,
+      },
+      include: {
+        seen: true,
+        sender: true,
+      },
+      orderBy: {
+        created_at: "asc",
+      },
+    });
+
+    // only getting the last message that has great id than the previous or null
+    const last_message = lastMessageId ? messages.find((msg) => msg.id > lastMessageId) :  messages[messages.length - 1] || null;
+
+    return sendResponse(res, true, last_message, "Success");
+  } catch (error) {
+    logger.consoleErrorLog(req.originalUrl, "Error in getNewStudentMessage", error);
+    return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
+  }
+}
+
 export async function getStudentMessages(req, res) {
   try {
     const { id: studentId } = req.app.settings.userInfo;
@@ -1279,8 +1315,6 @@ export async function getStudentMessages(req, res) {
         created_at: "asc",
       },
     });
-
-    console.log("Messages: ", messages);
 
     return sendResponse(res, true, messages, "Success");
   } catch (error) {
