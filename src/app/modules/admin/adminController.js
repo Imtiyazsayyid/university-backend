@@ -15,6 +15,7 @@ import {
   teacherRoleSchema,
   studentDocumentSchema,
   unitQuizSchema,
+  subjectTypeSchema,
 } from "../validationSchema";
 import getPrismaPagination from "../../helpers/prismaPaginationHelper";
 import { getIntOrNull } from "../../../@core/helpers/commonHelpers";
@@ -449,6 +450,40 @@ export async function getAllSubjectTypes(req, res) {
     return sendResponse(res, true, { subjectTypes, subjectTypeCount }, "Success");
   } catch (error) {
     logger.consoleErrorLog(req.originalUrl, "Error in getAllSubjectTypes", error);
+    return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
+  }
+}
+
+export async function saveSubjectType(req, res) {
+  try {
+    const { id, name, status } = req.body;
+
+    const subjectTypeData = {
+      name,
+      status,
+    };
+
+    const validation = subjectTypeSchema.safeParse(subjectTypeData);
+
+    if (!validation.success) {
+      return sendResponse(res, false, null, "Please Provide All Details.");
+    }
+
+    let subjectType;
+    if (id) {
+      subjectType = await prisma.subjectType.update({
+        data: subjectTypeData,
+        where: { id },
+      });
+    } else {  
+      subjectType = await prisma.subjectType.create({
+        data: subjectTypeData,
+      });
+    }
+
+    return sendResponse(res, true, subjectType, "Subject Type Saved.");
+  } catch (error) {
+    logger.consoleErrorLog(req.originalUrl, "Error in saveSubjectType", error);
     return sendResponse(res, false, null, "Error", statusType.DB_ERROR);
   }
 }

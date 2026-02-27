@@ -51,6 +51,13 @@ const subjectSchema = z.object({
   }),
 });
 
+const subjectTypeSchema = z.object({
+  name: z
+    .string({ required_error: "Subject Type Name is required" })
+    .min(3, "Subject Type Name is too short")
+    .max(100, "Subject Type Name is too long"),
+});
+
 const unitSchema = z.object({
   name: z
     .string({ required_error: "Unit Name is required" })
@@ -192,6 +199,7 @@ export {
   semesterSchema,
   subjectSchema,
   unitSchema,
+  subjectTypeSchema,
   unitMaterialSchema,
   batchSchema,
   divisionSchema,
