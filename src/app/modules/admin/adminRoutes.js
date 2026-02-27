@@ -33,6 +33,7 @@ router.route("/subject/:id").delete(adminController.deleteSubject);
 
 // Subject Types
 router.route("/subject-types").get(adminController.getAllSubjectTypes);
+router.route("/subject-type").post(adminController.saveSubjectType);
 
 // Units
 router.route("/units").get(adminController.getAllUnits);
