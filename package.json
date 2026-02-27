@@ -4,7 +4,7 @@
   "description": "A Starter Project In Node Using ExpressJS",
   "main": "./src/index.js",
   "engines": {
-    "node": "18.x"
+    "node": "24.x"
   },
   "prisma": {
     "seed": "node prisma/seed.mjs"
